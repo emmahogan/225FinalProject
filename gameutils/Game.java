@@ -1,8 +1,12 @@
+package gameutils;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.event.*;
+
+import gameutils.Screen;
 
 /**
  * Abstract class GameBoard - write a description of the class here
@@ -10,20 +14,21 @@ import javax.swing.event.*;
  * @author (your name here)
  * @version (version number or date here)
  */
-public abstract class GameBoard extends JPanel implements ActionListener 
-{
-    // instance variables - replace the example below with your own
-    private int x;
-
+public abstract class Game implements ActionListener {
+    public Screen screen;
+    
     /**
      * An example of a method - replace this comment with your own
      *
      * @param  y  a sample parameter for a method
      * @return    the sum of x and y
      */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    
+    public void draw(int y) {
+        
+    }
+    
+    public void update() {
+        
     }
 }

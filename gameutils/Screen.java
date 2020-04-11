@@ -1,3 +1,5 @@
+package gameutils;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -10,23 +12,23 @@ import javax.swing.event.*;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Screen extends JPanel
-{
-    // instance variables - replace the example below with your own
-    private int x;
-
+public abstract class Screen extends JPanel {
+    public Graphics g;
+    
     /**
      * Constructor for objects of class TitleScreen
      */
-    public Screen()
-    {
+    public Screen(){
         super();
-        
     }
     
     @Override
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        
+        super.paintComponent(this.g);
+        render(this.g);
     }
+    
+    public abstract void render(Graphics g);
+    
+    public abstract void update();
 }
