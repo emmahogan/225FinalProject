@@ -12,11 +12,11 @@ import javax.swing.JFrame;
  * @version (version number or date here)
  */
 public abstract class Game implements Runnable {
-    private static final int FRAME_WIDTH = 400;
-    private static final int FRAME_HEIGHT = 400;
-    private Controller controller;
-    private JFrame frame;
-    private Screen screen;
+    protected static final int FRAME_WIDTH = 400;
+    protected static final int FRAME_HEIGHT = 400;
+    protected Controller controller;
+    protected JFrame frame;
+    protected Screen screen;
 
     public Game(String name) {
         this.frame = new JFrame(name);
