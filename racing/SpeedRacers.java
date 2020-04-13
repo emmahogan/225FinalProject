@@ -12,7 +12,7 @@ public class SpeedRacers extends Game {
     
     public SpeedRacers(String name) {
         super(name);
-        setController(new SRController());
+        //setController(new SRController());
         changeScreen(new PlayScreen());
     }
 }

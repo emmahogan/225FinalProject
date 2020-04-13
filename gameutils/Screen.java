@@ -10,6 +10,7 @@ import javax.swing.JPanel;
  * @version (a version number or a date)
  */
 public abstract class Screen extends JPanel {
+    protected Controller controller;
     public Graphics g;
     
     /**

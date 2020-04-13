@@ -12,11 +12,10 @@ import javax.swing.JFrame;
  * @version (version number or date here)
  */
 public abstract class Game implements Runnable {
-    protected static final int FRAME_WIDTH = 400;
-    protected static final int FRAME_HEIGHT = 400;
-    protected Controller controller;
-    protected JFrame frame;
-    protected Screen screen;
+    public static final int FRAME_WIDTH = 600;
+    public static final int FRAME_HEIGHT = 600;
+    private JFrame frame;
+    private Screen screen;
 
     public Game(String name) {
         this.frame = new JFrame(name);
@@ -31,12 +30,10 @@ public abstract class Game implements Runnable {
         new Thread() {
             public void run() {
                 while (true) {
-                    try {
-                        sleep(33);
-                    }
+                    try { sleep(16); }
                     catch (InterruptedException e) {}
 
-                    controller.handleKeyInput();
+                    screen.controller.handleKeyInput();
                     screen.update();
                     screen.render(screen.g);
                 }
@@ -44,27 +41,14 @@ public abstract class Game implements Runnable {
         }.start();
     }
 
-    public Screen getScreen(Screen screen) {
-        return screen;
-    }
-
     public void changeScreen(Screen screen) {
-        if (this.screen == null) {
-            this.screen = screen;
-            frame.add(this.screen);
+        if (this.screen != null) {
+            frame.remove(this.screen);
         }
-        else {
-            Screen oldScreen = this.screen;
-            this.screen = screen;
-            frame.add(this.screen);
-            frame.remove(oldScreen);
-            screen.addKeyListener(controller);
-            screen.addMouseListener(controller);
-            screen.addMouseMotionListener(controller);
-        }
-    }
-
-    public void setController(Controller controller) {
-        this.controller = controller;
+        this.screen = screen;
+        frame.add(this.screen);
+        screen.addKeyListener(screen.controller);
+        screen.addMouseListener(screen.controller);
+        screen.addMouseMotionListener(screen.controller);
     }
 }
