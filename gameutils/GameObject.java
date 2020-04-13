@@ -43,6 +43,15 @@ public abstract class GameObject extends Thread {
     /**
      * 
      */
+    public Rectangle setBounds(float height, float width) {
+        texture.scale(height, width);
+        bounds = new Rectangle(texture.getWidth(), texture.getHeight());
+        return bounds;
+    }
+    
+    /**
+     * 
+     */
     public Point getPosition() {
         return position;
     }
