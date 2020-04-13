@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import racing.SpeedRacers;
+import chess.Chess;
 
 /**
  * Write a description of class MainScreen here.
@@ -27,6 +28,7 @@ public class Arcade implements Runnable, ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         games.add(new JButton("Speed Racers"));
+        games.add(new JButton("Chess"));
         
         for (JButton jb : games) {
             jb.addActionListener(this);
@@ -42,6 +44,9 @@ public class Arcade implements Runnable, ActionListener {
         if (e.getSource().equals(games.get(0))) {
             System.out.println("Starting Speed Racers");
             javax.swing.SwingUtilities.invokeLater(new SpeedRacers("Speed Racers"));
+        } else if (e.getSource().equals(games.get(1))){
+            System.out.println("Starting Chess");
+            javax.swing.SwingUtilities.invokeLater(new Chess("Chess"));
         }
     }
     
