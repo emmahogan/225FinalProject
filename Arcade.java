@@ -46,6 +46,7 @@ public class Arcade implements Runnable, ActionListener {
         if (e.getSource().equals(games.get(0))) {
             System.out.println("Starting Example Game");
             javax.swing.SwingUtilities.invokeLater(new ExampleGame("Example Game"));
+
         } else if (e.getSource().equals(games.get(1))) {
             System.out.println("Starting Speed Racers");
             javax.swing.SwingUtilities.invokeLater(new SpeedRacers("Speed Racers"));

@@ -11,7 +11,7 @@ import java.awt.Point;
  * @version (a version number or a date)
  */
 public abstract class GameObject extends Thread {
-    public Texture texture;
+    protected Texture texture;
     public Point position;
     private Rectangle bounds;
     
@@ -28,7 +28,7 @@ public abstract class GameObject extends Thread {
      * Gets the image of the GameObject's texture
      * @return the image of the texture
      */
-    public Image getTexure() {
+    public Image getTexture() {
         return texture.getImage();
     }
     
@@ -61,7 +61,7 @@ public abstract class GameObject extends Thread {
      * @return the position of the GameObject
      */
     public Point getPosition() {
-        return position;
+        return this.position;
     }
     
     /**
@@ -77,7 +77,8 @@ public abstract class GameObject extends Thread {
      * @param newPosition the point of the new position
      */
     public void setPosition(Point newPosition) {
-        this.position = newPosition;
+        this.position.x = newPosition.x;
+        this.position.y = newPosition.y;
         bounds.setLocation(newPosition);
     }
 

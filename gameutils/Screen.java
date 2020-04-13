@@ -11,8 +11,7 @@ import javax.swing.JPanel;
  */
 public abstract class Screen extends JPanel {
     protected Controller controller;
-    public Graphics g;
-    
+
     /**
      * Constructor for objects of class TitleScreen
      */
@@ -22,9 +21,8 @@ public abstract class Screen extends JPanel {
     
     @Override
     public void paintComponent(Graphics g) {
-        this.g = g;
-        super.paintComponent(this.g);
-        render(this.g);
+        super.paintComponent(g);
+        render(g);
     }
     
     public abstract void render(Graphics g);

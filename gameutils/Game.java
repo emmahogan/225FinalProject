@@ -1,8 +1,9 @@
 package gameutils;
 
-import gameutils.Controller;
-import gameutils.Screen;
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 
 /**
@@ -22,12 +23,7 @@ public abstract class Game implements Runnable {
     }
 
     public void run(){
-        frame.setDefaultLookAndFeelDecorated(true);
-        frame.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
-        frame.pack();
-        frame.setVisible(true);
-
-        new Thread() {
+        Thread gameManager = new Thread() {
             public void run() {
                 while (true) {
                     try { sleep(16); }
@@ -35,10 +31,21 @@ public abstract class Game implements Runnable {
 
                     screen.controller.handleKeyInput();
                     screen.update();
-                    screen.render(screen.g);
+                    screen.repaint();
                 }
             }
-        }.start();
+        };
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        frame.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent windowEvent) {
+                gameManager.stop();
+            }
+        });
+        frame.pack();
+        frame.setVisible(true);
+        gameManager.start();
     }
 
     public void changeScreen(Screen screen) {
@@ -47,8 +54,8 @@ public abstract class Game implements Runnable {
         }
         this.screen = screen;
         frame.add(this.screen);
-        screen.addKeyListener(screen.controller);
-        screen.addMouseListener(screen.controller);
-        screen.addMouseMotionListener(screen.controller);
+        screen.addKeyListener(this.screen.controller);
+        screen.addMouseListener(this.screen.controller);
+        screen.addMouseMotionListener(this.screen.controller);
     }
 }

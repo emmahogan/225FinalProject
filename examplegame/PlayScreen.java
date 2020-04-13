@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import gameutils.Screen;
 
 public class PlayScreen extends Screen {
-    public Smiley smiley;
+    private Smiley smiley;
 
     public PlayScreen() {
         super();
@@ -15,7 +15,7 @@ public class PlayScreen extends Screen {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(smiley.getTexure(), smiley.position.x, smiley.position.y, null);
+        g.drawImage(smiley.getTexture(), smiley.getPosition().x, smiley.getPosition().y, null);
     }
 
     @Override

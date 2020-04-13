@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Controller extends MouseAdapter implements KeyListener{
+public abstract class Controller extends MouseAdapter implements KeyListener {
     public static final int W = KeyEvent.VK_W;
     public static final int A = KeyEvent.VK_A;
     public static final int S = KeyEvent.VK_S;
@@ -29,6 +29,7 @@ public abstract class Controller extends MouseAdapter implements KeyListener{
      * Constructor for objects of class Controller
      */
     public Controller() {
+        super();
         keys = new ArrayList<Integer>();
     }
 
