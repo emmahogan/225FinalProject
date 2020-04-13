@@ -13,8 +13,7 @@ import javax.swing.JFrame;
  */
 public class Chess extends Game
 {
-    // instance variables - replace the example below with your own
-    private int x;
+    private ChessBoard board;
 
     /**
      * Constructor for objects of class Chess
@@ -22,17 +21,9 @@ public class Chess extends Game
     public Chess(String name)
     {
         super(name);
+        this.board = new ChessBoard();
+        changeScreen(board);
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
-    }
+    
 }
