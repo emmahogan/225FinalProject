@@ -1,10 +1,7 @@
 package gameutils;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.event.*;
+import java.awt.Graphics;
+import javax.swing.JPanel;
 
 /**
  * Write a description of class TitleScreen here.
@@ -18,12 +15,13 @@ public abstract class Screen extends JPanel {
     /**
      * Constructor for objects of class TitleScreen
      */
-    public Screen(){
+    public Screen() {
         super();
     }
     
     @Override
     public void paintComponent(Graphics g) {
+        this.g = g;
         super.paintComponent(this.g);
         render(this.g);
     }

@@ -1,10 +1,12 @@
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.event.*;
+import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
-import gameutils.Screen;
+import racing.SpeedRacers;
 
 /**
  * Write a description of class MainScreen here.
@@ -12,44 +14,35 @@ import gameutils.Screen;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Arcade extends MouseAdapter implements Runnable {
-    private JFrame frame = new JFrame();
-    private Screen currentScreen;
-    public Screen nextScreen;
+public class Arcade implements Runnable, ActionListener {
     private final int FRAME_WIDTH = 400;
     private final int FRAME_HEIGHT = 400;
+    private JFrame frame = new JFrame("Arcade");
+    private JPanel panel = new JPanel();;
+    private ArrayList<JButton> games = new ArrayList<JButton>();
     
     public void run(){
         frame.setDefaultLookAndFeelDecorated(true);
         frame.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //setScreen(new TitleScreen());
-        frame.add(currentScreen);
         
+        games.add(new JButton("Speed Racers"));
+        
+        for (JButton jb : games) {
+            jb.addActionListener(this);
+            panel.add(jb);
+        }
+        
+        frame.add(panel);
         frame.pack();
         frame.setVisible(true);
-        
-        new Thread() {
-            public void run() {
-                while (true) {
-                    try {
-                        sleep(33);
-                    }
-                    catch (InterruptedException e) {}
-                    
-                    currentScreen.update();
-                    currentScreen.render(currentScreen.g);
-                    
-                    // if(currentScreen != nextScreen) {
-                        // setScreen(nextScreen);
-                    // }
-                }
-            }
-        }.start();
     }
     
-    public void setScreen(Screen screen) {
-        this.currentScreen = screen;
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(games.get(0))) {
+            System.out.println("Starting Speed Racers");
+            javax.swing.SwingUtilities.invokeLater(new SpeedRacers("Speed Racers"));
+        }
     }
     
     public static void main(String args[]){

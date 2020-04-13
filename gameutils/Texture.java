@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.Image;
 import javax.imageio.ImageIO;
+
 /**
  * Write a description of class Texture here.
  *

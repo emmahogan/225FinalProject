@@ -10,9 +10,9 @@ import java.awt.Point;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class GameObject extends Thread{
+public abstract class GameObject extends Thread {
     private Texture texture;
-    public Point position;
+    private Point position;
     private Rectangle bounds;
     
     /**
@@ -27,20 +27,45 @@ public abstract class GameObject extends Thread{
     public abstract void update();
     
     /**
-     * An example of a method - replace this comment with your own
-     *
-     * @return    the sum of x and y
+     * 
      */
     public Image getTexure() {
         return texture.getImage();
     }
     
     /**
-     * An example of a method - replace this comment with your own
-     *
-     * @return    the sum of x and y
+     * 
+     */
+    public Rectangle getBounds() {
+        return bounds;
+    }
+    
+    /**
+     * 
      */
     public Point getPosition() {
         return position;
+    }
+    
+    /**
+     * 
+     */
+    public void setTexture(String filePath) {
+        this.texture = new Texture(filePath);
+    }
+    
+    /**
+     * 
+     */
+    public void setPosition(Point newPosition) {
+        this.position = newPosition;
+        bounds.setLocation(newPosition);
+    }
+    
+    /**
+     * 
+     */
+    public boolean collidesWith(GameObject obj) {
+        return bounds.intersects(obj.getBounds());
     }
 }
