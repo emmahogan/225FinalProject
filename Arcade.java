@@ -24,7 +24,7 @@ public class Arcade implements Runnable, ActionListener {
     private ArrayList<JButton> games = new ArrayList<JButton>();
     
     public void run(){
-        frame.setDefaultLookAndFeelDecorated(true);
+        JFrame.setDefaultLookAndFeelDecorated(true);
         frame.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
