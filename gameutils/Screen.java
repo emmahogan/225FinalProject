@@ -4,28 +4,43 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 /**
- * Write a description of class TitleScreen here.
+ * An abstract Screen class to
+ * streamline making game screens.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Justin, Andrew, Emma, Tim, Nick
+ * @version Spring 2020
  */
 public abstract class Screen extends JPanel {
     protected Controller controller;
 
     /**
-     * Constructor for objects of class TitleScreen
+     * A generic constructor for a Screen
      */
     public Screen() {
         super();
     }
-    
+
+    /**
+     * JPanel's paintComponent, outsourcing
+     * work to the render method
+     * @param g
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         render(g);
     }
-    
+
+    /**
+     * Renders what is on the game screen.
+     * To be called in the thread of the game class
+     * @param g the Graphics from paintComponent
+     */
     public abstract void render(Graphics g);
-    
+
+    /**
+     * Code that changes what is on the screen goes here.
+     * To be called in the thread of the game class
+     */
     public abstract void update();
 }

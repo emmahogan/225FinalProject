@@ -5,10 +5,11 @@ import java.awt.Image;
 import java.awt.Point;
 
 /**
- * Write a description of class GameObject here.
+ * An abstract GameObject class to
+ * streamline making game objects.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Justin, Andrew, Emma, Tim, Nick
+ * @version Spring 2020
  */
 public abstract class GameObject extends Thread {
     protected Texture texture;
@@ -16,7 +17,7 @@ public abstract class GameObject extends Thread {
     private Rectangle bounds;
     
     /**
-     * Constructor for objects of class GameObject
+     * Generic constructor for a GameObject
      */
     public GameObject() {
         position = new Point(0, 0);
@@ -31,6 +32,14 @@ public abstract class GameObject extends Thread {
     public Image getTexture() {
         return texture.getImage();
     }
+
+    /**
+     * Returns the position of the GameObject
+     * @return the position of the GameObject
+     */
+    public Point getPosition() {
+        return this.position;
+    }
     
     /**
      * Gets the bounding rectangle of the GameObject
@@ -38,6 +47,14 @@ public abstract class GameObject extends Thread {
      */
     public Rectangle getBounds() {
         return bounds;
+    }
+
+    /**
+     * Sets the texture of the GameObject to a new texture
+     * @param filePath the path of the image file
+     */
+    public void setTexture(String filePath) {
+        this.texture = new Texture(filePath);
     }
     
     /**
@@ -53,23 +70,7 @@ public abstract class GameObject extends Thread {
      * @param rect the rectangle of the new bounds
      */
     public void setBounds(Rectangle rect) {
-        bounds = rect;
-    }
-    
-    /**
-     * Returns the position of the GameObject
-     * @return the position of the GameObject
-     */
-    public Point getPosition() {
-        return this.position;
-    }
-    
-    /**
-     * Sets the texture of the GameObject to a new texture
-     * @param filePath the path of the image file
-     */
-    public void setTexture(String filePath) {
-        this.texture = new Texture(filePath);
+        bounds = new Rectangle(rect);
     }
     
     /**

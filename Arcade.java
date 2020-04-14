@@ -13,8 +13,8 @@ import chess.Chess;
 /**
  * Write a description of class MainScreen here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Justin, Andrew, Emma, Tim, Nick
+ * @version Spring 2020
  */
 public class Arcade implements Runnable, ActionListener {
     private final int FRAME_WIDTH = 600;
@@ -46,11 +46,12 @@ public class Arcade implements Runnable, ActionListener {
         if (e.getSource().equals(games.get(0))) {
             System.out.println("Starting Example Game");
             javax.swing.SwingUtilities.invokeLater(new ExampleGame("Example Game"));
-
-        } else if (e.getSource().equals(games.get(1))) {
+        }
+        else if (e.getSource().equals(games.get(1))) {
             System.out.println("Starting Speed Racers");
             javax.swing.SwingUtilities.invokeLater(new SpeedRacers("Speed Racers"));
-        } else if (e.getSource().equals(games.get(2))){
+        }
+        else if (e.getSource().equals(games.get(2))){
             System.out.println("Starting Chess");
             javax.swing.SwingUtilities.invokeLater(new Chess("Chess"));
         }
