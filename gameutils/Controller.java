@@ -24,21 +24,15 @@ public abstract class Controller extends MouseAdapter implements KeyListener {
     protected static final int LEFT = KeyEvent.VK_LEFT;
     protected static final int RIGHT = KeyEvent.VK_RIGHT;
 
-    private ArrayList<Integer> keys;
+    private boolean[] keys;
 
     /**
      * Generic constructor of a Controller
      */
     public Controller() {
         super();
-        keys = new ArrayList<Integer>();
+        keys = new boolean[256];
     }
-
-    /**
-     * Handles all key input.
-     * Uses the isKeyPressed method
-     */
-    public void handleKeyInput() {}
 
     /**
      * KeyListener's keyPressed. Adds an event to
@@ -47,23 +41,23 @@ public abstract class Controller extends MouseAdapter implements KeyListener {
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        keys.add(e.getKeyCode());
+        keys[(e.getKeyCode())] = true;
     }
 
     /**
-     * KeyListener's keyReleased. Removes an event to
-     * the ArrayList of events.
-     * @param e the KeyEvent
-     */
+             * KeyListener's keyReleased. Removes an event to
+             * the ArrayList of events.
+             * @param e the KeyEvent
+             */
     @Override
     public void keyReleased(KeyEvent e) {
-        keys.remove(e.getKeyCode());
+        keys[e.getKeyCode()] = false;
     }
 
     /**
-     * KeyListener's keyTyped
-     * @param e the KeyEvent
-     */
+             * KeyListener's keyTyped
+             * @param e the KeyEvent
+             */
     @Override
     public void keyTyped(KeyEvent e) {}
 
@@ -96,12 +90,18 @@ public abstract class Controller extends MouseAdapter implements KeyListener {
     public void mouseMoved(MouseEvent e) {}
 
     /**
+     * Handles all key input.
+     * Uses the isKeyPressed method
+     */
+    public void handleKeyInput() {}
+
+    /**
      * Checks whether a key is in the pressed ArrayList
      * @param key the key to check if pressed
      * @return true if the key is currently pressed
      */
     public boolean isKeyPressed(int key) {
-        return keys.contains(key);
+        return keys[key];
     }
 }
 

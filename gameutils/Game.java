@@ -66,9 +66,9 @@ public abstract class Game implements Runnable {
             frame.remove(this.screen);
         }
         this.screen = screen;
-        frame.add(this.screen);
-        screen.addKeyListener(this.screen.controller);
-        screen.addMouseListener(this.screen.controller);
-        screen.addMouseMotionListener(this.screen.controller);
+        frame.add(screen);
+        frame.addKeyListener(screen.controller);
+        screen.addMouseListener(screen.controller);
+        screen.addMouseMotionListener(screen.controller);
     }
 }
