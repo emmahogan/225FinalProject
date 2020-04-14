@@ -23,9 +23,9 @@ public class Smiley extends GameObject {
 
     @Override
     public void update() {
-        if (getPosition().y >= ExampleGame.FRAME_HEIGHT) {
-            setPosition(center);
-        }
-        position.y += 2;
+//        if (getPosition().y >= ExampleGame.FRAME_HEIGHT) {
+//            setPosition(center);
+//        }
+//        position.y += 2;
     }
 }

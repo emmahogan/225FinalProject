@@ -12,12 +12,13 @@ public class ExampleController extends Controller {
 
     @Override
     public void handleKeyInput() {
-        if (isKeyPressed(A)) {
+        if (isKeyPressed(W))
+            smiley.position.y -= 2;
+        if (isKeyPressed(A))
             smiley.position.x -= 2;
-        }
-
-        if (isKeyPressed(D)) {
+        if (isKeyPressed(S))
+            smiley.position.y += 2;
+        if (isKeyPressed(D))
             smiley.position.x += 2;
-        }
     }
 }
