@@ -43,4 +43,19 @@ public abstract class Screen extends JPanel {
      * To be called in the thread of the game class
      */
     public abstract void update();
+
+    /**
+     * All objects that need to be disposed go here.
+     *
+     * Example:
+     * Let obj be a pointer to a GameObject
+     * obj = null;
+     *
+     * Typically, objects no longer needed should
+     * be placed in an ArrayList and be disposed as follows:
+     * for (GameObjects obj: removedObjs) {
+     *     obj = null;
+     * }
+     */
+    public abstract void dispose();
 }

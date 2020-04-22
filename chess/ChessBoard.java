@@ -59,4 +59,5 @@ public class ChessBoard extends Screen
         drawBoard(g);
     }
     public void update(){}
+    public void dispose(){}
 }

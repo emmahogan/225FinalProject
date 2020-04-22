@@ -14,6 +14,7 @@ import java.awt.Point;
 public abstract class GameObject extends Thread {
     protected Texture texture;
     public Point position;
+    public double rotation;
     private Rectangle bounds;
     
     /**
@@ -59,14 +60,16 @@ public abstract class GameObject extends Thread {
     
     /**
      * Sets the bounding rectangle of the GameObject
-     * to the height and width of the texture
+     * to the height and width of the texture with the objects
+     * position
      */
     public void setBounds() {
-        bounds = new Rectangle(texture.getWidth(), texture.getHeight());
+        bounds = new Rectangle(this.position.x, this.position.y, texture.getWidth(), texture.getHeight());
     }
 
     /**
-     * Sets the bounding rectangle of the GameObject
+     * Sets the bounding rectangle of the GameObject.
+     * The parameter Rectangle must have an x, y position
      * @param rect the rectangle of the new bounds
      */
     public void setBounds(Rectangle rect) {
@@ -92,6 +95,11 @@ public abstract class GameObject extends Thread {
         Point newPosition = new Point(x, y);
         this.position = newPosition;
         bounds.setLocation(newPosition);
+    }
+
+    public void rotate(double angle) {
+        texture.rotate(angle);
+        setBounds();
     }
     
     /**

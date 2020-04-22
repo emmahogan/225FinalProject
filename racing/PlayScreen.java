@@ -23,4 +23,8 @@ public class PlayScreen extends Screen {
     public void update() {
         
     }
+
+    public void dispose() {
+
+    }
 }

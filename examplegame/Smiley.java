@@ -12,7 +12,7 @@ public class Smiley extends GameObject {
     public Smiley() {
         super();
         this.texture = new Texture("assets/examplegame/smileyface.png");
-        this.texture.scale(.1f, .1f);
+        this.texture.scale(.1, .1);
         setBounds();
 
         center = new Point((ExampleGame.FRAME_WIDTH / 2) - (texture.getWidth() / 2),
@@ -23,9 +23,6 @@ public class Smiley extends GameObject {
 
     @Override
     public void update() {
-//        if (getPosition().y >= ExampleGame.FRAME_HEIGHT) {
-//            setPosition(center);
-//        }
-//        position.y += 2;
+
     }
 }

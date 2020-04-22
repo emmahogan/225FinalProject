@@ -22,4 +22,7 @@ public class PlayScreen extends Screen {
     public void update() {
         smiley.update();
     }
+
+    @Override
+    public void dispose() {}
 }
