@@ -1,19 +1,11 @@
 package gameutils;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 import java.awt.Image;
 import javax.imageio.ImageIO;
-
-import sun.tools.jstat.Scale;
 
 /**
  * Write a description of class Texture here.
