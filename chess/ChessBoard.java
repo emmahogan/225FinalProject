@@ -33,7 +33,6 @@ public class ChessBoard extends Screen
     public ChessBoard()
     {
         super();
-        this.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         repaint();
     }
     
