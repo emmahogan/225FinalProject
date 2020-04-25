@@ -38,6 +38,10 @@ public class ChessBoard extends Screen
     public ArrayList<Piece> blackPiecesOut = new ArrayList<Piece>();
     public ArrayList<Piece> whitePiecesOut = new ArrayList<Piece>();
 
+    //All pieces on board
+    public ArrayList<Piece> blackPieces = new ArrayList<Piece>();
+    public ArrayList<Piece> whitePieces = new ArrayList<Piece>();
+
 
     Point[][] positions = new Point[8][8];
     
@@ -65,6 +69,50 @@ public class ChessBoard extends Screen
                 }
                 g.fillRect(BORDER_WIDTH + row*SQUARE_SIZE, BORDER_WIDTH + col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
             }
+        }
+    }
+    private void initGame(){
+        //Initialize all the Points in positions array
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                positions[i][j] = new Point(i*SQUARE_SIZE, j*SQUARE_SIZE);
+            }
+        }
+
+        //Call separate method to create piece objects and put at starting positions
+
+    }
+
+    /**
+     * Create all pieces for given side and set to starting positions for new game
+     *
+     * @param s which side (black or white)
+     */
+    public void initPieces(Side s){
+        int backRow;
+        int frontRow;
+        ArrayList<Piece> pieceArr;
+        String color;
+
+        //depending on which side, set index of rows and color for texture
+        if(s.equals(Side.BLACK)){
+            backRow = 0;
+            frontRow = 1;
+            color = "black";
+            pieceArr = blackPieces;
+        } else {
+            backRow = 7;
+            frontRow = 6;
+            color = "white";
+            pieceArr = whitePieces;
+        }
+
+        //Construct pieces and set starting positions
+        //make Pawns
+        for(int i = 0; i < 8; i++){
+            Piece p = new Piece(s, positions[frontRow][i], PieceType.PAWN);
+
+            pieceArr.add(p);
         }
     }
 
