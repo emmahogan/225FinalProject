@@ -18,11 +18,11 @@ import javax.swing.JPanel;
 public class ChessBoard extends Screen
 {
     //Panel dimensions
-    private static final int FRAME_WIDTH = 400;
-    private static final int FRAME_HEIGHT = 400;
+    private static final int FRAME_WIDTH = 600;
+    private static final int FRAME_HEIGHT = 600;
     //Board measurements
-    private static final int BORDER_WIDTH = 20;
-    public static final int SQUARE_SIZE = 45;
+    public static final int SQUARE_SIZE = 50;
+    private static final int BORDER_WIDTH = (FRAME_WIDTH - (8*SQUARE_SIZE))/2;
     //Colors for Board
     private static final Color DARK_GOLD = new Color(218,165,32);
     private static final Color LIGHT_GOLD = new Color(255,215,0);
@@ -49,8 +49,9 @@ public class ChessBoard extends Screen
     public ChessBoard()
     {
         super();
-        repaint();
         this.controller = new ChessController();
+        initGame();
+        repaint();
     }
     
     public void drawBoard(Graphics g){
@@ -74,7 +75,7 @@ public class ChessBoard extends Screen
         //Initialize all the Points in positions array
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
-                positions[i][j] = new Point(i*SQUARE_SIZE, j*SQUARE_SIZE);
+                positions[i][j] = new Point(i*SQUARE_SIZE + BORDER_WIDTH, j*SQUARE_SIZE + BORDER_WIDTH);
             }
         }
 
@@ -109,7 +110,7 @@ public class ChessBoard extends Screen
         //Construct pieces and set starting positions
         //make Pawns
         for(int i = 0; i < 8; i++){
-            Piece p = new Piece(s, positions[frontRow][i], PieceType.PAWN);
+            Piece p = new Piece(s, positions[i][frontRow], PieceType.PAWN);
             pieceArr.add(p);
         }
     }

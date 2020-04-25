@@ -9,16 +9,17 @@ public class Piece extends GameObject {
     public Side side;
     public PieceType type;
     public boolean out = false;
-    private Texture img;
 
     public Piece(Side side, Point position, PieceType type){
         super();
         this.side = side;
-        setPosition(position);
         this.type = type;
+        this.position = position;
         setTexture(side,type);
-        img.scale(.05,.05);
+        texture.scale((double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth(),(double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth());
+        //setPosition(position);
         setBounds();
+        setPosition(position);
     }
 
     public void setTexture(Side side, PieceType type){
@@ -49,12 +50,13 @@ public class Piece extends GameObject {
                 break;
         }
         filepath += ".png";
-        img = new Texture(filepath);
+        texture = new Texture(filepath);
     }
 
     @Override
     public void update() {
         if(!out) {
+            setBounds();
             setPosition(position);
         }
     }
