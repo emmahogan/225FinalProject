@@ -15,16 +15,29 @@ import javax.swing.event.*;
  */
 public class ChessController extends Controller
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
+    private ArrayList<Piece> white;
+    private ArrayList<Piece> black;
     /**
      * Constructor for objects of class ChessController
      */
-    public ChessController()
+    public ChessController(ArrayList<Piece> white, ArrayList<Piece> black)
     {
         super();
+        this.white = white;
+        this.black = black;
+        for(Piece p: white){
+            p.addMouseListener(this);
+
+        }
     }
 
-    public void handleKeyInput(){}
+    @Override
+    public void mousePressed(MouseEvent e) {
+        for(Piece p: )
+    }
+
+    @Override
+    public void handleKeyInput(){
+
+    }
 }

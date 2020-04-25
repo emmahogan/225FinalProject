@@ -4,11 +4,13 @@ import gameutils.GameObject;
 import gameutils.Texture;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Piece extends GameObject {
     public Side side;
     public PieceType type;
     public boolean out = false;
+    private ArrayList<Point> possibleMoves = new ArrayList<Point>();
 
     public Piece(Side side, Point position, PieceType type){
         super();

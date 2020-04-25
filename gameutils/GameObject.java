@@ -8,7 +8,7 @@ import java.awt.Point;
  * An abstract GameObject class to
  * streamline making game objects.
  *
- * @author Justin, Andrew, Emma, Tim, Nick
+ * @author Justin, Andrew, Emma, Tim, Nic
  * @version Spring 2020
  */
 public abstract class GameObject extends Thread {

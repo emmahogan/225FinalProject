@@ -49,7 +49,7 @@ public class ChessBoard extends Screen
     public ChessBoard()
     {
         super();
-        this.controller = new ChessController();
+        this.controller = new ChessController(whitePieces, blackPieces);
         initGame();
         repaint();
     }
@@ -81,6 +81,7 @@ public class ChessBoard extends Screen
 
         //Call separate method to create piece objects and put at starting positions
         initPieces(Side.BLACK);
+        initPieces(Side.WHITE);
     }
 
     /**
@@ -109,15 +110,34 @@ public class ChessBoard extends Screen
 
         //Construct pieces and set starting positions
         //make Pawns
+        Piece p;
         for(int i = 0; i < 8; i++){
-            Piece p = new Piece(s, positions[i][frontRow], PieceType.PAWN);
+            p = new Piece(s, positions[i][frontRow], PieceType.PAWN);
             pieceArr.add(p);
         }
+        //Make rooks
+        pieceArr.add(new Piece(s, positions[0][backRow], PieceType.ROOK));
+        pieceArr.add(new Piece(s, positions[7][backRow], PieceType.ROOK));
+        //Make bishops
+        pieceArr.add(new Piece(s, positions[1][backRow], PieceType.BISHOP));
+        pieceArr.add(new Piece(s, positions[6][backRow], PieceType.BISHOP));
+        //Knights
+        pieceArr.add(new Piece(s, positions[2][backRow], PieceType.KNIGHT));
+        pieceArr.add(new Piece(s, positions[5][backRow], PieceType.KNIGHT));
+        //Queen & King
+        pieceArr.add(new Piece(s, positions[3][backRow], PieceType.QUEEN));
+        pieceArr.add(new Piece(s, positions[4][backRow], PieceType.KING));
+
+
     }
 
     public void render(Graphics g){
         drawBoard(g);
         for(Piece p: blackPieces){
+            p.update();
+            g.drawImage(p.getTexture(), p.getPosition().x, p.getPosition().y, null);
+        }
+        for(Piece p: whitePieces){
             p.update();
             g.drawImage(p.getTexture(), p.getPosition().x, p.getPosition().y, null);
         }
