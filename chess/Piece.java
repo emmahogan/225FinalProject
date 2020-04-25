@@ -17,7 +17,7 @@ public class Piece extends GameObject {
         setPosition(position);
         this.type = type;
         setTexture(side,type);
-        img.scale((double)ChessBoard.SQUARE_SIZE, (double)ChessBoard.SQUARE_SIZE);
+        img.scale(.05,.05);
         setBounds();
     }
 
