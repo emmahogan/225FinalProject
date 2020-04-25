@@ -12,10 +12,10 @@ import java.awt.Point;
  * @version Spring 2020
  */
 public abstract class GameObject extends Thread {
-    protected Texture texture;
+    public Texture texture;
     public Point position;
     public double rotation;
-    private Rectangle bounds;
+    public Rectangle bounds;
     
     /**
      * Generic constructor for a GameObject

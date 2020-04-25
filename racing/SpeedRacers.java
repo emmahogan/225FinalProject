@@ -9,10 +9,11 @@ import gameutils.Game;
  * @version (a version number or a date)
  */
 public class SpeedRacers extends Game {
-    
+    private PlayScreen playScreen;
+
     public SpeedRacers(String name) {
         super(name);
-        //setController(new SRController());
-        changeScreen(new PlayScreen());
+        playScreen = new PlayScreen();
+        changeScreen(playScreen);
     }
 }
