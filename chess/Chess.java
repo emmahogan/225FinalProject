@@ -22,7 +22,6 @@ public class Chess extends Game
     {
         super(name);
         this.board = new ChessBoard();
-        //this.controller = new ChessController();
         changeScreen(board);
     }
 
