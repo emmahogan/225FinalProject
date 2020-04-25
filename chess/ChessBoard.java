@@ -80,7 +80,7 @@ public class ChessBoard extends Screen
         }
 
         //Call separate method to create piece objects and put at starting positions
-
+        initPieces(Side.BLACK);
     }
 
     /**
@@ -93,6 +93,7 @@ public class ChessBoard extends Screen
         int frontRow;
         ArrayList<Piece> pieceArr;
         String color;
+        String filename = "images/";
 
         //depending on which side, set index of rows and color for texture
         if(s.equals(Side.BLACK)){
@@ -111,13 +112,18 @@ public class ChessBoard extends Screen
         //make Pawns
         for(int i = 0; i < 8; i++){
             Piece p = new Piece(s, positions[frontRow][i], PieceType.PAWN);
-
+            filename += color + "pawn.png";
+            p.setTexture(filename);
             pieceArr.add(p);
         }
     }
 
     public void render(Graphics g){
         drawBoard(g);
+        for(Piece p: blackPieces){
+            p.update();
+            p.drawPiece(g);
+        }
     }
     public void update(){}
     public void dispose(){}
