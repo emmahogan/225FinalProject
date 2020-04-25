@@ -75,16 +75,16 @@ import gameutils.Texture;
     }
 
     private void addFriction() {
-        if (velocity.x > .1) {
+        if (velocity.x >= .09) {
             velocity.x -= .1;
         }
-        if (velocity.x < -.1) {
+        if (velocity.x <= -.09) {
             velocity.x += .1;
         }
-        if (velocity.y < -.1) {
+        if (velocity.y <= -.09) {
             velocity.y += .1;
         }
-        if (velocity.y > .1) {
+        if (velocity.y >= .09) {
             velocity.y -= .1;
         }
     }
