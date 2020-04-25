@@ -23,4 +23,8 @@ public class Piece extends GameObject {
             setPosition(currentPosition);
         }
     }
+
+    public void drawPiece(Graphics g){
+        g.drawImage(getTexture(), currentPosition.x, currentPosition.y, null);
+    }
 }
