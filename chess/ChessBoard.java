@@ -52,6 +52,7 @@ public class ChessBoard extends Screen
     {
         super();
         repaint();
+        this.controller = new ChessController();
     }
     
     public void drawBoard(Graphics g){
@@ -113,7 +114,7 @@ public class ChessBoard extends Screen
         for(int i = 0; i < 8; i++){
             Piece p = new Piece(s, positions[frontRow][i], PieceType.PAWN);
             filename += color + "pawn.png";
-            p.setTexture(filename);
+            p.setTexture("chess/images/blackpawn.png");
             pieceArr.add(p);
         }
     }
