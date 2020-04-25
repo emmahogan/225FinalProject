@@ -1,10 +1,14 @@
 package chess;
 
 import gameutils.*;
-import java.awt.*;
+
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.*;
 import java.util.*;
-import javax.swing.*;
+import javax.swing.JPanel;
 import javax.swing.event.*;
 
 /**
@@ -25,7 +29,17 @@ public class ChessBoard extends Screen
     private static final Color DARK_GOLD = new Color(218,165,32);
     private static final Color LIGHT_GOLD = new Color(255,215,0);
     private static final Color BACKGROUND_COLOR = new Color(184,134,11);
-    
+
+    //Top and bottom panels that hold pieces knocked out
+    private JPanel topPanel = new JPanel(new FlowLayout());
+    private JPanel bottomPanel = new JPanel(new FlowLayout());
+
+    //Each side's pieces currently knocked out
+    public ArrayList<Piece> blackPiecesOut = new ArrayList<Piece>();
+    public ArrayList<Piece> whitePiecesOut = new ArrayList<Piece>();
+
+
+    Point[][] positions = new Point[8][8];
     
     /**
      * Constructor for objects of class ChessBoard
