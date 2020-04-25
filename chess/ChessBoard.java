@@ -6,10 +6,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.event.*;
 import java.util.*;
 import javax.swing.JPanel;
-import javax.swing.event.*;
 
 /**
  * Write a description of class ChessBoard here.
@@ -24,7 +22,7 @@ public class ChessBoard extends Screen
     private static final int FRAME_HEIGHT = 400;
     //Board measurements
     private static final int BORDER_WIDTH = 20;
-    private static final int SQUARE_SIZE = 45;
+    public static final int SQUARE_SIZE = 45;
     //Colors for Board
     private static final Color DARK_GOLD = new Color(218,165,32);
     private static final Color LIGHT_GOLD = new Color(255,215,0);
@@ -94,7 +92,6 @@ public class ChessBoard extends Screen
         int frontRow;
         ArrayList<Piece> pieceArr;
         String color;
-        String filename = "images/";
 
         //depending on which side, set index of rows and color for texture
         if(s.equals(Side.BLACK)){
@@ -113,8 +110,6 @@ public class ChessBoard extends Screen
         //make Pawns
         for(int i = 0; i < 8; i++){
             Piece p = new Piece(s, positions[frontRow][i], PieceType.PAWN);
-            filename += color + "pawn.png";
-            p.setTexture("chess/images/blackpawn.png");
             pieceArr.add(p);
         }
     }
@@ -123,7 +118,7 @@ public class ChessBoard extends Screen
         drawBoard(g);
         for(Piece p: blackPieces){
             p.update();
-            p.drawPiece(g);
+            g.drawImage(p.getTexture(), p.getPosition().x, p.getPosition().y, null);
         }
     }
     public void update(){}
