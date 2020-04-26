@@ -1,7 +1,7 @@
 package runner;
 
 import gameutils.GameObject;
-import  java.awt.Point;
+import java.awt.Point;
 
 public class Ball extends GameObject{
 
