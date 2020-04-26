@@ -13,28 +13,32 @@ private BallController controller;
 
 private boolean touched;
 
+//FRAME STATS
+    private int frameWidth = RunnerGame.FRAME_WIDTH;
+    private int frameHeight = RunnerGame.FRAME_HEIGHT;
+
 public RunnerScreen (){
     super();
-    this.ball = new Ball();
-    this.walls = new Walls();
-    this.floor = new Floor();
+    this.ball = new Ball(frameWidth, frameHeight);
+    this.walls = new Walls(frameWidth, frameHeight);
     this.gates = new ArrayList<Gate>();
     this.controller = new BallController(ball);
     this.touched = false;
 
-
 }
-
+    @Override
     public void render(Graphics g){
-
+        g.fillOval(ball.getPosition().x, ball.getPosition().y, ball.getRadius()*2, ball.getRadius()*2);
 
     }
 
+    @Override
     public void update(){
 
 
     }
 
+    @Override
     public void dispose(){
 
 
@@ -48,7 +52,6 @@ public RunnerScreen (){
     public void contact(){
     if(walls.contains(ball) || gates.get(0).contains(ball)){
         touched = true;
-
     }
 
 
