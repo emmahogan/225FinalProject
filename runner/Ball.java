@@ -2,6 +2,7 @@ package runner;
 
 import gameutils.GameObject;
 import java.awt.Point;
+import java.awt.Graphics;
 
 public class Ball extends GameObject{
 private Point center;
@@ -26,5 +27,10 @@ private int frameHeight;
 
     public void update(){
 
+    }
+
+    public void render(Graphics g){
+        g.fillOval(position.x, position.y, radius*2, radius*2);
+    render(g);
     }
 }

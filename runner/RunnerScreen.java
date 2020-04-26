@@ -25,10 +25,12 @@ public RunnerScreen (){
     this.controller = new BallController(ball);
     this.touched = false;
 
+    render(super.getGraphics());
 }
     @Override
     public void render(Graphics g){
-        g.fillOval(ball.getPosition().x, ball.getPosition().y, ball.getRadius()*2, ball.getRadius()*2);
+    ball.render(g);
+
 
     }
 
