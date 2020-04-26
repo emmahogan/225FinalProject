@@ -26,14 +26,14 @@ public class ChessController extends Controller
         this.white = white;
         this.black = black;
         for(Piece p: white){
-            p.addMouseListener(this);
+          //  p.addMouseListener(this);
 
         }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        for(Piece p: )
+        for(Piece p: black);
     }
 
     @Override

@@ -12,4 +12,5 @@ public class RunnerGame extends Game {
         changeScreen(runScreen);
 
     }
+
 }
