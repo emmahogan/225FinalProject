@@ -15,4 +15,9 @@ public class Gate extends GameObject{
 
     }
 
+    public boolean contains(Ball ball){
+
+        return false;
+    }
+
 }

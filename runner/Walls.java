@@ -17,4 +17,9 @@ public class Walls extends GameObject{
 
 
     }
+
+    public boolean contains(Ball ball){
+
+       return false;
+    }
 }
