@@ -31,6 +31,7 @@ public class Arcade implements Runnable, ActionListener {
         games.add(new JButton("Example Game"));
         games.add(new JButton("Speed Racers"));
         games.add(new JButton("Chess"));
+        games.add(new JButton("Float"));
         
         for (JButton jb : games) {
             jb.addActionListener(this);
