@@ -56,7 +56,7 @@ public class Car extends GameObject {
     private void setBoundsAndLines() {
         bounds = new Rectangle((int) position.x, (int) position.y, texture.getWidth(), texture.getHeight());
         top = new Rectangle(bounds.x + 7, bounds.y, bounds.width - 7, 1);
-        bottom = new Rectangle(bounds.x + 7, bounds.y + bounds.height - 1, bounds.width - 5, 1);
+        bottom = new Rectangle(bounds.x + 7, bounds.y + bounds.height - 1, bounds.width - 7, 1);
         leftSide = new Rectangle(bounds.x, bounds.y + 7, 1, bounds.height - 7);
         rightSide = new Rectangle(bounds.x + bounds.width - 1, bounds.y + 7, 1, bounds.height - 7);
     }
