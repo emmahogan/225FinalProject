@@ -14,4 +14,4 @@ We believe that for the grading, 80 points should go to the organization and use
 
 
 
-For our schedule, for the games we would like to have all of the hierarchies complete by the 25th, and have each game done by the 2nd of May. As for the verlet rope, we'd like to have it done by the 25th. The most important milestone is the hierarchies, since that's what every game is based off of.
+For our schedule, for the games we would like to have all of the hierarchies complete by the 25th, and have each game done by the 2nd of May. As for the verlet rope, we'd like to have it done by the 2nd of May as well. The most important milestone is the hierarchies, since that's what every game is based off of.

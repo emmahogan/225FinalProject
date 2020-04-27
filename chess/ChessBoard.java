@@ -6,10 +6,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.event.*;
 import java.util.*;
 import javax.swing.JPanel;
-import javax.swing.event.*;
 
 /**
  * Write a description of class ChessBoard here.
@@ -20,11 +18,11 @@ import javax.swing.event.*;
 public class ChessBoard extends Screen
 {
     //Panel dimensions
-    private static final int FRAME_WIDTH = 400;
-    private static final int FRAME_HEIGHT = 400;
+    private static final int FRAME_WIDTH = 600;
+    private static final int FRAME_HEIGHT = 600;
     //Board measurements
-    private static final int BORDER_WIDTH = 20;
-    private static final int SQUARE_SIZE = 45;
+    public static final int SQUARE_SIZE = 50;
+    private static final int BORDER_WIDTH = (FRAME_WIDTH - (8*SQUARE_SIZE))/2;
     //Colors for Board
     private static final Color DARK_GOLD = new Color(218,165,32);
     private static final Color LIGHT_GOLD = new Color(255,215,0);
@@ -51,8 +49,9 @@ public class ChessBoard extends Screen
     public ChessBoard()
     {
         super();
+        this.controller = new ChessController(whitePieces, blackPieces);
+        initGame();
         repaint();
-        this.controller = new ChessController();
     }
     
     public void drawBoard(Graphics g){
@@ -76,12 +75,13 @@ public class ChessBoard extends Screen
         //Initialize all the Points in positions array
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
-                positions[i][j] = new Point(i*SQUARE_SIZE, j*SQUARE_SIZE);
+                positions[i][j] = new Point(i*SQUARE_SIZE + BORDER_WIDTH, j*SQUARE_SIZE + BORDER_WIDTH);
             }
         }
 
         //Call separate method to create piece objects and put at starting positions
         initPieces(Side.BLACK);
+        initPieces(Side.WHITE);
     }
 
     /**
@@ -94,7 +94,6 @@ public class ChessBoard extends Screen
         int frontRow;
         ArrayList<Piece> pieceArr;
         String color;
-        String filename = "images/";
 
         //depending on which side, set index of rows and color for texture
         if(s.equals(Side.BLACK)){
@@ -111,19 +110,36 @@ public class ChessBoard extends Screen
 
         //Construct pieces and set starting positions
         //make Pawns
+        Piece p;
         for(int i = 0; i < 8; i++){
-            Piece p = new Piece(s, positions[frontRow][i], PieceType.PAWN);
-            filename += color + "pawn.png";
-            p.setTexture("chess/images/blackpawn.png");
+            p = new Piece(s, positions[i][frontRow], PieceType.PAWN);
             pieceArr.add(p);
         }
+        //Make rooks
+        pieceArr.add(new Piece(s, positions[0][backRow], PieceType.ROOK));
+        pieceArr.add(new Piece(s, positions[7][backRow], PieceType.ROOK));
+        //Make bishops
+        pieceArr.add(new Piece(s, positions[1][backRow], PieceType.BISHOP));
+        pieceArr.add(new Piece(s, positions[6][backRow], PieceType.BISHOP));
+        //Knights
+        pieceArr.add(new Piece(s, positions[2][backRow], PieceType.KNIGHT));
+        pieceArr.add(new Piece(s, positions[5][backRow], PieceType.KNIGHT));
+        //Queen & King
+        pieceArr.add(new Piece(s, positions[3][backRow], PieceType.QUEEN));
+        pieceArr.add(new Piece(s, positions[4][backRow], PieceType.KING));
+
+
     }
 
     public void render(Graphics g){
         drawBoard(g);
         for(Piece p: blackPieces){
             p.update();
-            p.drawPiece(g);
+            g.drawImage(p.getTexture(), p.getPosition().x, p.getPosition().y, null);
+        }
+        for(Piece p: whitePieces){
+            p.update();
+            g.drawImage(p.getTexture(), p.getPosition().x, p.getPosition().y, null);
         }
     }
     public void update(){}

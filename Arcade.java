@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import examplegame.ExampleGame;
 import racing.SpeedRacers;
 import chess.Chess;
+import runner.RunnerGame;
 
 /**
  * Write a description of class MainScreen here.
@@ -31,6 +32,7 @@ public class Arcade implements Runnable, ActionListener {
         games.add(new JButton("Example Game"));
         games.add(new JButton("Speed Racers"));
         games.add(new JButton("Chess"));
+        games.add(new JButton("Rise"));
         
         for (JButton jb : games) {
             jb.addActionListener(this);
@@ -54,6 +56,10 @@ public class Arcade implements Runnable, ActionListener {
         else if (e.getSource().equals(games.get(2))){
             System.out.println("Starting Chess");
             javax.swing.SwingUtilities.invokeLater(new Chess("Chess"));
+        }
+        else if (e.getSource().equals(games.get(3))){
+            System.out.println("Starting Chess");
+            javax.swing.SwingUtilities.invokeLater(new RunnerGame("Rise"));
         }
     }
     

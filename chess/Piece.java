@@ -1,30 +1,66 @@
 package chess;
 
 import gameutils.GameObject;
+import gameutils.Texture;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Piece extends GameObject {
     public Side side;
-    public Point currentPosition;
     public PieceType type;
     public boolean out = false;
+    private ArrayList<Point> possibleMoves = new ArrayList<Point>();
 
     public Piece(Side side, Point position, PieceType type){
         super();
         this.side = side;
-        this.currentPosition = position;
         this.type = type;
+        this.position = position;
+        setTexture(side,type);
+        texture.scale((double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth(),(double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth());
+        //setPosition(position);
+        setBounds();
+        setPosition(position);
+    }
+
+    public void setTexture(Side side, PieceType type){
+        String filepath = "assets/chess/";
+        if(side.equals(Side.BLACK)){
+            filepath += "black";
+        } else {
+            filepath += "white";
+        }
+        switch(type){
+            case PAWN:
+                filepath += "pawn";
+                break;
+            case KING:
+                filepath += "king";
+                break;
+            case ROOK:
+                filepath += "rook";
+                break;
+            case QUEEN:
+                filepath += "queen";
+                break;
+            case BISHOP:
+                filepath += "bishop";
+                break;
+            case KNIGHT:
+                filepath += "knight";
+                break;
+        }
+        filepath += ".png";
+        texture = new Texture(filepath);
     }
 
     @Override
     public void update() {
         if(!out) {
-            setPosition(currentPosition);
+            setBounds();
+            setPosition(position);
         }
     }
 
-    public void drawPiece(Graphics g){
-        g.drawImage(getTexture(), currentPosition.x, currentPosition.y, null);
-    }
 }
