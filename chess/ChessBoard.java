@@ -153,7 +153,24 @@ public class ChessBoard extends Screen
     public void update(){}
     public void dispose(){}
 
+    /**
+     * See if square is currently occupied
+     * @param col the square column
+     * @param row the square row
+     * @return true if occupied, false if not
+     */
     public boolean isOccupied(int col, int row){
         return occupied[col][row];
+    }
+
+    /**
+     * Method to highlight a square on the board that is a possible move with a blue border
+     * @param col the column of the square
+     * @param row the row of the square
+     * @param g the Graphics object
+     */
+    public void highlightPossMove(int col, int row, Graphics g){
+        g.setColor(Color.BLUE);
+        g.drawRect(positions[col][row].x, positions[col][row].y, SQUARE_SIZE, SQUARE_SIZE);
     }
 }

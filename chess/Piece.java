@@ -55,6 +55,8 @@ public class Piece extends GameObject {
         texture = new Texture(filepath);
     }
 
+
+
     @Override
     public void update() {
         if(!out) {

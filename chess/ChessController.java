@@ -17,6 +17,10 @@ public class ChessController extends Controller
 {
     private ArrayList<Piece> white;
     private ArrayList<Piece> black;
+
+    //true for black, false for white
+    public boolean isBlackTurn = true;
+
     /**
      * Constructor for objects of class ChessController
      */
@@ -26,14 +30,13 @@ public class ChessController extends Controller
         this.white = white;
         this.black = black;
         for(Piece p: white){
-          //  p.addMouseListener(this);
 
         }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        for(Piece p: black);
+
     }
 
     @Override
