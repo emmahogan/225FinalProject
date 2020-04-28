@@ -42,13 +42,13 @@ public class ChessBoard extends Screen
     public ArrayList<Piece> whitePieces = new ArrayList<Piece>();
 
     //Upper left points of all of the squares on the chess board
-    private Point[][] positions = new Point[8][8];
+    private static Point[][] positions = new Point[8][8];
 
     //Whether the squares are occupied
-    private Boolean[][] occupied = new Boolean[8][8];
+    private static Boolean[][] occupied = new Boolean[8][8];
 
     //Array of JButtons (squares)
-    private JButton[][] squares = new JButton[8][8];
+    private static JButton[][] squares = new JButton[8][8];
     
     /**
      * Constructor for objects of class ChessBoard
@@ -56,8 +56,8 @@ public class ChessBoard extends Screen
     public ChessBoard()
     {
         super();
-        this.controller = new ChessController(whitePieces, blackPieces);
         initGame();
+        this.controller = new ChessController(whitePieces, blackPieces);
         repaint();
     }
     
@@ -79,6 +79,15 @@ public class ChessBoard extends Screen
         }
     }
     private void initGame(){
+        //add panels
+        this.add(mainPanel);
+        topPanel.setPreferredSize(new Dimension(8*SQUARE_SIZE, BORDER_WIDTH));
+        bottomPanel.setPreferredSize(new Dimension(8*SQUARE_SIZE, BORDER_WIDTH));
+        mainPanel.add(topPanel, BorderLayout.NORTH);
+        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
+        boardPanel.setPreferredSize(new Dimension(8*SQUARE_SIZE, 8*SQUARE_SIZE));
+        mainPanel.add(boardPanel, BorderLayout.CENTER);
+        mainPanel.setVisible(false);
         //for all squares:
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
@@ -134,21 +143,21 @@ public class ChessBoard extends Screen
         //make Pawns
         Piece p;
         for(int i = 0; i < 8; i++){
-            p = new Piece(s, positions[i][frontRow], PieceType.PAWN);
+            p = new Piece(s, i, frontRow, PieceType.PAWN);
             pieceArr.add(p);
         }
         //Make rooks
-        pieceArr.add(new Piece(s, positions[0][backRow], PieceType.ROOK));
-        pieceArr.add(new Piece(s, positions[7][backRow], PieceType.ROOK));
+        pieceArr.add(new Piece(s,0, backRow, PieceType.ROOK));
+        pieceArr.add(new Piece(s,7, backRow, PieceType.ROOK));
         //Make bishops
-        pieceArr.add(new Piece(s, positions[1][backRow], PieceType.BISHOP));
-        pieceArr.add(new Piece(s, positions[6][backRow], PieceType.BISHOP));
+        pieceArr.add(new Piece(s,1, backRow, PieceType.BISHOP));
+        pieceArr.add(new Piece(s,6, backRow, PieceType.BISHOP));
         //Knights
-        pieceArr.add(new Piece(s, positions[2][backRow], PieceType.KNIGHT));
-        pieceArr.add(new Piece(s, positions[5][backRow], PieceType.KNIGHT));
+        pieceArr.add(new Piece(s,2, backRow, PieceType.KNIGHT));
+        pieceArr.add(new Piece(s,5, backRow, PieceType.KNIGHT));
         //Queen & King
-        pieceArr.add(new Piece(s, positions[3][backRow], PieceType.QUEEN));
-        pieceArr.add(new Piece(s, positions[4][backRow], PieceType.KING));
+        pieceArr.add(new Piece(s,3, backRow, PieceType.QUEEN));
+        pieceArr.add(new Piece(s,4, backRow, PieceType.KING));
 
 
     }
@@ -177,8 +186,12 @@ public class ChessBoard extends Screen
         return occupied[row][col];
     }
 
-    public JButton getButton(int row, int col){
+    public static JButton getButton(int row, int col){
         return squares[row][col];
+    }
+
+    public static Point getPos(int row, int col){
+        return positions[row][col];
     }
 
     /**
