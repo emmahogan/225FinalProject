@@ -40,8 +40,10 @@ public class ChessBoard extends Screen
     public ArrayList<Piece> blackPieces = new ArrayList<Piece>();
     public ArrayList<Piece> whitePieces = new ArrayList<Piece>();
 
-
+    //Upper left points of all of the squares on the chess board
     Point[][] positions = new Point[8][8];
+    //Whether the squares are occupied
+    Boolean[][] occupied = new Boolean[8][8];
     
     /**
      * Constructor for objects of class ChessBoard
@@ -76,6 +78,12 @@ public class ChessBoard extends Screen
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 positions[i][j] = new Point(i*SQUARE_SIZE + BORDER_WIDTH, j*SQUARE_SIZE + BORDER_WIDTH);
+                //set initial occupied values for all of the positions
+                if(j <= 1 || j >= 6){
+                    occupied[i][j] = true;
+                } else {
+                    occupied[i][j] = false;
+                }
             }
         }
 
@@ -144,4 +152,8 @@ public class ChessBoard extends Screen
     }
     public void update(){}
     public void dispose(){}
+
+    public boolean isOccupied(int col, int row){
+        return occupied[col][row];
+    }
 }
