@@ -2,12 +2,9 @@ package chess;
 
 import gameutils.*;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.*;
 import java.util.*;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * Write a description of class ChessBoard here.
@@ -28,6 +25,10 @@ public class ChessBoard extends Screen
     private static final Color LIGHT_GOLD = new Color(255,215,0);
     private static final Color BACKGROUND_COLOR = new Color(184,134,11);
 
+    //Main panel and board panel
+    private JPanel mainPanel = new JPanel(new BorderLayout());
+    private JPanel boardPanel = new JPanel(new GridLayout(8, 8));
+
     //Top and bottom panels that hold pieces knocked out
     private JPanel topPanel = new JPanel(new FlowLayout());
     private JPanel bottomPanel = new JPanel(new FlowLayout());
@@ -41,9 +42,13 @@ public class ChessBoard extends Screen
     public ArrayList<Piece> whitePieces = new ArrayList<Piece>();
 
     //Upper left points of all of the squares on the chess board
-    Point[][] positions = new Point[8][8];
+    private Point[][] positions = new Point[8][8];
+
     //Whether the squares are occupied
-    Boolean[][] occupied = new Boolean[8][8];
+    private Boolean[][] occupied = new Boolean[8][8];
+
+    //Array of JButtons (squares)
+    private JButton[][] squares = new JButton[8][8];
     
     /**
      * Constructor for objects of class ChessBoard
@@ -74,18 +79,27 @@ public class ChessBoard extends Screen
         }
     }
     private void initGame(){
-        //Initialize all the Points in positions array
+        //for all squares:
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
+
+                //Initialize all the Points in positions array
                 positions[i][j] = new Point(i*SQUARE_SIZE + BORDER_WIDTH, j*SQUARE_SIZE + BORDER_WIDTH);
+
                 //set initial occupied values for all of the positions
                 if(j <= 1 || j >= 6){
                     occupied[i][j] = true;
                 } else {
                     occupied[i][j] = false;
                 }
+
+                //Make JButton
+                squares[i][j] = new JButton();
+                squares[i][j].setPreferredSize(new Dimension(SQUARE_SIZE, SQUARE_SIZE));
+                boardPanel.add(squares[i][j]);
             }
         }
+
 
         //Call separate method to create piece objects and put at starting positions
         initPieces(Side.BLACK);
@@ -155,22 +169,27 @@ public class ChessBoard extends Screen
 
     /**
      * See if square is currently occupied
-     * @param col the square column
      * @param row the square row
+     * @param col the square column
      * @return true if occupied, false if not
      */
-    public boolean isOccupied(int col, int row){
-        return occupied[col][row];
+    public boolean isOccupied(int row, int col){
+        return occupied[row][col];
+    }
+
+    public JButton getButton(int row, int col){
+        return squares[row][col];
     }
 
     /**
      * Method to highlight a square on the board that is a possible move with a blue border
-     * @param col the column of the square
      * @param row the row of the square
+     * @param col the column of the square
      * @param g the Graphics object
      */
-    public void highlightPossMove(int col, int row, Graphics g){
+    public void highlightPossMove(int row, int col, Graphics g){
         g.setColor(Color.BLUE);
-        g.drawRect(positions[col][row].x, positions[col][row].y, SQUARE_SIZE, SQUARE_SIZE);
+        g.drawRect(positions[row][col].x, positions[row][col].y, SQUARE_SIZE, SQUARE_SIZE);
     }
+
 }
