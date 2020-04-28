@@ -17,6 +17,7 @@ public class RopeSegment extends Thread
     private static final int DELAY_TIME = 33;
     private static final int SIZE = 20;
     private Point previous;
+    private Object lock = new Object();
 
     public RopeSegment(Point start, double dis, Point previous, JComponent container)
     {
@@ -42,8 +43,15 @@ public class RopeSegment extends Thread
             }
             catch (InterruptedException e) {
             }
-            setDistance(previous);
-            container.repaint();
+            if(findDistance(previous) > distance)
+            {
+                synchronized(lock)
+                {
+                    setDistance(previous);
+                    System.out.println("done");
+                    container.repaint();
+                }
+            }
         }
     }
 
@@ -67,7 +75,15 @@ public class RopeSegment extends Thread
     {
         if(findDistance(p) > distance)
         {
-            double changeY = Math.abs((p.getY() - this.getY())/(p.getX() - this.getX()));
+            double changeY;
+            if(p.getX() - this.getX() == 0)
+            {
+                changeY = 1.0;
+            }
+            else
+            {
+                changeY = Math.abs((p.getY() - this.getY())/(p.getX() - this.getX()));
+            }
             if(p.getY() - this.getY() < 0)
             {
                 changeY = changeY * -1;
@@ -77,8 +93,11 @@ public class RopeSegment extends Thread
             {
                 changeX = changeX * -1;
             }
-            this.pos.setLocation(this.getY() + changeY, this.getX() + changeX);
-            System.out.println(pos);
+            while(findDistance(p) > distance)
+            {
+                this.pos.setLocation(this.getY() + changeY, this.getX() + changeX);
+                System.out.println(pos);
+            }
         }
         System.out.println("called");
     }
