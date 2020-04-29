@@ -75,29 +75,49 @@ public class RopeSegment extends Thread
     {
         if(findDistance(p) > distance)
         {
-            double changeY;
+            double slope;
+            double angle;
+            double x;
+            double y;
             if(p.getX() - this.getX() == 0)
             {
-                changeY = 1.0;
+                angle = Math.PI/2;
             }
             else
             {
-                changeY = Math.abs((p.getY() - this.getY())/(p.getX() - this.getX()));
+                slope = (p.getY() - this.getY())/(p.getX() - this.getX());
+                angle = Math.atan(slope);
             }
+            x = distance * Math.cos(angle);
+            y = distance * Math.sin(angle);
             if(p.getY() - this.getY() < 0)
             {
-                changeY = changeY * -1;
+                x = x * -1;
+                y = y * -1;
             }
-            int changeX = 1;
-            if(p.getX() - this.getX() < 0)
-            {
-                changeX = changeX * -1;
-            }
-            while(findDistance(p) > distance)
-            {
-                this.pos.setLocation(this.getY() + changeY, this.getX() + changeX);
-                System.out.println(pos);
-            }
+            this.pos.setLocation(pos.getY() + y, pos.getX() + x);
+            //if(p.getX() - this.getX() == 0)
+            //{
+            //    changeY = 1.0;
+            //}
+            //else
+            //{
+            //    changeY = Math.abs((p.getY() - this.getY())/(p.getX() - this.getX()));
+            //}
+            //if(p.getY() - this.getY() < 0)
+            //{
+            //    changeY = changeY * -1;
+            //}
+            //int changeX = 1;
+            //if(p.getX() - this.getX() < 0)
+            //{
+            //    changeX = changeX * -1;
+            //}
+            //while(findDistance(p) > distance)
+            //{
+            //    this.pos.setLocation(this.getY() + changeY, this.getX() + changeX);
+            //    System.out.println(pos);
+            //}
         }
         System.out.println("called");
     }
