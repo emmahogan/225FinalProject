@@ -17,7 +17,6 @@ public class RopeSegment extends Thread
     private static final int DELAY_TIME = 33;
     private static final int SIZE = 20;
     private Point previous;
-    private Object lock = new Object();
 
     public RopeSegment(Point start, double dis, Point previous, JComponent container)
     {
@@ -45,12 +44,9 @@ public class RopeSegment extends Thread
             }
             if(findDistance(previous) > distance)
             {
-                synchronized(lock)
-                {
-                    setDistance(previous);
-                    System.out.println("done");
-                    container.repaint();
-                }
+                setDistance(previous);
+                //System.out.println("done");
+                container.repaint();
             }
         }
     }
@@ -75,7 +71,7 @@ public class RopeSegment extends Thread
     {
         if(findDistance(p) > distance)
         {
-            double slope;
+            double slope = 0;
             double angle;
             double x;
             double y;
@@ -90,12 +86,16 @@ public class RopeSegment extends Thread
             }
             x = distance * Math.cos(angle);
             y = distance * Math.sin(angle);
-            if(p.getY() - this.getY() < 0)
+            if(p.getX() - this.getX() >= 0)
             {
                 x = x * -1;
-                y = y * -1;
+                //if(p.getY() - this.getY() < 0)
+                //{
+                        y = y * -1;
+                //}
             }
-            this.pos.setLocation(pos.getY() + y, pos.getX() + x);
+            this.pos.setLocation(p.getX() + x, p.getY() + y);
+            System.out.println(slope + " " + angle + " " + x + " " + y);
             //if(p.getX() - this.getX() == 0)
             //{
             //    changeY = 1.0;
@@ -119,7 +119,7 @@ public class RopeSegment extends Thread
             //    System.out.println(pos);
             //}
         }
-        System.out.println("called");
+        //System.out.println("called");
     }
 
     /**
