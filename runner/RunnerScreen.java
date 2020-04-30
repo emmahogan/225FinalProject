@@ -25,7 +25,7 @@ public RunnerScreen (){
     this.controller = new BallController(ball);
     this.touched = false;
 
-    render(super.getGraphics());
+    //render(super.getGraphics());
 }
     @Override
     public void render(Graphics g){

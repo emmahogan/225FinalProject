@@ -31,6 +31,6 @@ private int frameHeight;
 
     public void render(Graphics g){
         g.fillOval(position.x, position.y, radius*2, radius*2);
-    render(g);
+        //render(g);
     }
 }
