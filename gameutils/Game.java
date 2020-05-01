@@ -37,8 +37,8 @@ public abstract class Game implements Runnable {
                     try { sleep(16); }
                     catch (InterruptedException e) {}
 
-                    screen.controller.handleKeyInput();
                     screen.update();
+                    screen.controller.handleKeyInput();
                     screen.repaint();
                 }
             }
