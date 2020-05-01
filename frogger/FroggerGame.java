@@ -2,7 +2,7 @@ package frogger;
 
 import gameutils.Game;
 /**
- * Write a description of class FroggerGame here.
+ * This class creates the game and gives it a screen to output to.
  *
  * @author Nick Shelby
  * @version Spring 2020

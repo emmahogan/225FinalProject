@@ -5,7 +5,7 @@ import gameutils.GameObject;
 import java.awt.Point;
 
 /**
- * Write a description of class Tile here.
+ * This will output the grass sprites.
  *
  * @author Nick Shelby
  * @version Spring 2020
