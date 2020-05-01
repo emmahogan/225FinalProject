@@ -1,20 +1,22 @@
 package runner;
 
 import gameutils.GameObject;
+import gameutils.Texture;
+
+import java.awt.Point;
 
 public class Walls extends GameObject{
-    private int frameWidth;
-    private int frameHeight;
+    public static final int WIDTH = 10;
 
-    public Walls(int frameWidth, int frameHeight){
+
+    public Walls(Point point){
         super();
-        this.frameWidth = frameWidth;
-        this.frameHeight = frameHeight;
-
-        //Two rectangles that are the walls
-        //maybe very thick depending on width of the screen
-        //might make a class that this will extends to make the wall constantly updating to make
-        //the ball seem to be rising
+        this.position = point;
+        this.texture = new Texture("assets/runner/blackTexture.JFIF");
+        double widthPerc = ((double) WIDTH)/texture.getWidth();
+        double heightPerc =((double) RunnerGame.FRAME_HEIGHT)/texture.getHeight();;
+        texture.scale(widthPerc, heightPerc);
+        setBounds();
     }
 
     public void update(){
