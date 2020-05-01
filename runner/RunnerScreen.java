@@ -40,6 +40,7 @@ public RunnerScreen (){
             //gates.get(gates.size()-1).start();
 
         }
+
     }
 
 
@@ -48,9 +49,17 @@ public RunnerScreen (){
         createScreen(g);
         ball.update();
         g.drawImage(ball.getTexture(), ball.getPosition().x, ball.getPosition().y, null);
-        for(int i = 0; i < gates.size(); i++){
-            gates.get(i).update();
-            gates.get(i).renderGates(g);
+        int i = 0;
+        while(i < gates.size()){
+            Gate temp = gates.get(i);
+            if(temp.getYcoord() > RunnerGame.FRAME_HEIGHT){
+                gates.remove(i);
+            }
+            else {
+                gates.get(i).update();
+                gates.get(i).renderGates(g);
+                i++;
+            }
         }
 
         update();
