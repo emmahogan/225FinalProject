@@ -31,18 +31,16 @@ public abstract class Game implements Runnable {
      */
     @Override
     public void run(){
-        Thread gameManager = new Thread() {
-            public void run() {
-                while (true) {
-                    try { sleep(16); }
-                    catch (InterruptedException e) {}
+        Thread gameManager = new Thread(() -> {
+            while (true) {
+                try { Thread.sleep(16); }
+                catch (InterruptedException e) {}
 
-                    screen.update();
-                    screen.controller.handleKeyInput();
-                    screen.repaint();
-                }
+                screen.update();
+                screen.controller.handleKeyInput();
+                screen.repaint();
             }
-        };
+        });
         JFrame.setDefaultLookAndFeelDecorated(true);
         frame.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         frame.addWindowListener(new WindowAdapter() {
