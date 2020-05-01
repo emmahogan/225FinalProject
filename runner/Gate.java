@@ -5,7 +5,7 @@ import java.util.Random;
 import java.awt.Point;
 import java.awt.Graphics;
 
-public class Gate extends GameObject{
+public class Gate extends GameObject implements Runnable{
     private Random rand = new Random();
     private Point upperLeft1;
     private Point upperLeft2;
@@ -26,10 +26,20 @@ public class Gate extends GameObject{
 
     }
 
+    public int getYcoord(){
+        return yCoord;
+    }
+
     public void update(){
-        yCoord += 10;
-        upperLeft1.y += yCoord;
-        upperLeft2.y += yCoord;
+        try{
+            sleep(16);
+        }
+        catch(InterruptedException e){
+            System.out.println("Error loser");
+        }
+        yCoord += 2;
+        upperLeft1.y = yCoord;
+        upperLeft2.y = yCoord;
     }
 
     public void renderGates(Graphics g){
@@ -37,6 +47,20 @@ public class Gate extends GameObject{
             g.fillRect(upperLeft2.x, upperLeft2.y, width2, GATE_HEIGHT);
     }
 
+    /**
+    public void run(){
+        while(yCoord < RunnerGame.FRAME_HEIGHT){
+            try{
+                sleep(16);
+            }
+            catch(InterruptedException e){
+                System.out.println("Error loser");
+            }
+            update();
+        }
+
+    }
+*/
     public boolean contains(Ball ball){
 
         return false;
