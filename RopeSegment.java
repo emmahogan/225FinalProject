@@ -17,6 +17,7 @@ public class RopeSegment extends Thread
     private static final int DELAY_TIME = 33;
     private static final int SIZE = 20;
     private Point previous;
+    private Object lock = new Object();
 
     public RopeSegment(Point start, double dis, Point previous, JComponent container)
     {
@@ -45,7 +46,6 @@ public class RopeSegment extends Thread
             if(findDistance(previous) > distance)
             {
                 setDistance(previous);
-                //System.out.println("done");
                 container.repaint();
             }
         }
@@ -77,49 +77,36 @@ public class RopeSegment extends Thread
             double y;
             if(p.getX() - this.getX() == 0)
             {
-                angle = Math.PI/2;
+                x = 0;
+                if(this.getY() > previous.getY())
+                {
+                    y = distance;
+                }
+                else
+                {
+                    y = -distance;
+                }
             }
             else
             {
                 slope = (p.getY() - this.getY())/(p.getX() - this.getX());
                 angle = Math.atan(slope);
-            }
-            x = distance * Math.cos(angle);
-            y = distance * Math.sin(angle);
-            if(p.getX() - this.getX() >= 0)
-            {
-                x = x * -1;
-                //if(p.getY() - this.getY() < 0)
-                //{
-                        y = y * -1;
-                //}
+
+                x = distance * Math.cos(angle);
+                y = distance * Math.sin(angle);
+                if(p.getX() - this.getX() > 0)
+                {
+                    x = x * (-1);
+                    y = y * (-1);
+                }
             }
             this.pos.setLocation(p.getX() + x, p.getY() + y);
-            System.out.println(slope + " " + angle + " " + x + " " + y);
-            //if(p.getX() - this.getX() == 0)
-            //{
-            //    changeY = 1.0;
-            //}
-            //else
-            //{
-            //    changeY = Math.abs((p.getY() - this.getY())/(p.getX() - this.getX()));
-            //}
-            //if(p.getY() - this.getY() < 0)
-            //{
-            //    changeY = changeY * -1;
-            //}
-            //int changeX = 1;
-            //if(p.getX() - this.getX() < 0)
-            //{
-            //    changeX = changeX * -1;
-            //}
-            //while(findDistance(p) > distance)
-            //{
-            //    this.pos.setLocation(this.getY() + changeY, this.getX() + changeX);
-            //    System.out.println(pos);
-            //}
+            //System.out.println(slope + " " + angle + " " + x + " " + y);
+            if(p.getX() - this.getX() == 0)
+            {
+                System.out.println("YES");
+            }
         }
-        //System.out.println("called");
     }
 
     /**
