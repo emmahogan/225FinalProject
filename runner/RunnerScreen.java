@@ -46,6 +46,7 @@ public RunnerScreen (){
 
     @Override
     public void render(Graphics g){
+
         createScreen(g);
         ball.update();
         g.drawImage(ball.getTexture(), ball.getPosition().x, ball.getPosition().y, null);
