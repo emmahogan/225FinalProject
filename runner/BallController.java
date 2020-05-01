@@ -12,6 +12,12 @@ public class BallController extends Controller {
         this.ball = ball;
     }
 
+
+    @Override
+    public void handleKeyInput() {
+        //super.handleKeyInput();
+    }
+
     @Override
     public void mousePressed(MouseEvent e){
         //CHANGE VELOCITY FUNCTION
