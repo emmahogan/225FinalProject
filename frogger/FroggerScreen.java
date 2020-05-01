@@ -2,6 +2,7 @@ package frogger;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Random;
 
 import gameutils.Screen;
 /**
@@ -18,7 +19,8 @@ public class FroggerScreen extends Screen
 
     public FroggerScreen() {
         super();
-        int lvlLength = Math.random(60) + 20; //Generates a random number to use for the level length (Number of horizontal lines 32px in height)
+        Random rand = new Random();
+        int lvlLength = rand.nextInt(60) + 20; //Generates a random number to use for the level length (Number of horizontal lines 32px in height)
         int numRivers = lvlLength / 5;  // Makes 1/5
         int numTiles = (lvlLength - numRivers) * 12; // Gets the number of tiles needed to make the level, according to random length
 
