@@ -35,7 +35,7 @@ public class Gate extends GameObject implements Runnable{
             sleep(16);
         }
         catch(InterruptedException e){
-            System.out.println("Error loser");
+            System.out.println("Error");
         }
         yCoord += 2;
         upperLeft1.y = yCoord;
@@ -60,7 +60,9 @@ public class Gate extends GameObject implements Runnable{
         }
 
     }
-*/
+    */
+
+
     public boolean contains(Ball ball){
 
         return false;

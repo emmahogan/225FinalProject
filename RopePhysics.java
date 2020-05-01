@@ -18,10 +18,14 @@ public class RopePhysics extends MouseAdapter implements Runnable
     protected void redraw(Graphics g)
     {
         g.drawOval(mousePos.x - (int)DISTANCE/2, mousePos.y - (int)DISTANCE/2, (int)DISTANCE, (int)DISTANCE);
-        for(int i = 0; i < segments.length; i++)
+        RopeSegment r0 = segments[0];
+        r0.paint(g);
+        g.drawLine(mousePos.x, mousePos.y, (int)r0.getX(), (int) r0.getY());
+        for(int i = 1; i < segments.length; i++)
         {
             RopeSegment s = segments[i];
             s.paint(g);
+            g.drawLine((int)segments[i-1].getX(), (int)segments[i-1].getY(), (int)s.getX(), (int) s.getY());
         }
     }
 
