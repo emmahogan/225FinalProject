@@ -30,9 +30,9 @@ public class RopeSegment extends Thread
     public void paint(Graphics g)
     {
         g.setColor(new Color(0, 200, 100));
-        g.fillOval(pos.x, pos.y, SIZE, SIZE);
+        g.fillOval(pos.x - SIZE/2, pos.y - SIZE/2, SIZE, SIZE);
         g.setColor(new Color(0, 0, 0));
-        g.drawOval(pos.x, pos.y, SIZE, SIZE);
+        g.drawOval(pos.x - SIZE/2, pos.y - SIZE/2, SIZE, SIZE);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RopeSegment extends Thread
             }
             catch (InterruptedException e) {
             }
-            if(findDistance(previous) > distance)
+            if(findDistance(previous) != distance)
             {
                 setDistance(previous);
                 container.repaint();
@@ -69,7 +69,7 @@ public class RopeSegment extends Thread
      */
     public void setDistance(Point p)
     {
-        if(findDistance(p) > distance)
+        if(findDistance(p) != distance)
         {
             double slope = 0;
             double angle;
