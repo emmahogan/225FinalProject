@@ -33,25 +33,23 @@ public class FroggerScreen extends Screen
     public void makeLevel() {
         levelLayout = new ArrayList<>();
         Random rand = new Random();
-        int lvlLength = rand.nextInt(60) + 60; //Generates a random number to use for the level length (Number of horizontal lines 30px in height)
-        int numRivers = lvlLength / 3;  // Makes 1/3 of the level rivers.
+        int levelLength = rand.nextInt(60) + 60; //Generates a random number to use for the level length (Number of horizontal lines 30px in height)
+        int numRivers = levelLength / 3;  // Makes 1/3 of the level rivers.
 
-        for (int i = 0; i < lvlLength; i++) {
+        for (int i = 0; i < levelLength; i++) {
             levelLayout.add(new Tile());
         }
 
-        //*************************
-        //Need to add something to spice up the end and start so that it isn't just grass
-
-        //*************************
-
-        // Null pointer error because the whole level isn't made or at least isn't shown *************
-        // **************************************************************************************
-        //******************************************************************************************
+        // png seams don't seem to be right, sometimes they are aligned, sometimes they are not.
+        // error when you reach the end of the level, null obviously
+        // make some sort of rock wall for edges, start, and maybe a little frog nesting hole for the end
+        // start and end never have water, but end needs to work better
+        // probably needs to allow frogger to move upwards to the final tiles
+        // could also happen at start, level only moves when it isn't at the end. (remove frog distance final)
         int riversAdded = 0;
         while (riversAdded < numRivers) {
-            int indexToAdd = rand.nextInt(levelLayout.size());
-            if (indexToAdd < levelLayout.size() - 4) {
+            int indexToAdd = rand.nextInt(levelLayout.size() - 12) + 12;
+            if (indexToAdd < levelLayout.size() - 6 && indexToAdd > 6) {
                 levelLayout.set(indexToAdd, new River());
                 levelLayout.set(indexToAdd + 1, new River());
                 levelLayout.set(indexToAdd + 2, new River());
@@ -59,6 +57,14 @@ public class FroggerScreen extends Screen
             }
             riversAdded = riversAdded + 4;
         }
+    }
+
+    // ******* Needs functionality and message for when you catch a dub
+    public boolean checkWin() {
+//        if (froggah.getPosInLevel() == levelLayout.size()) {
+//            return true;
+//        }
+        return false;
     }
     
      @Override
