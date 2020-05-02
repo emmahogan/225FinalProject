@@ -13,7 +13,7 @@ public class Gate extends GameObject implements Runnable{
     private int width2;
     private int yCoord;
     public static final int GATE_HEIGHT = 20;
-    public static final int GATE_OPENING = 150;
+    public static final int GATE_OPENING = 250;
 
     public Gate(){
         super();
