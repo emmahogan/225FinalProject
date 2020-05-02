@@ -1,6 +1,7 @@
 package frogger;
 
 import gameutils.GameObject;
+import gameutils.Texture;
 
 import java.util.ArrayList;
 
@@ -9,6 +10,10 @@ public class River extends GameObject {
     //The logs all move at the same speed, for now.
 
     private ArrayList<Log> logs;
+
+    public River () {
+        texture = new Texture("assets/frogger/water_line.png");
+    }
 
     @Override
     public void update() {
