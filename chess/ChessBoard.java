@@ -47,11 +47,8 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     //Upper left points of all of the squares on the chess board
     private static Point[][] positions = new Point[8][8];
 
-    //Whether the squares are occupied
-    private static Boolean[][] occupied = new Boolean[8][8];
-
     //Array of Squares
-    private static BoardSquare[][] squares = new BoardSquare[8][8];
+    public static BoardSquare[][] squares = new BoardSquare[8][8];
     
     /**
      * Constructor for objects of class ChessBoard

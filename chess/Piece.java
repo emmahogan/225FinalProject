@@ -14,13 +14,14 @@ public class Piece extends GameObject {
     public int row;
     public int col;
     private BoardSquare square;
+    private BoardSquare[][] squaresArr = ChessBoard.squares;
 
     public Piece(Side side, BoardSquare square, PieceType type){
         super();
         this.side = side;
         this.type = type;
-        this.row = row;
-        this.col = col;
+        this.row = square.row;
+        this.col = square.column;
         this.square = square;
         this.position = square.getPos();
         setTexture(side,type);
@@ -64,18 +65,38 @@ public class Piece extends GameObject {
     public ArrayList<BoardSquare> getPossibleMoves(){
         //if pawn
         if(type.equals(PieceType.PAWN)) {
-            //black pieces
-            if (side.equals(Side.BLACK)) {
-
+            //whether piece is moving up or down
+            int direction = 1;
+            if(side.equals(Side.BLACK)){
+                direction = -1;
             }
-            //white piece
-            else {
-
+            //if the square right in front is empty
+            if(!squaresArr[row + direction][col].isOccupied()){
+                possibleMoves.add(squaresArr[row+direction][col]);
             }
+            //if diagonals are occupied by opposite team's piece
+            if(col != 0 && squaresArr[row+direction][col-1].isOccupied()){
+                if(!squaresArr[row+direction][col-1].getPiece().side.equals(this.side)){
+                    possibleMoves.add(squaresArr[row+direction][col-1]);
+                }
+            }
+            if(col != 7 && squaresArr[row+direction][col+1].isOccupied()){
+                if(!squaresArr[row+direction][col+1].getPiece().side.equals(this.side)){
+                    possibleMoves.add(squaresArr[row+direction][col+1]);
+                }
+            }
+            //if pawn is still in its initial position, add the spot two rows ahead
+            if(side.equals(Side.WHITE)){
+                if(row == 1){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
+            } else {
+                if(row == 6){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
+            }
+
         }
         //return arraylist of possible moves
         return possibleMoves;
     }
+
 
     @Override
     public void update() {

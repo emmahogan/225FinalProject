@@ -8,9 +8,9 @@ public class BoardSquare {
     //upper left corner of square
     private Point upperLeft;
     //row on board
-    private int row;
+    public int row;
     //column on board
-    private int column;
+    public int column;
     //piece currently on square
     private Piece piece;
     //side length of square
