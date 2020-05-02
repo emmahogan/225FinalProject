@@ -63,14 +63,24 @@ public class Frog extends GameObject {
     }
 
     public void jumpLeft() {
-        posOnLine--;
-        texture = leftFroggahTexture;
-        update();
+        if (posOnLine != 0) {
+            posOnLine--;
+            texture = leftFroggahTexture;
+            update();
+        } else {
+            texture = leftFroggahTexture;
+            update();
+        }
     }
 
     public void jumpRight() {
-        posOnLine++;
-        texture = rightFroggahTexture;
-        update();
+        if (posOnLine != 19) {
+            posOnLine++;
+            texture = rightFroggahTexture;
+            update();
+        } else {
+            texture = rightFroggahTexture;
+            update();
+        }
     }
 }
