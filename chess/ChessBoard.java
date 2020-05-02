@@ -206,7 +206,11 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
 
     public void render(Graphics g){
         drawBoard(g);
-
+        if(move[0] != null && move[1] == null){
+            for(BoardSquare s: move[0].getPiece().getPossibleMoves()){
+                highlightPossMoves(s, g);
+            }
+        }
 
     }
     public void update(){
@@ -222,13 +226,12 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
 
     /**
      * Method to highlight a square on the board that is a possible move with a blue border
-     * @param row the row of the square
-     * @param col the column of the square
+     * @param s Square to highlight
      * @param g the Graphics object
      */
-    public void highlightPossMoves(int row, int col, Graphics g){
-        g.setColor(new Color(0,0,255,50));
-        g.drawRect(positions[row][col].x, positions[row][col].y, SQUARE_SIZE, SQUARE_SIZE);
+    public void highlightPossMoves(BoardSquare s, Graphics g){
+        g.setColor(new Color(150,255,255, 100));
+        g.fillRect(positions[s.getRow()][s.getCol()].x + 1, positions[s.getRow()][s.getCol()].y + 1, SQUARE_SIZE-2, SQUARE_SIZE-2);
     }
 
     /**
