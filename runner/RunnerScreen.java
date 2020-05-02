@@ -31,12 +31,15 @@ public RunnerScreen (){
         g.drawImage(rightWall.getTexture(), rightWall.getPosition().x, rightWall.getPosition().y, null);
         g.drawImage(leftWall.getTexture(), leftWall.getPosition().x, leftWall.getPosition().y, null);
 
+
+        //////////////////////////////////////////////////////////////////////////////////////
         if(gates.size() == 0 || gates.get(gates.size()-1).getYcoord() >= 150){
             gates.add(new Gate());
 
         }
-
+        ////////////////////////////////////////////////////////////////////////////////////////
     }
+
 
 
     @Override

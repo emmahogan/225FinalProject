@@ -32,13 +32,16 @@ public class Gate extends GameObject implements Runnable{
         return yCoord;
     }
 
+    /////////////////////////////////////////////////////////////////
     public void update(){
+        /**
         try{
             sleep(16);
         }
         catch(InterruptedException e){
             System.out.println("Error");
         }
+         */
         yCoord += 2;
         upperLeft1.y = yCoord;
         upperLeft2.y = yCoord;
@@ -48,6 +51,7 @@ public class Gate extends GameObject implements Runnable{
             g.fillRect(upperLeft1.x, upperLeft1.y, width1, GATE_HEIGHT);
             g.fillRect(upperLeft2.x, upperLeft2.y, width2, GATE_HEIGHT);
     }
+    /////////////////////////////////////////////////////////////////////////////
 
     /**
     public void run(){
