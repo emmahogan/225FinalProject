@@ -52,9 +52,14 @@ public class Frog extends GameObject {
     }
 
     public void jumpBack() {
-        posInLevel--;
-        texture = downFroggahTexture;
-        update();
+        if (posInLevel > 4) {
+            posInLevel--;
+            texture = downFroggahTexture;
+            update();
+        } else {
+            texture = downFroggahTexture;
+            update();
+        }
     }
 
     public void jumpLeft() {
