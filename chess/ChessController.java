@@ -34,21 +34,8 @@ public class ChessController extends Controller
         this.white = white;
         this.black = black;
 
-        removeListeners();
-        for(Piece p: white){
-            if(p.out == false) {
-                ChessBoard.getButton(p.row, p.col).addMouseListener(this);
-            }
-        }
     }
 
-    public void removeListeners(){
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
-                ChessBoard.getButton(i,j).removeMouseListener(this);
-            }
-        }
-    }
 
     public boolean isInCheck(Side side){
         if(side.equals(Side.BLACK)){

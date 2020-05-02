@@ -22,7 +22,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     private static final int FRAME_HEIGHT = 600;
     //Board measurements
     public static final int SQUARE_SIZE = 50;
-    private static final int BORDER_WIDTH = (FRAME_WIDTH - (8*SQUARE_SIZE))/2;
+    public static final int BORDER_WIDTH = (FRAME_WIDTH - (8*SQUARE_SIZE))/2;
     //Colors for Board
     private static final Color DARK_GOLD = new Color(218,165,32);
     private static final Color LIGHT_GOLD = new Color(255,215,0);
@@ -50,8 +50,8 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     //Whether the squares are occupied
     private static Boolean[][] occupied = new Boolean[8][8];
 
-    //Array of JButtons (squares)
-    private static JButton[][] squares = new JButton[8][8];
+    //Array of Squares
+    private static BoardSquare[][] squares = new BoardSquare[8][8];
     
     /**
      * Constructor for objects of class ChessBoard
@@ -100,24 +100,10 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         //for all squares:
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
-
-                //Initialize all the Points in positions array
-                positions[i][j] = new Point(i*SQUARE_SIZE + BORDER_WIDTH, j*SQUARE_SIZE + BORDER_WIDTH);
-
-                //set initial occupied values for all of the positions
-                if(j <= 1 || j >= 6){
-                    occupied[i][j] = true;
-                } else {
-                    occupied[i][j] = false;
-                }
-
-                //Make JButton
-                squares[i][j] = new JButton();
-                squares[i][j].setPreferredSize(new Dimension(SQUARE_SIZE, SQUARE_SIZE));
-                boardPanel.add(squares[i][j]);
+                //Initialize all the squares
+                squares[i][j] = new BoardSquare(i,j);
             }
         }
-
 
         //Call separate method to create piece objects and put at starting positions
         initPieces(Side.BLACK);
@@ -154,21 +140,41 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         for(int i = 0; i < 8; i++){
             p = new Piece(s, i, frontRow, PieceType.PAWN);
             pieceArr.add(p);
+            squares[frontRow][i].addPiece(p);
         }
         //Make rooks
-        pieceArr.add(new Piece(s,0, backRow, PieceType.ROOK));
-        pieceArr.add(new Piece(s,7, backRow, PieceType.ROOK));
+        Piece rook1 = new Piece(s,0, backRow, PieceType.ROOK);
+        pieceArr.add(rook1);
+        squares[backRow][0].addPiece(rook1);
+
+        Piece rook2 = new Piece(s,7, backRow, PieceType.ROOK);
+        pieceArr.add(rook2);
+        squares[backRow][7].addPiece(rook2);
+
         //Make bishops
-        pieceArr.add(new Piece(s,1, backRow, PieceType.BISHOP));
-        pieceArr.add(new Piece(s,6, backRow, PieceType.BISHOP));
+        Piece bishop1 = new Piece(s,1, backRow, PieceType.BISHOP);
+        pieceArr.add(bishop1);
+        squares[backRow][1].addPiece(bishop1);
+
+        Piece bishop2 = new Piece(s,6, backRow, PieceType.BISHOP);
+        pieceArr.add(bishop2);
+        squares[backRow][6].addPiece(bishop2);
         //Knights
-        pieceArr.add(new Piece(s,2, backRow, PieceType.KNIGHT));
-        pieceArr.add(new Piece(s,5, backRow, PieceType.KNIGHT));
+        Piece knight1 = new Piece(s,2, backRow, PieceType.KNIGHT);
+        pieceArr.add(knight1);
+        squares[backRow][2].addPiece(knight1);
+
+        Piece knight2 = new Piece(s,5, backRow, PieceType.KNIGHT);
+        pieceArr.add(knight2);
+        squares[backRow][5].addPiece(knight2);
         //Queen & King
-        pieceArr.add(new Piece(s,3, backRow, PieceType.QUEEN));
-        pieceArr.add(new Piece(s,4, backRow, PieceType.KING));
+        Piece queen = new Piece(s,3, backRow, PieceType.QUEEN);
+        pieceArr.add(queen);
+        squares[backRow][3].addPiece(queen);
 
-
+        Piece king = new Piece(s,4, backRow, PieceType.KING);
+        pieceArr.add(king);
+        squares[backRow][4].addPiece(king);
     }
 
     public void render(Graphics g){
@@ -195,9 +201,6 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         return occupied[row][col];
     }
 
-    public static JButton getButton(int row, int col){
-        return squares[row][col];
-    }
 
     public static Point getPos(int row, int col){
         return positions[row][col];
@@ -214,9 +217,26 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         g.drawRect(positions[row][col].x, positions[row][col].y, SQUARE_SIZE, SQUARE_SIZE);
     }
 
+    /**
+     * Check if a point is on the board
+     * @param p the point
+     * @return true if on board, false otherwise
+     */
+    public boolean isOnBoard(Point p){
+        int xStart = positions[0][0].x;
+        int xEnd = xStart + 8*SQUARE_SIZE;
+        int yStart = positions[0][0].y;
+        int yEnd = yStart + 8*SQUARE_SIZE;
+        return p.x > xStart && p.x < xEnd && p.y > yStart && p.y < yEnd;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
+        //if click is on board
+        Point p = e.getPoint();
+        if(isOnBoard(p)){
 
+        }
     }
 
     @Override
