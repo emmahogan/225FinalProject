@@ -11,6 +11,8 @@ public class Frog extends GameObject {
     private Texture rightFroggahTexture;
     private int froggahPos;
 
+    public final int Y_VAL = 400;
+
     @Override
     public void update() {
         //Add code to satisfy update if necessary
@@ -27,11 +29,11 @@ public class Frog extends GameObject {
 
     }
 
-    public int getFroggahPos() {
+    public int getPos() {
         return froggahPos;
     }
 
-    public int getFroggahXVal() {
+    public int getXVal() {
         return froggahPos * 30;
     }
 }
