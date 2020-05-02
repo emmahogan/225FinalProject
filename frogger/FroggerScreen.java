@@ -40,6 +40,9 @@ public class FroggerScreen extends Screen
             levelLayout.add(new Tile());
         }
 
+        // Null pointer error because the whole level isn't made or at least isn't shown *************
+        // **************************************************************************************
+        //******************************************************************************************
         int riversAdded = 0;
         while (riversAdded < numRivers) {
             int indexToAdd = rand.nextInt(levelLayout.size());
