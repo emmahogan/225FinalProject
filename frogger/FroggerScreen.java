@@ -16,6 +16,10 @@ public class FroggerScreen extends Screen
 {
     private ArrayList<GameObject> levelLayout; // This holds all of the areas of land and rivers.
     private Frog froggah; // This is the player character, the frog object that you control.
+    private int screenBottomIndex = 0;
+
+    private final int NUM_ROWS = 20;
+    private final int JUMP_LENGTH = 50;
 
     public FroggerScreen() {
         super();
@@ -45,18 +49,22 @@ public class FroggerScreen extends Screen
             }
             riversAdded = riversAdded + 4;
         }
-
-
     }
     
      @Override
     public void render(Graphics g) {
-
+         for (int i = screenBottomIndex; i < NUM_ROWS; i++) {
+          //   levelLayout.get(i).getTexture();
+         }
+         //g.drawImage(froggah.getFroggahTexture(), froggah);
     }
     
     @Override
     public void update() {
-    
+        for (int i = screenBottomIndex; i < NUM_ROWS; i++) {
+            levelLayout.get(i).update();
+        }
+        froggah.update();
     }
     
     @Override
