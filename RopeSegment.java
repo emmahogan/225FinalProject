@@ -20,8 +20,10 @@ public class RopeSegment extends Thread
     private Point next;
     private Object lock = new Object();
     private double xVelocity;
-    private static final double GRAVITY = 10;
     private double xPrevious;
+    private static final double GRAVITY = 10;
+    private double yVelocity;
+    private double yPrevious;
 
     public RopeSegment(Point start, double dis, JComponent container)
     {
@@ -29,6 +31,7 @@ public class RopeSegment extends Thread
         this.distance = dis;
         this.container = container;
         this.xVelocity = 0;
+        yVelocity = GRAVITY;
         xPrevious = start.getX();
     }
 
@@ -43,13 +46,9 @@ public class RopeSegment extends Thread
     @Override
     public void run() {
         while (true) {
-            //try {
-            //    sleep(DELAY_TIME);
-            //}
-            //catch (InterruptedException e) {
-            //}
-            this.pos.setLocation(this.getX() + xVelocity, this.getY() + GRAVITY);
+            this.pos.setLocation(this.getX() + xVelocity, this.getY() + yVelocity);
             xPrevious = this.getX();
+            yPrevious = this.getY();
             if(previous != null)
             {
                 setDistance(previous);
@@ -60,12 +59,17 @@ public class RopeSegment extends Thread
             }
             catch (InterruptedException e) {
             }
-            if(next != null)
-            {
-                setDistance(next);
-                container.repaint();
-            }
+            
+            //FABRIK (May not be needed?)
+            
+            //if(next != null)
+            //{
+            //    setDistance(next);
+            //    container.repaint();
+            //}
             xVelocity = xVelocity + (this.getX() - xPrevious);
+            yVelocity = yVelocity + (this.getY() - yPrevious + GRAVITY);
+            container.repaint();
         }
     }
 
