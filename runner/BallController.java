@@ -20,12 +20,14 @@ public class BallController extends Controller {
     public void handleKeyInput() {
         //super.handleKeyInput();
         if (isKeyPressed(SPACE)) {
+            ball.neuterSpeed();
             if(ball.getAcceleration() == 0) {
                 ball.setAcceleration(-1);
 
             }
             else{
                 ball.setAcceleration(ball.getAcceleration() * -1);
+
             }
             }
         }

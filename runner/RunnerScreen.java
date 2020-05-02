@@ -37,7 +37,6 @@ public RunnerScreen (){
 
         if(gates.size() == 0 || gates.get(gates.size()-1).getYcoord() >= 150){
             gates.add(new Gate());
-            //gates.get(gates.size()-1).start();
 
         }
 

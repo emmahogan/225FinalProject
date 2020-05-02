@@ -8,9 +8,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class RunnerGame extends Game {
-    public static int waitTIme =
+    public static int waitTIme = 50;
     private RunnerScreen runScreen;
-    //private JFrame fram;
+
 
     public RunnerGame (String name){
         super(name);
