@@ -1,9 +1,9 @@
 package runner;
 
 import gameutils.GameObject;
+
+import java.awt.*;
 import java.util.Random;
-import java.awt.Point;
-import java.awt.Graphics;
 
 public class Gate extends GameObject implements Runnable{
     private Random rand = new Random();
@@ -23,6 +23,8 @@ public class Gate extends GameObject implements Runnable{
         width1 = rand.nextInt(RunnerGame.FRAME_WIDTH - GATE_OPENING - 2*Walls.WIDTH) + Walls.WIDTH;
         upperLeft2 = new Point(width1 + GATE_OPENING, yCoord);
         width2 = RunnerGame.FRAME_WIDTH - (2*Walls.WIDTH) - width1 - GATE_OPENING;
+
+
 
     }
 
@@ -69,9 +71,12 @@ public class Gate extends GameObject implements Runnable{
     }
 
     ///////////////////////////////////CHANGE TO WORK WITH RECTANGLES =) ////////////////
+
+
     @Override
     public boolean collidesWith(GameObject obj) {
-
-        return super.collidesWith(obj);
+        Rectangle rect1 = new Rectangle(upperLeft1.x, upperLeft1.y, width1, GATE_HEIGHT);
+        Rectangle rect2 = new Rectangle(upperLeft2.x, upperLeft2.y, width2, GATE_HEIGHT);
+            return rect1.intersects(obj.getBounds()) || rect2.intersects(obj.getBounds());
     }
 }
