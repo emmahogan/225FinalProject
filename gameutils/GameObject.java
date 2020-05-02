@@ -49,14 +49,6 @@ public abstract class GameObject extends Thread {
     public Rectangle getBounds() {
         return bounds;
     }
-
-    /**
-     * Sets the texture of the GameObject to a new texture
-     * @param filePath the path of the image file
-     */
-    public void setTexture(String filePath) {
-        this.texture = new Texture(filePath);
-    }
     
     /**
      * Sets the bounding rectangle of the GameObject
@@ -83,7 +75,6 @@ public abstract class GameObject extends Thread {
     public void setPosition(Point newPosition) {
         this.position.x = newPosition.x;
         this.position.y = newPosition.y;
-        bounds.setLocation(newPosition);
     }
 
     /**
@@ -92,9 +83,8 @@ public abstract class GameObject extends Thread {
      * @param y the y value of the new position
      */
     public void setPosition(int x, int y) {
-        Point newPosition = new Point(x, y);
-        this.position = newPosition;
-        bounds.setLocation(newPosition);
+        this.position.x = x;
+        this.position.y = y;
     }
 
     public void rotate(double angle) {

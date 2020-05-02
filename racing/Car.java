@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 
 import gameutils.GameObject;
 import gameutils.Texture;
+import gameutils.FloatPoint;
 
 public class Car extends GameObject {
     public Rectangle top;
@@ -25,7 +26,7 @@ public class Car extends GameObject {
     public Car(String color, int x, int y) {
         super();
         initTextures(color);
-        setPosition(new Point(x, y));
+        position = new FloatPoint(x, y);
         velocity = new FloatPoint(0, 0);
 
         setBoundsAndLines();
@@ -37,7 +38,7 @@ public class Car extends GameObject {
             setBoundsAndLines();
         }
         moveByVelocity();
-        addFriction();
+        drag();
         checkRotation();
     }
 
@@ -69,7 +70,7 @@ public class Car extends GameObject {
         }
     }
 
-    private void addFriction() {
+    private void drag() {
         if (velocity.x >= .09) {
             velocity.x -= .1;
         }
@@ -84,10 +85,12 @@ public class Car extends GameObject {
         }
     }
 
+    @Override
     public Point getPosition() {
         return new Point((int) position.x, (int) position.y);
     }
 
+    @Override
     public void setPosition(Point newPosition) {
         this.position = new FloatPoint(newPosition.x, newPosition.y);
     }

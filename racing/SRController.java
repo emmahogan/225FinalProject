@@ -1,7 +1,6 @@
 package racing;
 
 import gameutils.Controller;
-import gameutils.Texture;
 
 /**
  * Write a description of class SRController here.
