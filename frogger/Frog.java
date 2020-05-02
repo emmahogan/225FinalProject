@@ -9,8 +9,11 @@ public class Frog extends GameObject {
     private Texture downFroggahTexture;
     private Texture leftFroggahTexture;
     private Texture rightFroggahTexture;
-    private int froggahPos;
+    private int posOnLine;
+    private int posInLevel;
 
+
+    public final int JUMP_LENGTH = 50;
     public final int Y_VAL = 400;
 
     @Override
@@ -25,15 +28,40 @@ public class Frog extends GameObject {
         leftFroggahTexture = new Texture("assets/frogger/froggah_leftpng");
         rightFroggahTexture = new Texture("assets/frogger/froggah_right.png");
         texture = upFroggahTexture;
-        froggahPos = 10;
+        posOnLine = 10;
+        posInLevel = 4;
 
     }
 
-    public int getPos() {
-        return froggahPos;
+    public int getPosOnLine() {
+        return posOnLine;
+    }
+
+    public int getPosInLevel() {
+        return posInLevel;
     }
 
     public int getXVal() {
-        return froggahPos * 30;
+        return posOnLine * 30;
+    }
+
+    public void jumpForward() {
+        posInLevel++;
+        update();
+    }
+
+    public void jumpBack() {
+        posInLevel--;
+        update();
+    }
+
+    public void jumpLeft() {
+        posOnLine = posOnLine - 10;
+        update();
+    }
+
+    public void jumpRight() {
+        posOnLine = posOnLine + 10;
+        update();
     }
 }
