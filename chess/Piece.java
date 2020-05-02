@@ -66,9 +66,9 @@ public class Piece extends GameObject {
         //if pawn
         if(type.equals(PieceType.PAWN)) {
             //whether piece is moving up or down
-            int direction = 1;
+            int direction = -1;
             if(side.equals(Side.BLACK)){
-                direction = -1;
+                direction = 1;
             }
             //if the square right in front is empty
             if(!squaresArr[row + direction][col].isOccupied()){
@@ -96,6 +96,7 @@ public class Piece extends GameObject {
         //return arraylist of possible moves
         return possibleMoves;
     }
+
 
 
     @Override

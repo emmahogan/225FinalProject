@@ -27,11 +27,15 @@ public class BoardSquare {
     public void addPiece(Piece p){
         occupied = true;
         piece = p;
+        p.setPosition(getPos());
+        p.setBounds();
     }
 
     public void removePiece(Piece p){
         occupied = false;
         piece = null;
+        p.setPosition(new Point(0,0));
+        p.setBounds();
     }
 
     public boolean isOccupied(){
