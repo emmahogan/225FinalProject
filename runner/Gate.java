@@ -14,6 +14,7 @@ public class Gate extends GameObject implements Runnable{
     private int yCoord;
     public static final int GATE_HEIGHT = 20;
     public static final int GATE_OPENING = 250;
+    private int gateWaiter = 0;
 
     public Gate(){
         super();
@@ -42,9 +43,13 @@ public class Gate extends GameObject implements Runnable{
             System.out.println("Error");
         }
          */
-        yCoord += 2;
-        upperLeft1.y = yCoord;
-        upperLeft2.y = yCoord;
+        gateWaiter += 16;
+        if(gateWaiter >= 200) {
+            yCoord += 2;
+            upperLeft1.y = yCoord;
+            upperLeft2.y = yCoord;
+            gateWaiter = 0;
+        }
     }
 
     public void renderGates(Graphics g){
