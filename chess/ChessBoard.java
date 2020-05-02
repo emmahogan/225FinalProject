@@ -189,7 +189,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     }
 
     public void render(Graphics g){
-        for(int i = 0; i < 8; i++){
+        for(int i = 0; i <8; i++){
             for(int j = 0; j < 8; j++){
                 //Initialize all the squares
                 squares[i][j].update();
