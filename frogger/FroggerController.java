@@ -21,14 +21,16 @@ public class FroggerController extends Controller
     }
 
     public void handleKeyInput() {
-        if (isKeyPressed(W)) {
-            froggah.jumpForward();
-        } else if (isKeyPressed(S)) {
-            froggah.jumpBack();
-        } else if (isKeyPressed(A)) {
-            froggah.jumpLeft();
-        } else if (isKeyPressed(D)) {
-            froggah.jumpRight();
-        }
+        // Need to use keyPressed, not isKeyPressed
+
+//        if (isKeyPressed(W)) {
+//            froggah.jumpForward();
+//        } else if (isKeyPressed(S)) {
+//            froggah.jumpBack();
+//        } else if (isKeyPressed(A)) {
+//            froggah.jumpLeft();
+//        } else if (isKeyPressed(D)) {
+//            froggah.jumpRight();
+//        }
     }
 }
