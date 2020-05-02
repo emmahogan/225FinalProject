@@ -25,7 +25,7 @@ public class Frog extends GameObject {
         super();
         upFroggahTexture = new Texture("assets/frogger/froggah_up.png");
         downFroggahTexture = new Texture("assets/frogger/froggah_down.png");
-        leftFroggahTexture = new Texture("assets/frogger/froggah_leftpng");
+        leftFroggahTexture = new Texture("assets/frogger/froggah_left.png");
         rightFroggahTexture = new Texture("assets/frogger/froggah_right.png");
         texture = upFroggahTexture;
         posOnLine = 10;
@@ -47,21 +47,25 @@ public class Frog extends GameObject {
 
     public void jumpForward() {
         posInLevel++;
+        texture = upFroggahTexture;
         update();
     }
 
     public void jumpBack() {
         posInLevel--;
+        texture = downFroggahTexture;
         update();
     }
 
     public void jumpLeft() {
-        posOnLine = posOnLine - 10;
+        posOnLine--;
+        texture = leftFroggahTexture;
         update();
     }
 
     public void jumpRight() {
-        posOnLine = posOnLine + 10;
+        posOnLine++;
+        texture = rightFroggahTexture;
         update();
     }
 }
