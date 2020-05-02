@@ -14,23 +14,33 @@ import java.awt.event.KeyEvent;
 public class FroggerController extends Controller
 {
     Frog froggah;
+    private boolean keyNeedsToBeReleased;
 
     public FroggerController (Frog frogToControl) {
         super();
         froggah = frogToControl;
+        keyNeedsToBeReleased = false;
     }
 
     public void handleKeyInput() {
         // Need to use keyPressed, not isKeyPressed
 
-//        if (isKeyPressed(W)) {
-//            froggah.jumpForward();
-//        } else if (isKeyPressed(S)) {
-//            froggah.jumpBack();
-//        } else if (isKeyPressed(A)) {
-//            froggah.jumpLeft();
-//        } else if (isKeyPressed(D)) {
-//            froggah.jumpRight();
-//        }
+        if (isKeyPressed(W) && !keyNeedsToBeReleased) {
+            froggah.jumpForward();
+            keyNeedsToBeReleased = true;
+        } else if (isKeyPressed(S) && !keyNeedsToBeReleased) {
+            froggah.jumpBack();
+            keyNeedsToBeReleased = true;
+        } else if (isKeyPressed(A) && !keyNeedsToBeReleased) {
+            froggah.jumpLeft();
+            keyNeedsToBeReleased = true;
+        } else if (isKeyPressed(D) && !keyNeedsToBeReleased) {
+            froggah.jumpRight();
+            keyNeedsToBeReleased = true;
+        }
+
+        if (!isKeyPressed(W) && !isKeyPressed(A) && !isKeyPressed(S) && !isKeyPressed(D)) {
+            keyNeedsToBeReleased = false;
+        }
     }
 }
