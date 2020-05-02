@@ -12,7 +12,7 @@ private Walls leftWall;
 private Walls rightWall;
 private Floor floor;
 private ArrayList<Gate> gates;
-private BallController controller;
+//private BallController controller;
 
 private boolean touched;
 
@@ -46,10 +46,25 @@ public RunnerScreen (){
 
     @Override
     public void render(Graphics g){
-
         createScreen(g);
-        ball.update();
         g.drawImage(ball.getTexture(), ball.getPosition().x, ball.getPosition().y, null);
+        int i = 0;
+        while(i < gates.size()){
+            Gate temp = gates.get(i);
+                gates.get(i).renderGates(g);
+                i++;
+
+        }
+
+        update();
+
+    }
+
+    @Override
+    public void update(){
+
+        ball.update();
+
         int i = 0;
         while(i < gates.size()){
             Gate temp = gates.get(i);
@@ -58,19 +73,10 @@ public RunnerScreen (){
             }
             else {
                 gates.get(i).update();
-                gates.get(i).renderGates(g);
                 i++;
             }
         }
-
-        update();
-    }
-
-    @Override
-    public void update(){
         repaint();
-
-
     }
 
     @Override
