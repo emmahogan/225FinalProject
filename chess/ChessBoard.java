@@ -49,6 +49,18 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
 
     //Array of Squares
     public static BoardSquare[][] squares = new BoardSquare[8][8];
+
+    //true for black, false for white
+    public boolean isBlackTurn = true;
+
+    //are sides in check
+    public boolean blackInCheck = false;
+    public boolean whiteInCheck = false;
+
+    //for each move, index 0 is the BoardSquare with the piece they chose to move, index 1 is the destination
+    //they choose to move it to
+    private BoardSquare[] move = new BoardSquare[2];
+
     
     /**
      * Constructor for objects of class ChessBoard
@@ -99,6 +111,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
             for(int j = 0; j < 8; j++){
                 //Initialize all the squares
                 squares[i][j] = new BoardSquare(i,j);
+                positions[i][j] = squares[i][j].getPos();
             }
         }
 
@@ -200,8 +213,8 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
      * @param col the column of the square
      * @param g the Graphics object
      */
-    public void highlightPossMove(int row, int col, Graphics g){
-        g.setColor(Color.BLUE);
+    public void highlightPossMoves(int row, int col, Graphics g){
+        g.setColor(new Color(0,0,255,50));
         g.drawRect(positions[row][col].x, positions[row][col].y, SQUARE_SIZE, SQUARE_SIZE);
     }
 
@@ -222,10 +235,100 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     public void mouseClicked(MouseEvent e) {
         //if click is on board
         Point p = e.getPoint();
-        if(isOnBoard(p)){
 
+        if(isOnBoard(p)){
+            BoardSquare s = whichSquareClicked(p);
+            if(validateMove(s)){
+
+            }
         }
     }
+
+    public BoardSquare whichSquareClicked(Point p){
+        int col = (p.x - BORDER_WIDTH)/SQUARE_SIZE;
+        int row = (p.y - BORDER_WIDTH)/SQUARE_SIZE;
+        return squares[row][col];
+    }
+
+
+    public boolean isInCheck(Side side){
+        if(side.equals(Side.BLACK)){
+            return blackInCheck;
+        } else {
+            return whiteInCheck;
+        }
+    }
+
+
+    public Side getTurn(){
+        if(isBlackTurn){
+            return Side.BLACK;
+        } else{
+            return Side.WHITE;
+        }
+    }
+
+
+
+    public boolean validateMove(BoardSquare s){
+        //if square is occupied and piece can be chosen
+        if(move[0] == null) {
+            if (!s.isOccupied()) {
+                return false;
+            } else {
+                Piece p = s.getPiece();
+                if (canBeChosen(p)) {
+                    move[0] = s;
+                    return true;
+                }
+            }
+        } else if (move[0] != null){
+            if(!s.isOccupied() && move[0].getPiece().getPossibleMoves().indexOf(s) != -1){
+                completeMove();
+                return true;
+            } else {
+                Piece p = s.getPiece();
+                if (canBeChosen(p)) {
+                    move[0] = s;
+                    return true;
+                } else {
+                    if (move[0].getPiece().getPossibleMoves().indexOf(s) != -1){
+                        completeMove();
+                        return true;
+                    } else { return false; }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean canBeChosen(Piece p){
+        if(!p.out){
+            if(isBlackTurn){
+                if(p.side.equals(Side.BLACK)){
+                    return true;
+                }
+            } else {
+                if(p.side.equals(Side.WHITE)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void completeMove(){
+        Piece pieceMoved = move[0].getPiece();
+        //remove piece from its current spot
+        move[0].removePiece(pieceMoved);
+        //if it is taking out another piece call separate method
+
+    }
+
+    private void knockout(Piece p){
+
+    }
+
 
     @Override
     public void mousePressed(MouseEvent e) {

@@ -98,6 +98,7 @@ public class Piece extends GameObject {
     }
 
 
+
     @Override
     public void update() {
         if(!out) {
