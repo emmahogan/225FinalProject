@@ -4,20 +4,30 @@ import gameutils.GameObject;
 import gameutils.Texture;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class River extends GameObject {
-    //Write code to have each horizontal line of the river have a spawn rate for the logs.
-    //The logs all move at the same speed, for now.
 
     private ArrayList<Log> logs;
+    private double speed;
 
     public River () {
         super();
         texture = new Texture("assets/frogger/water_line.png");
+        logs = new ArrayList<>();
+        Random rand = new Random();
+        speed = rand.nextDouble() + 0.5;
+        int numLogs = rand.nextInt(7) + 3;
+
+        for (int i = 0; i < numLogs; i++) {
+            logs.add(new Log(speed));
+        }
     }
 
     @Override
     public void update() {
-        //Add code to satisfy update if necessary
+        for (Log log: logs) {
+            log.update();
+        }
     }
 }
