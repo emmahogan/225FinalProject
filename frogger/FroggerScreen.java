@@ -24,7 +24,7 @@ public class FroggerScreen extends Screen
     public FroggerScreen() {
         super();
         froggah = new Frog();
-        FroggerController controller = new FroggerController(froggah);
+        controller = new FroggerController(froggah);
         makeLevel();
         screenBottomIndex = froggah.getPosInLevel() - FROG_TO_BOTTOM_DIST;
         
