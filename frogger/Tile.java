@@ -16,8 +16,8 @@ public class Tile extends GameObject {
     public Tile() {
         super();
         texture = new Texture("assets/frogger/grass_line.png");
-        //Add code to construct grass stuff
-        //Shouldn't really need much in here since it is just the grass, nothing special.
+        //Add code to construct land
+        //Add code to have random chance for two adjacent land lines to have road.
     }
 
     @Override

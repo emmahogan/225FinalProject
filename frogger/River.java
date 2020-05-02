@@ -12,6 +12,7 @@ public class River extends GameObject {
     private ArrayList<Log> logs;
 
     public River () {
+        super();
         texture = new Texture("assets/frogger/water_line.png");
     }
 
