@@ -40,7 +40,7 @@ public class FroggerScreen extends Screen
 
         int riversAdded = 0;
         while (riversAdded < numRivers) {
-            int indexToAdd = rand.nextInt();
+            int indexToAdd = rand.nextInt(levelLayout.size());
             if (indexToAdd < levelLayout.size() - 4) {
                 levelLayout.set(indexToAdd, new River());
                 levelLayout.set(indexToAdd + 1, new River());
@@ -53,10 +53,12 @@ public class FroggerScreen extends Screen
     
      @Override
     public void render(Graphics g) {
+        int rowPos = 570;
          for (int i = screenBottomIndex; i < NUM_ROWS; i++) {
-          //   levelLayout.get(i).getTexture();
+             g.drawImage(levelLayout.get(i).getTexture(), 0, rowPos, null);
+             rowPos = rowPos - 30;
          }
-         //g.drawImage(froggah.getFroggahTexture(), froggah);
+         g.drawImage(froggah.getTexture(), froggah.getXVal(), froggah.Y_VAL, null);
     }
     
     @Override
