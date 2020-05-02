@@ -12,9 +12,7 @@ private Walls leftWall;
 private Walls rightWall;
 private Floor floor;
 private ArrayList<Gate> gates;
-//private BallController controller;
 
-private boolean touched;
 
 //FRAME STATS
     private int frameWidth = RunnerGame.FRAME_WIDTH;
@@ -27,7 +25,6 @@ public RunnerScreen (){
     this.rightWall = new Walls(new Point(RunnerGame.FRAME_WIDTH - Walls.WIDTH*2,0));
     this.gates = new ArrayList<Gate>();
     this.controller = new BallController(ball);
-    this.touched = false;
     repaint();
 }
 
@@ -75,6 +72,7 @@ public RunnerScreen (){
                 i++;
             }
         }
+        contact();
         repaint();
     }
 
@@ -90,9 +88,20 @@ public RunnerScreen (){
      */
 
     public void contact(){
+        if(ball.collidesWith(leftWall) || ball.collidesWith(rightWall) || gates.get(0).collidesWith(ball)){
+            gameOver();
+        }
 
 
+    }
 
+    public void gameOver(){
+        this.ball = new Ball(frameWidth, frameHeight);
+        this.leftWall = new Walls(new Point(0, 0));
+        this.rightWall = new Walls(new Point(RunnerGame.FRAME_WIDTH - Walls.WIDTH*2,0));
+        this.gates = new ArrayList<Gate>();
+        this.controller = new BallController(ball);
+        repaint();
     }
 
 }
