@@ -10,17 +10,19 @@ public class Piece extends GameObject {
     public Side side;
     public PieceType type;
     public boolean out = false;
-    private ArrayList<Point> possibleMoves = new ArrayList<Point>();
+    private ArrayList<BoardSquare> possibleMoves = new ArrayList<BoardSquare>();
     public int row;
     public int col;
+    private BoardSquare square;
 
-    public Piece(Side side, int row, int col, PieceType type){
+    public Piece(Side side, BoardSquare square, PieceType type){
         super();
         this.side = side;
         this.type = type;
         this.row = row;
         this.col = col;
-        this.position = ChessBoard.getPos(row, col);
+        this.square = square;
+        this.position = square.getPos();
         setTexture(side,type);
         texture.scale((double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth(),(double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth());
         //setPosition(position);
@@ -59,7 +61,21 @@ public class Piece extends GameObject {
         texture = new Texture(filepath);
     }
 
+    public ArrayList<BoardSquare> getPossibleMoves(){
+        //if pawn
+        if(type.equals(PieceType.PAWN)) {
+            //black pieces
+            if (side.equals(Side.BLACK)) {
 
+            }
+            //white piece
+            else {
+
+            }
+        }
+        //return arraylist of possible moves
+        return possibleMoves;
+    }
 
     @Override
     public void update() {

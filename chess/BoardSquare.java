@@ -21,7 +21,7 @@ public class BoardSquare {
         this.column = column;
         occupied = false;
         piece = null;
-        upperLeft = new Point(row*SIZE + ChessBoard.BORDER_WIDTH, column*SIZE + ChessBoard.BORDER_WIDTH);
+        upperLeft = new Point(column*SIZE + ChessBoard.BORDER_WIDTH, row*SIZE + ChessBoard.BORDER_WIDTH);
     }
 
     public void addPiece(Piece p){
@@ -42,6 +42,9 @@ public class BoardSquare {
         return piece;
     }
 
+    public Point getPos(){
+        return upperLeft;
+    }
 
 
 

@@ -138,41 +138,41 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         //make Pawns
         Piece p;
         for(int i = 0; i < 8; i++){
-            p = new Piece(s, i, frontRow, PieceType.PAWN);
+            p = new Piece(s, squares[frontRow][i], PieceType.PAWN);
             pieceArr.add(p);
             squares[frontRow][i].addPiece(p);
         }
         //Make rooks
-        Piece rook1 = new Piece(s,0, backRow, PieceType.ROOK);
+        Piece rook1 = new Piece(s, squares[backRow][0], PieceType.ROOK);
         pieceArr.add(rook1);
         squares[backRow][0].addPiece(rook1);
 
-        Piece rook2 = new Piece(s,7, backRow, PieceType.ROOK);
+        Piece rook2 = new Piece(s,squares[backRow][7], PieceType.ROOK);
         pieceArr.add(rook2);
         squares[backRow][7].addPiece(rook2);
 
         //Make bishops
-        Piece bishop1 = new Piece(s,1, backRow, PieceType.BISHOP);
+        Piece bishop1 = new Piece(s,squares[backRow][1], PieceType.BISHOP);
         pieceArr.add(bishop1);
         squares[backRow][1].addPiece(bishop1);
 
-        Piece bishop2 = new Piece(s,6, backRow, PieceType.BISHOP);
+        Piece bishop2 = new Piece(s,squares[backRow][6], PieceType.BISHOP);
         pieceArr.add(bishop2);
         squares[backRow][6].addPiece(bishop2);
         //Knights
-        Piece knight1 = new Piece(s,2, backRow, PieceType.KNIGHT);
+        Piece knight1 = new Piece(s,squares[backRow][2], PieceType.KNIGHT);
         pieceArr.add(knight1);
         squares[backRow][2].addPiece(knight1);
 
-        Piece knight2 = new Piece(s,5, backRow, PieceType.KNIGHT);
+        Piece knight2 = new Piece(s,squares[backRow][5], PieceType.KNIGHT);
         pieceArr.add(knight2);
         squares[backRow][5].addPiece(knight2);
         //Queen & King
-        Piece queen = new Piece(s,3, backRow, PieceType.QUEEN);
+        Piece queen = new Piece(s,squares[backRow][3], PieceType.QUEEN);
         pieceArr.add(queen);
         squares[backRow][3].addPiece(queen);
 
-        Piece king = new Piece(s,4, backRow, PieceType.KING);
+        Piece king = new Piece(s,squares[backRow][4], PieceType.KING);
         pieceArr.add(king);
         squares[backRow][4].addPiece(king);
     }
@@ -191,19 +191,10 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     public void update(){}
     public void dispose(){}
 
-    /**
-     * See if square is currently occupied
-     * @param row the square row
-     * @param col the square column
-     * @return true if occupied, false if not
-     */
-    public boolean isOccupied(int row, int col){
-        return occupied[row][col];
-    }
 
 
-    public static Point getPos(int row, int col){
-        return positions[row][col];
+    public BoardSquare getSquare(int row, int col){
+        return squares[row][col];
     }
 
     /**
