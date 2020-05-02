@@ -65,38 +65,92 @@ public class Piece extends GameObject {
     public ArrayList<BoardSquare> getPossibleMoves(){
         possibleMoves.clear();
         //if pawn
-        if(type.equals(PieceType.PAWN)) {
-            //whether piece is moving up or down
-            int direction = -1;
-            if(side.equals(Side.BLACK)){
-                direction = 1;
-            }
-            //if the square right in front is empty
-            if(!squaresArr[row + direction][col].isOccupied()){
-                possibleMoves.add(squaresArr[row+direction][col]);
-            }
-            //if diagonals are occupied by opposite team's piece
-            if(col != 0 && squaresArr[row+direction][col-1].isOccupied()){
-                if(!squaresArr[row+direction][col-1].getPiece().getSide().equals(side)){
-                    possibleMoves.add(squaresArr[row+direction][col-1]);
-                }
-            }
-            if(col != 7 && squaresArr[row+direction][col+1].isOccupied()){
-                if(!squaresArr[row+direction][col+1].getPiece().getSide().equals(this.side)){
-                    possibleMoves.add(squaresArr[row+direction][col+1]);
-                }
-            }
-            //if pawn is still in its initial position, add the spot two rows ahead
-            if(side.equals(Side.WHITE)){
-                if(row == 6){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
-            } else {
-                if(row == 1){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
-            }
-
+        switch (type){
+            case PAWN:
+                getMovesPawn();
+                break;
+            case ROOK:
+                break;
+            case KNIGHT:
+                getMovesKnight();
+                break;
+            case BISHOP:
+                break;
+            case KING:
+                break;
+            case QUEEN:
+                break;
         }
+
         //return arraylist of possible moves
         return possibleMoves;
     }
+
+    private boolean isOnBoard(int row, int col){
+        if(row < 0 || row > 7 || col < 0 || col > 7){
+            return false;
+        }
+        return true;
+    }
+
+
+    private void getMovesKnight(){
+        int row = square.getRow();
+        int col = square.getCol();
+        //array list to hold all l shapes on board
+        ArrayList<BoardSquare> couldMove = new ArrayList<BoardSquare>();
+        couldMove.clear();
+
+        //add l moves to couldMove
+        if(isOnBoard(row -2, col -1)){ couldMove.add(squaresArr[row-2][col-1]); }
+        if(isOnBoard(row -2, col +1)){ couldMove.add(squaresArr[row-2][col+1]); }
+
+        if(isOnBoard(row -1, col -2)){ couldMove.add(squaresArr[row-1][col-2]); }
+        if(isOnBoard(row +1, col -2)){ couldMove.add(squaresArr[row+1][col-2]); }
+
+        if(isOnBoard(row +2, col -1)){ couldMove.add(squaresArr[row+2][col-1]); }
+        if(isOnBoard(row +2, col +1)){ couldMove.add(squaresArr[row+2][col+1]); }
+
+        if(isOnBoard(row +1, col +2)){ couldMove.add(squaresArr[row+1][col+2]); }
+        if(isOnBoard(row -1, col +2)){ couldMove.add(squaresArr[row-1][col+2]); }
+
+        for(BoardSquare s: couldMove){
+            if(!s.isOccupied() || !s.getPiece().getSide().equals(side)){
+                possibleMoves.add(s);
+            }
+        }
+
+    }
+
+    private void getMovesPawn(){
+        //whether piece is moving up or down
+        int direction = -1;
+        if(side.equals(Side.BLACK)){
+            direction = 1;
+        }
+        //if the square right in front is empty
+        if(!squaresArr[row + direction][col].isOccupied()){
+            possibleMoves.add(squaresArr[row+direction][col]);
+        }
+        //if diagonals are occupied by opposite team's piece
+        if(col != 0 && squaresArr[row+direction][col-1].isOccupied()){
+            if(!squaresArr[row+direction][col-1].getPiece().getSide().equals(side)){
+                possibleMoves.add(squaresArr[row+direction][col-1]);
+            }
+        }
+        if(col != 7 && squaresArr[row+direction][col+1].isOccupied()){
+            if(!squaresArr[row+direction][col+1].getPiece().getSide().equals(this.side)){
+                possibleMoves.add(squaresArr[row+direction][col+1]);
+            }
+        }
+        //if pawn is still in its initial position, add the spot two rows ahead
+        if(side.equals(Side.WHITE)){
+            if(row == 6){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
+        } else {
+            if(row == 1){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
+        }
+    }
+
 
     public boolean isOut(){
         return out;
@@ -121,7 +175,6 @@ public class Piece extends GameObject {
         if(!out) {
             setPosition(position);
             setBounds();
-
         }
     }
 
