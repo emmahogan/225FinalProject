@@ -13,8 +13,8 @@ import javax.swing.JFrame;
  * @version Spring 2020
  */
 public abstract class Game implements Runnable {
-    public static final int FRAME_WIDTH = 600;
-    public static final int FRAME_HEIGHT = 600;
+    public static int FRAME_WIDTH;
+    public static int FRAME_HEIGHT;
     private JFrame frame;
     private Screen screen;
 
@@ -24,6 +24,21 @@ public abstract class Game implements Runnable {
      */
     public Game(String name) {
         this.frame = new JFrame(name);
+        FRAME_WIDTH = 600;
+        FRAME_HEIGHT = 600;
+    }
+
+    /**
+     * Constructor for a Game specifying the size
+     * of the game window
+     * @param name the name of the game
+     * @param width the width of the window
+     * @param height the height of the window
+     */
+    public Game(String name, int width, int height) {
+        this.frame = new JFrame(name);
+        FRAME_WIDTH = width;
+        FRAME_HEIGHT = height;
     }
 
     /**

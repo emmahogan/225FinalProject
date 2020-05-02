@@ -1,4 +1,4 @@
-package racing;
+package gameutils;
 
 import java.awt.Point;
 

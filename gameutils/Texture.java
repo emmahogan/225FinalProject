@@ -31,11 +31,11 @@ public class Texture {
     }
     
     public int getWidth() {
-        return img.getWidth(null);
+        return img.getWidth();
     }
     
     public int getHeight() {
-        return img.getHeight(null);
+        return img.getHeight();
     }
     
     /**
