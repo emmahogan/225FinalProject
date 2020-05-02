@@ -33,12 +33,17 @@ public class FroggerScreen extends Screen
     public void makeLevel() {
         levelLayout = new ArrayList<>();
         Random rand = new Random();
-        int lvlLength = rand.nextInt(40) + 10; //Generates a random number to use for the level length (Number of horizontal lines 32px in height)
-        int numRivers = lvlLength / 3;  // Makes 1/3 of the level river tiles.
+        int lvlLength = rand.nextInt(60) + 60; //Generates a random number to use for the level length (Number of horizontal lines 30px in height)
+        int numRivers = lvlLength / 3;  // Makes 1/3 of the level rivers.
 
         for (int i = 0; i < lvlLength; i++) {
             levelLayout.add(new Tile());
         }
+
+        //*************************
+        //Need to add something to spice up the end and start so that it isn't just grass
+
+        //*************************
 
         // Null pointer error because the whole level isn't made or at least isn't shown *************
         // **************************************************************************************
@@ -60,7 +65,7 @@ public class FroggerScreen extends Screen
     public void render(Graphics g) {
          screenBottomIndex = froggah.getPosInLevel() - FROG_TO_BOTTOM_DIST;
          int rowPos = 570;
-         for (int i = screenBottomIndex; i < NUM_ROWS; i++) {
+         for (int i = screenBottomIndex; i < NUM_ROWS + screenBottomIndex; i++) {
              g.drawImage(levelLayout.get(i).getTexture(), 0, rowPos, null);
              rowPos = rowPos - 30;
          }
@@ -75,7 +80,7 @@ public class FroggerScreen extends Screen
         }
         froggah.update();
     }
-    
+
     @Override
     public void dispose() {
 
