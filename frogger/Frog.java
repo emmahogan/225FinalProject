@@ -1,8 +1,11 @@
 package frogger;
 
 import gameutils.GameObject;
+import gameutils.Texture;
 
 public class Frog extends GameObject {
+
+    Texture froggahTexture;
 
     @Override
     public void update() {
@@ -11,7 +14,7 @@ public class Frog extends GameObject {
 
     public Frog () {
         super();
-        //initTextures
+        froggahTexture = new Texture("assets/frogger/froggah_up.png");
         //setPosition --- center of screen, on grass
 
 
