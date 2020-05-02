@@ -36,6 +36,7 @@ public class BallController extends Controller {
     @Override
     public void mousePressed(MouseEvent e){
         //CHANGE VELOCITY FUNCTION
+        //System.out.println("Hello World!!");
     }
 
 }

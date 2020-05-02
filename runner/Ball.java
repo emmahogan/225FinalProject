@@ -49,20 +49,20 @@ public class Ball extends GameObject {
     public void update() {
         speedWait += 16;
 
-        calcPixMove();
+        //calcPixMove();
         if (speedWait >= RunnerGame.waitTIme) {
             xSpeed = xSpeed + acceleration;
+            position.x += xSpeed;
             speedWait = 0;
         }
-
-        position.x += currentMove;
-
         setBounds();
     }
 
-    public void calcPixMove(){
-        currentMove = xSpeed/(RunnerGame.waitTIme/16);
+    public void calcPixMove() {
+        System.out.println("calcing");
+        currentMove = xSpeed / (RunnerGame.waitTIme / 16);
     }
+
 
     public void neuterSpeed() {
         this.xSpeed = 0;
