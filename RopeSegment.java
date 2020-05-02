@@ -19,12 +19,17 @@ public class RopeSegment extends Thread
     private Point previous;
     private Point next;
     private Object lock = new Object();
+    private double xVelocity;
+    private static final double GRAVITY = 10;
+    private double xPrevious;
 
     public RopeSegment(Point start, double dis, JComponent container)
     {
         this.pos = start;
         this.distance = dis;
         this.container = container;
+        this.xVelocity = 0;
+        xPrevious = start.getX();
     }
 
     public void paint(Graphics g)
@@ -43,6 +48,8 @@ public class RopeSegment extends Thread
             //}
             //catch (InterruptedException e) {
             //}
+            this.pos.setLocation(this.getX() + xVelocity, this.getY() + GRAVITY);
+            xPrevious = this.getX();
             if(previous != null)
             {
                 setDistance(previous);
@@ -58,6 +65,7 @@ public class RopeSegment extends Thread
                 setDistance(next);
                 container.repaint();
             }
+            xVelocity = xVelocity + (this.getX() - xPrevious);
         }
     }
 
