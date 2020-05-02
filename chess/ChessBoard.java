@@ -283,47 +283,55 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
 
 
 
-    public void validateMove(BoardSquare s){
+    public void validateMove(BoardSquare s) {
         //if square is occupied and piece can be chosen
-        if(move[0] == null) {
+        if (move[0] == null) {
             if (!s.isOccupied()) {
-                //return false;
             } else {
                 Piece p = s.getPiece();
                 if (canBeChosen(p)) {
+                    //set square to first index in move array
                     move[0] = s;
-                    //return true;
                 }
             }
-        } else if (move[0] != null){
-            if(!s.isOccupied() && move[0].getPiece().getPossibleMoves().indexOf(s) != -1){
-                move[1] = s;
-                completeMove();
-                //return true;
+        //a valid piece has been chosen
+        } else {
+            //if destination selected is not occupied
+            if (!s.isOccupied()) {
+                //if destination is in the possible moves arraylist of piece that was chosen
+                if (move[0].getPiece().getPossibleMoves().indexOf(s) != -1) {
+                    //set destination square and complete move
+                    move[1] = s;
+                    completeMove();
+                }
+            //if destination selected is occupied
             } else {
+                //if it was on the same team, replace choice for move[0] with chosen piece
                 Piece p = s.getPiece();
                 if (canBeChosen(p)) {
                     move[0] = s;
-                    //return true;
+                //if it was on the opposite team
                 } else {
-                    if (move[0].getPiece().getPossibleMoves().indexOf(s) != -1){
+                    //knock out piece and complete move
+                    System.out.println(move[0].toString());
+                    if (move[0].getPiece().getPossibleMoves().contains(s)) {
                         completeMove();
-                        //return true;
-                    } else {} //return false;
+                    }
                 }
             }
         }
-        //return false;
     }
+
+
 
     public boolean canBeChosen(Piece p){
         if(!p.isOut()){
             if(isBlackTurn){
-                if(p.side.equals(Side.BLACK)){
+                if(p.getSide().equals(Side.BLACK)){
                     return true;
                 }
             } else {
-                if(p.side.equals(Side.WHITE)){
+                if(p.getSide().equals(Side.WHITE)){
                     return true;
                 }
             }
@@ -345,6 +353,9 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         move[1].addPiece(pieceMoved);
         if(isBlackTurn){ isBlackTurn = false; }
         else { isBlackTurn = true; }
+
+        move[0] = null;
+        move[1] = null;
     }
 
     /**
@@ -360,7 +371,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
 
     @Override
     public void mousePressed(MouseEvent e) {
-            mouseClicked(e);
+            //mouseClicked(e);
     }
 
     @Override

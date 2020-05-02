@@ -77,7 +77,8 @@ public class BoardSquare {
 
 
 
-
+    public String toString(){
+        return "" + isOccupied();}
 
 
 

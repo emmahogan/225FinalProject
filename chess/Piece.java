@@ -101,6 +101,10 @@ public class Piece extends GameObject {
         return out;
     }
 
+    public Side getSide(){
+        return side;
+    }
+
     @Override
     public void update() {
         if(!out) {
