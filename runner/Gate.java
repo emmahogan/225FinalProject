@@ -72,11 +72,21 @@ public class Gate extends GameObject implements Runnable{
 
     ///////////////////////////////////CHANGE TO WORK WITH RECTANGLES =) ////////////////
 
+    public Rectangle getLeftRect(){
+        return new Rectangle(upperLeft1.x, upperLeft1.y, width1, GATE_HEIGHT);
+    }
+
+    public Rectangle getRightRect(){
+        return new Rectangle(upperLeft2.x, upperLeft2.y, width2, GATE_HEIGHT);
+    }
 
     @Override
     public boolean collidesWith(GameObject obj) {
         Rectangle rect1 = new Rectangle(upperLeft1.x, upperLeft1.y, width1, GATE_HEIGHT);
         Rectangle rect2 = new Rectangle(upperLeft2.x, upperLeft2.y, width2, GATE_HEIGHT);
-            return rect1.intersects(obj.getBounds()) || rect2.intersects(obj.getBounds());
+        return rect1.intersects(obj.getBounds()) || rect2.intersects(obj.getBounds());
     }
+
+
+
 }

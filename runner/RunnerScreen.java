@@ -2,8 +2,7 @@ package runner;
 
 import gameutils.Screen;
 
-import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class RunnerScreen extends Screen{
@@ -88,19 +87,29 @@ public RunnerScreen (){
      */
 
     public void contact(){
-        if(ball.collidesWith(leftWall) || ball.collidesWith(rightWall) || gates.get(0).collidesWith(ball)){
+        if(ball.collidesWith(leftWall) || ball.collidesWith(rightWall)){
             gameOver();
+        }
+        if(gates.size() > 0) {
+            Rectangle left = gates.get(0).getLeftRect();
+            Rectangle right = gates.get(0).getRightRect();
+            if (ball.collidesWithRect((int) left.getWidth(), (int) left.getHeight(), left.getLocation())) {
+                gameOver();
+            }
+            if (ball.collidesWithRect((int) right.getWidth(), (int) right.getHeight(), right.getLocation())) {
+                gameOver();
+            }
         }
 
 
     }
 
     public void gameOver(){
-        this.ball = new Ball(frameWidth, frameHeight);
-        this.leftWall = new Walls(new Point(0, 0));
-        this.rightWall = new Walls(new Point(RunnerGame.FRAME_WIDTH - Walls.WIDTH*2,0));
-        this.gates = new ArrayList<Gate>();
-        this.controller = new BallController(ball);
+        gates.clear();
+        ball.setAcceleration(0);
+        ball.neuterSpeed();
+
+        ball.setPosition((frameWidth - ball.getTexture().getWidth(null)) / 2, frameHeight - (ball.getTexture().getHeight(null)) - 50);
         repaint();
     }
 
