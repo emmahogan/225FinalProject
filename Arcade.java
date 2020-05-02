@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import examplegame.ExampleGame;
+import marstrip.MarsTrip;
 import racing.SpeedRacers;
 import chess.Chess;
 import runner.RunnerGame;
@@ -70,7 +71,7 @@ public class Arcade implements Runnable, ActionListener {
         }
         else if (e.getSource().equals(games.get(5))){
             System.out.println("Starting Mars Trip");
-            //javax.swing.SwingUtilities.invokeLater(new MarsTrip("Mars Trip"));
+            javax.swing.SwingUtilities.invokeLater(new MarsTrip("Mars Trip"));
         }
     }
     
