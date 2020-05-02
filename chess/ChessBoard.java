@@ -24,8 +24,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     public static final int SQUARE_SIZE = 50;
     public static final int BORDER_WIDTH = (FRAME_WIDTH - (8*SQUARE_SIZE))/2;
     //Colors for Board
-    private static final Color DARK_GOLD = new Color(218,165,32);
-    private static final Color LIGHT_GOLD = new Color(255,215,0);
+
     private static final Color BACKGROUND_COLOR = new Color(184,134,11);
 
     //Main panel and board panel
@@ -73,20 +72,36 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         repaint();
     }
     
-    public void drawBoard(Graphics g){
+    public void drawBoard(Graphics g) {
+        /**
+         setBackground(BACKGROUND_COLOR);
+         g.setColor(Color.BLACK);
+         g.drawRect(BORDER_WIDTH, BORDER_WIDTH, FRAME_WIDTH - 2*BORDER_WIDTH, FRAME_WIDTH - 2*BORDER_WIDTH);
+         for(int row = 0; row < 8; row++){
+         for(int col = 0; col < 8; col++){
+         g.setColor(Color.BLACK);
+         g.drawRect(BORDER_WIDTH + row*SQUARE_SIZE, BORDER_WIDTH + col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+         if((row+col)%2 == 1){
+         g.setColor(DARK_GOLD);
+         }else{
+         g.setColor(LIGHT_GOLD);
+         }
+         g.fillRect(BORDER_WIDTH + row*SQUARE_SIZE, BORDER_WIDTH + col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+         }
+         }
+         */
         setBackground(BACKGROUND_COLOR);
         g.setColor(Color.BLACK);
-        g.drawRect(BORDER_WIDTH, BORDER_WIDTH, FRAME_WIDTH - 2*BORDER_WIDTH, FRAME_WIDTH - 2*BORDER_WIDTH);
-        for(int row = 0; row < 8; row++){
-            for(int col = 0; col < 8; col++){
-                g.setColor(Color.BLACK);
-                g.drawRect(BORDER_WIDTH + row*SQUARE_SIZE, BORDER_WIDTH + col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
-                if((row+col)%2 == 1){
-                    g.setColor(DARK_GOLD);
-                }else{
-                    g.setColor(LIGHT_GOLD);
-                }
-                g.fillRect(BORDER_WIDTH + row*SQUARE_SIZE, BORDER_WIDTH + col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+        g.drawRect(BORDER_WIDTH, BORDER_WIDTH, FRAME_WIDTH - 2 * BORDER_WIDTH, FRAME_WIDTH - 2 * BORDER_WIDTH);
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                squares[row][col].drawSquare(g);
+            }
+        }
+
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                squares[row][col].drawPiece(g);
             }
         }
     }
@@ -189,14 +204,8 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
 
     public void render(Graphics g){
         drawBoard(g);
-        for(Piece p: blackPieces){
-            p.update();
-            g.drawImage(p.getTexture(), p.getPosition().x, p.getPosition().y, null);
-        }
-        for(Piece p: whitePieces){
-            p.update();
-            g.drawImage(p.getTexture(), p.getPosition().x, p.getPosition().y, null);
-        }
+
+
     }
     public void update(){
 

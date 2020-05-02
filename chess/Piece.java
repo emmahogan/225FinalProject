@@ -102,8 +102,9 @@ public class Piece extends GameObject {
     @Override
     public void update() {
         if(!out) {
-            setBounds();
             setPosition(position);
+            setBounds();
+
         }
     }
 

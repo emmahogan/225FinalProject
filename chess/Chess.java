@@ -25,5 +25,8 @@ public class Chess extends Game
         changeScreen(board);
     }
 
-    
+    @Override
+    public void run() {
+        super.run();
+    }
 }
