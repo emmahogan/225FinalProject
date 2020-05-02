@@ -24,8 +24,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     public static final int SQUARE_SIZE = 50;
     public static final int BORDER_WIDTH = (FRAME_WIDTH - (8*SQUARE_SIZE))/2;
     //Colors for Board
-    private static final Color DARK_GOLD = new Color(218,165,32);
-    private static final Color LIGHT_GOLD = new Color(255,215,0);
+
     private static final Color BACKGROUND_COLOR = new Color(184,134,11);
 
     //Main panel and board panel
@@ -71,22 +70,39 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         initGame();
         this.controller = new ChessController(whitePieces, blackPieces);
         repaint();
+        this.addMouseListener(this);
     }
     
-    public void drawBoard(Graphics g){
+    public void drawBoard(Graphics g) {
+        /**
+         setBackground(BACKGROUND_COLOR);
+         g.setColor(Color.BLACK);
+         g.drawRect(BORDER_WIDTH, BORDER_WIDTH, FRAME_WIDTH - 2*BORDER_WIDTH, FRAME_WIDTH - 2*BORDER_WIDTH);
+         for(int row = 0; row < 8; row++){
+         for(int col = 0; col < 8; col++){
+         g.setColor(Color.BLACK);
+         g.drawRect(BORDER_WIDTH + row*SQUARE_SIZE, BORDER_WIDTH + col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+         if((row+col)%2 == 1){
+         g.setColor(DARK_GOLD);
+         }else{
+         g.setColor(LIGHT_GOLD);
+         }
+         g.fillRect(BORDER_WIDTH + row*SQUARE_SIZE, BORDER_WIDTH + col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+         }
+         }
+         */
         setBackground(BACKGROUND_COLOR);
         g.setColor(Color.BLACK);
-        g.drawRect(BORDER_WIDTH, BORDER_WIDTH, FRAME_WIDTH - 2*BORDER_WIDTH, FRAME_WIDTH - 2*BORDER_WIDTH);
-        for(int row = 0; row < 8; row++){
-            for(int col = 0; col < 8; col++){
-                g.setColor(Color.BLACK);
-                g.drawRect(BORDER_WIDTH + row*SQUARE_SIZE, BORDER_WIDTH + col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
-                if((row+col)%2 == 1){
-                    g.setColor(DARK_GOLD);
-                }else{
-                    g.setColor(LIGHT_GOLD);
-                }
-                g.fillRect(BORDER_WIDTH + row*SQUARE_SIZE, BORDER_WIDTH + col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+        g.drawRect(BORDER_WIDTH, BORDER_WIDTH, FRAME_WIDTH - 2 * BORDER_WIDTH, FRAME_WIDTH - 2 * BORDER_WIDTH);
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                squares[row][col].drawSquare(g);
+            }
+        }
+
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                squares[row][col].drawPiece(g);
             }
         }
     }
@@ -102,6 +118,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         mainPanel.setVisible(false);
 
         //add mouse listeners to board panel, top panel, and bottom panel
+        mainPanel.addMouseListener(this);
         boardPanel.addMouseListener(this);
         topPanel.addMouseListener(this);
         bottomPanel.addMouseListener(this);
@@ -189,14 +206,8 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
 
     public void render(Graphics g){
         drawBoard(g);
-        for(Piece p: blackPieces){
-            p.update();
-            g.drawImage(p.getTexture(), p.getPosition().x, p.getPosition().y, null);
-        }
-        for(Piece p: whitePieces){
-            p.update();
-            g.drawImage(p.getTexture(), p.getPosition().x, p.getPosition().y, null);
-        }
+
+
     }
     public void update(){
 
@@ -230,6 +241,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         int xEnd = xStart + 8*SQUARE_SIZE;
         int yStart = positions[0][0].y;
         int yEnd = yStart + 8*SQUARE_SIZE;
+        System.out.println(p);
         return p.x > xStart && p.x < xEnd && p.y > yStart && p.y < yEnd;
     }
 
@@ -237,7 +249,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     public void mouseClicked(MouseEvent e) {
         //if click is on board
         Point p = e.getPoint();
-
+    System.out.println("Mouse clicked somewhere atleast");
         if(isOnBoard(p)){
             BoardSquare s = whichSquareClicked(p);
             validateMove(s);
@@ -247,6 +259,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     public BoardSquare whichSquareClicked(Point p){
         int col = (p.x - BORDER_WIDTH)/SQUARE_SIZE;
         int row = (p.y - BORDER_WIDTH)/SQUARE_SIZE;
+        System.out.println(row + ", " + col);
         return squares[row][col];
     }
 
@@ -270,46 +283,55 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
 
 
 
-    public void validateMove(BoardSquare s){
+    public void validateMove(BoardSquare s) {
         //if square is occupied and piece can be chosen
-        if(move[0] == null) {
+        if (move[0] == null) {
             if (!s.isOccupied()) {
-                //return false;
             } else {
                 Piece p = s.getPiece();
                 if (canBeChosen(p)) {
+                    //set square to first index in move array
                     move[0] = s;
-                    //return true;
                 }
             }
-        } else if (move[0] != null){
-            if(!s.isOccupied() && move[0].getPiece().getPossibleMoves().indexOf(s) != -1){
-                completeMove();
-                //return true;
+        //a valid piece has been chosen
+        } else {
+            //if destination selected is not occupied
+            if (!s.isOccupied()) {
+                //if destination is in the possible moves arraylist of piece that was chosen
+                if (move[0].getPiece().getPossibleMoves().indexOf(s) != -1) {
+                    //set destination square and complete move
+                    move[1] = s;
+                    completeMove();
+                }
+            //if destination selected is occupied
             } else {
+                //if it was on the same team, replace choice for move[0] with chosen piece
                 Piece p = s.getPiece();
                 if (canBeChosen(p)) {
                     move[0] = s;
-                    //return true;
+                //if it was on the opposite team
                 } else {
-                    if (move[0].getPiece().getPossibleMoves().indexOf(s) != -1){
+                    //knock out piece and complete move
+                    System.out.println(move[0].toString());
+                    if (move[0].getPiece().getPossibleMoves().contains(s)) {
                         completeMove();
-                        //return true;
-                    } else {} //return false;
+                    }
                 }
             }
         }
-        //return false;
     }
 
+
+
     public boolean canBeChosen(Piece p){
-        if(!p.out){
+        if(!p.isOut()){
             if(isBlackTurn){
-                if(p.side.equals(Side.BLACK)){
+                if(p.getSide().equals(Side.BLACK)){
                     return true;
                 }
             } else {
-                if(p.side.equals(Side.WHITE)){
+                if(p.getSide().equals(Side.WHITE)){
                     return true;
                 }
             }
@@ -329,6 +351,11 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         }
         //move piece to destination
         move[1].addPiece(pieceMoved);
+        if(isBlackTurn){ isBlackTurn = false; }
+        else { isBlackTurn = true; }
+
+        move[0] = null;
+        move[1] = null;
     }
 
     /**
@@ -344,7 +371,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+            //mouseClicked(e);
     }
 
     @Override
