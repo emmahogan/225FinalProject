@@ -7,16 +7,23 @@ public class Log extends GameObject {
 
     private double speed;
     private double x;
-    private double y;
 
     public Log(double inputSpeed) {
         texture = new Texture("assets/frogger/froggah_left.png");
         speed = inputSpeed;
     }
 
+    public double getX() {
+        return x;
+    }
+
     @Override
     public void update() {
-        // Add code to update log position
+        if (x > 0.0 - 30.0) {
+            x = x - speed;
+        } else {
+            x = 630.0;
+        }
     }
 
 }
