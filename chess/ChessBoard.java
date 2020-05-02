@@ -3,6 +3,9 @@ package chess;
 import gameutils.*;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.*;
 import javax.swing.*;
 
@@ -12,7 +15,7 @@ import javax.swing.*;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class ChessBoard extends Screen
+public class ChessBoard extends Screen implements MouseListener, MouseMotionListener
 {
     //Panel dimensions
     private static final int FRAME_WIDTH = 600;
@@ -88,6 +91,12 @@ public class ChessBoard extends Screen
         boardPanel.setPreferredSize(new Dimension(8*SQUARE_SIZE, 8*SQUARE_SIZE));
         mainPanel.add(boardPanel, BorderLayout.CENTER);
         mainPanel.setVisible(false);
+
+        //add mouse listeners to board panel, top panel, and bottom panel
+        boardPanel.addMouseListener(this);
+        topPanel.addMouseListener(this);
+        bottomPanel.addMouseListener(this);
+
         //for all squares:
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
@@ -205,4 +214,38 @@ public class ChessBoard extends Screen
         g.drawRect(positions[row][col].x, positions[row][col].y, SQUARE_SIZE, SQUARE_SIZE);
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+    }
 }
