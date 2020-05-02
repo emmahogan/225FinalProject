@@ -286,12 +286,12 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     public void validateMove(BoardSquare s) {
         //if square is occupied and piece can be chosen
         if (move[0] == null) {
-            if (!s.isOccupied()) {
-            } else {
+            if (s.isOccupied()){
                 Piece p = s.getPiece();
                 if (canBeChosen(p)) {
                     //set square to first index in move array
                     move[0] = s;
+                    System.out.print(p.getPossibleMoves());
                 }
             }
         //a valid piece has been chosen
@@ -315,6 +315,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
                     //knock out piece and complete move
                     System.out.println(move[0].toString());
                     if (move[0].getPiece().getPossibleMoves().contains(s)) {
+                        move[1] = s;
                         completeMove();
                     }
                 }
@@ -335,6 +336,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
                     return true;
                 }
             }
+            return false;
         }
         return false;
     }
@@ -342,17 +344,19 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     private void completeMove(){
         Piece pieceMoved = move[0].getPiece();
         //remove piece from its current spot
-        move[0].removePiece(pieceMoved);
+        move[0].removePiece();
+        System.out.println(move[1]);
         //if it is taking out another piece call separate method
         if(move[1].isOccupied()){
             Piece pieceOut = move[1].getPiece();
             knockout(pieceOut);
-            move[1].removePiece(pieceOut);
+            move[1].replacePiece(pieceMoved);
         }
         //move piece to destination
         move[1].addPiece(pieceMoved);
         if(isBlackTurn){ isBlackTurn = false; }
         else { isBlackTurn = true; }
+
 
         move[0] = null;
         move[1] = null;
@@ -363,7 +367,8 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
      * @param p the piece knocked out
      */
     private void knockout(Piece p){
-        if(p.side.equals(Side.WHITE)){
+        p.setOut(true);
+        if(p.getSide().equals(Side.WHITE)){
             whitePiecesOut.add(p);
         } else { blackPiecesOut.add(p); }
     }

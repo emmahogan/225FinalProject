@@ -52,15 +52,19 @@ public class BoardSquare {
     public void addPiece(Piece p){
         occupied = true;
         piece = p;
+        p.setSquare(this);
         p.setPosition(getPos());
         p.setBounds();
     }
 
-    public void removePiece(Piece p){
+    public void replacePiece(Piece pieceMoved){
+        piece = pieceMoved;
+        pieceMoved.setSquare(this);
+    }
+
+    public void removePiece(){
         occupied = false;
         piece = null;
-        p.setPosition(new Point(0,0));
-        p.setBounds();
     }
 
     public boolean isOccupied(){
@@ -75,10 +79,18 @@ public class BoardSquare {
         return upperLeft;
     }
 
+    public int getRow(){
+        return row;
+    }
+
+    public int getCol(){
+        return column;
+    }
+
 
 
     public String toString(){
-        return "" + isOccupied();}
+        return "" + row + " " + column + " Is occopied: " + isOccupied();}
 
 
 

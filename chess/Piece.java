@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Piece extends GameObject {
-    public Side side;
+    private Side side;
     public PieceType type;
     public boolean out = false;
     private ArrayList<BoardSquare> possibleMoves = new ArrayList<BoardSquare>();
@@ -63,6 +63,7 @@ public class Piece extends GameObject {
     }
 
     public ArrayList<BoardSquare> getPossibleMoves(){
+        possibleMoves.clear();
         //if pawn
         if(type.equals(PieceType.PAWN)) {
             //whether piece is moving up or down
@@ -76,12 +77,12 @@ public class Piece extends GameObject {
             }
             //if diagonals are occupied by opposite team's piece
             if(col != 0 && squaresArr[row+direction][col-1].isOccupied()){
-                if(!squaresArr[row+direction][col-1].getPiece().side.equals(this.side)){
+                if(!squaresArr[row+direction][col-1].getPiece().getSide().equals(side)){
                     possibleMoves.add(squaresArr[row+direction][col-1]);
                 }
             }
             if(col != 7 && squaresArr[row+direction][col+1].isOccupied()){
-                if(!squaresArr[row+direction][col+1].getPiece().side.equals(this.side)){
+                if(!squaresArr[row+direction][col+1].getPiece().getSide().equals(this.side)){
                     possibleMoves.add(squaresArr[row+direction][col+1]);
                 }
             }
@@ -101,8 +102,18 @@ public class Piece extends GameObject {
         return out;
     }
 
+    public void setOut(Boolean val){
+        out = val;
+    }
+
     public Side getSide(){
         return side;
+    }
+
+    public void setSquare(BoardSquare s){
+        this.square = s;
+        this.row = s.getRow();
+        this.col = s.getCol();
     }
 
     @Override
