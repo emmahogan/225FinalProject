@@ -23,8 +23,7 @@ public class ChessController extends Controller
     public ChessController(ArrayList<Piece> white, ArrayList<Piece> black)
     {
         super();
-        this.white = white;
-        this.black = black;
+
 
     }
 
