@@ -21,6 +21,10 @@ public class ChessController extends Controller
     //true for black, false for white
     public boolean isBlackTurn = true;
 
+    //are sides in check
+    public boolean blackInCheck = false;
+    public boolean whiteInCheck = false;
+
     /**
      * Constructor for objects of class ChessController
      */
@@ -46,6 +50,38 @@ public class ChessController extends Controller
         }
     }
 
+    public boolean isInCheck(Side side){
+        if(side.equals(Side.BLACK)){
+            return blackInCheck;
+        } else {
+            return whiteInCheck;
+        }
+    }
+
+    public Side getTurn(){
+        if(isBlackTurn){
+            return Side.BLACK;
+        } else{
+            return Side.WHITE;
+        }
+    }
+
+
+    public boolean canBeChosen(Piece p){
+        if(!p.out){
+            if(isBlackTurn){
+                if(p.side.equals(Side.BLACK)){
+                    return true;
+                }
+            } else {
+                if(p.side.equals(Side.WHITE)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public void mousePressed(MouseEvent e) {
 
@@ -55,4 +91,6 @@ public class ChessController extends Controller
     public void handleKeyInput(){
 
     }
+
+
 }
