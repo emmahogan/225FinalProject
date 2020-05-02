@@ -87,9 +87,9 @@ public class Piece extends GameObject {
             }
             //if pawn is still in its initial position, add the spot two rows ahead
             if(side.equals(Side.WHITE)){
-                if(row == 1){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
-            } else {
                 if(row == 6){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
+            } else {
+                if(row == 1){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
             }
 
         }
@@ -97,7 +97,9 @@ public class Piece extends GameObject {
         return possibleMoves;
     }
 
-
+    public boolean isOut(){
+        return out;
+    }
 
     @Override
     public void update() {
