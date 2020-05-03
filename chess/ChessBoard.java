@@ -60,7 +60,9 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     //they choose to move it to
     private BoardSquare[] move = new BoardSquare[2];
 
-    
+    //possible moves to highlight
+    ArrayList<BoardSquare> highlight = new ArrayList<BoardSquare>();
+
     /**
      * Constructor for objects of class ChessBoard
      */
@@ -74,23 +76,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     }
     
     public void drawBoard(Graphics g) {
-        /**
-         setBackground(BACKGROUND_COLOR);
-         g.setColor(Color.BLACK);
-         g.drawRect(BORDER_WIDTH, BORDER_WIDTH, FRAME_WIDTH - 2*BORDER_WIDTH, FRAME_WIDTH - 2*BORDER_WIDTH);
-         for(int row = 0; row < 8; row++){
-         for(int col = 0; col < 8; col++){
-         g.setColor(Color.BLACK);
-         g.drawRect(BORDER_WIDTH + row*SQUARE_SIZE, BORDER_WIDTH + col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
-         if((row+col)%2 == 1){
-         g.setColor(DARK_GOLD);
-         }else{
-         g.setColor(LIGHT_GOLD);
-         }
-         g.fillRect(BORDER_WIDTH + row*SQUARE_SIZE, BORDER_WIDTH + col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
-         }
-         }
-         */
+
         setBackground(BACKGROUND_COLOR);
         g.setColor(Color.BLACK);
         g.drawRect(BORDER_WIDTH, BORDER_WIDTH, FRAME_WIDTH - 2 * BORDER_WIDTH, FRAME_WIDTH - 2 * BORDER_WIDTH);
@@ -106,6 +92,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
             }
         }
     }
+
     private void initGame(){
         //add panels
         this.add(mainPanel);
@@ -205,13 +192,40 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     }
 
     public void render(Graphics g){
+        for(int i = 0; i <8; i++){
+            for(int j = 0; j < 8; j++){
+                //Initialize all the squares
+                squares[i][j].update();
+            }
+        }
         drawBoard(g);
 
+        if(move[0] != null && move[1] == null){
+            move[0].getPiece().update();
+            highlight.clear();
+            highlight = move[0].getPiece().getPossibleMoves();
+            for(BoardSquare s: highlight){
+                highlightPossMoves(s, g);
+            }
+        }
 
     }
+
     public void update(){
-
+        for(int i = 0; i <8; i++){
+            for(int j = 0; j < 8; j++){
+                //Initialize all the squares
+                squares[i][j].update();
+            }
+        }
+        for(Piece p: blackPieces){
+            p.update();
+        }
+        for(Piece p: whitePieces){
+            p.update();
+        }
     }
+
     public void dispose(){}
 
 
@@ -222,13 +236,12 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
 
     /**
      * Method to highlight a square on the board that is a possible move with a blue border
-     * @param row the row of the square
-     * @param col the column of the square
+     * @param s Square to highlight
      * @param g the Graphics object
      */
-    public void highlightPossMoves(int row, int col, Graphics g){
-        g.setColor(new Color(0,0,255,50));
-        g.drawRect(positions[row][col].x, positions[row][col].y, SQUARE_SIZE, SQUARE_SIZE);
+    public void highlightPossMoves(BoardSquare s, Graphics g){
+        g.setColor(new Color(150,255,255, 100));
+        g.fillRect(positions[s.getRow()][s.getCol()].x + 1, positions[s.getRow()][s.getCol()].y + 1, SQUARE_SIZE-2, SQUARE_SIZE-2);
     }
 
     /**
@@ -286,12 +299,12 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     public void validateMove(BoardSquare s) {
         //if square is occupied and piece can be chosen
         if (move[0] == null) {
-            if (!s.isOccupied()) {
-            } else {
+            if (s.isOccupied()){
                 Piece p = s.getPiece();
                 if (canBeChosen(p)) {
                     //set square to first index in move array
                     move[0] = s;
+                    System.out.print(p.getPossibleMoves());
                 }
             }
         //a valid piece has been chosen
@@ -315,6 +328,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
                     //knock out piece and complete move
                     System.out.println(move[0].toString());
                     if (move[0].getPiece().getPossibleMoves().contains(s)) {
+                        move[1] = s;
                         completeMove();
                     }
                 }
@@ -335,27 +349,35 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
                     return true;
                 }
             }
+            return false;
         }
         return false;
     }
 
     private void completeMove(){
+        System.out.println(squares[0][5]);
         Piece pieceMoved = move[0].getPiece();
         //remove piece from its current spot
-        move[0].removePiece(pieceMoved);
+        move[0].removePiece();
+
         //if it is taking out another piece call separate method
         if(move[1].isOccupied()){
             Piece pieceOut = move[1].getPiece();
             knockout(pieceOut);
-            move[1].removePiece(pieceOut);
+            move[1].replacePiece(pieceMoved);
         }
         //move piece to destination
-        move[1].addPiece(pieceMoved);
+        else {
+            move[1].addPiece(pieceMoved);
+        }
         if(isBlackTurn){ isBlackTurn = false; }
         else { isBlackTurn = true; }
 
+        //pieceMoved.setSquare(move[1]);
         move[0] = null;
         move[1] = null;
+        System.out.println(squares[0][5]);
+        System.out.println(squares[2][4]);
     }
 
     /**
@@ -363,7 +385,8 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
      * @param p the piece knocked out
      */
     private void knockout(Piece p){
-        if(p.side.equals(Side.WHITE)){
+        p.setOut(true);
+        if(p.getSide().equals(Side.WHITE)){
             whitePiecesOut.add(p);
         } else { blackPiecesOut.add(p); }
     }

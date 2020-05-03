@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import examplegame.ExampleGame;
+import marstrip.MarsTrip;
 import racing.SpeedRacers;
 import chess.Chess;
 import runner.RunnerGame;
@@ -35,7 +36,8 @@ public class Arcade implements Runnable, ActionListener {
         games.add(new JButton("Chess"));
         games.add(new JButton("Rise"));
         games.add(new JButton("Frogger"));
-
+        games.add(new JButton("Mars Trip"));
+        
         for (JButton jb : games) {
             jb.addActionListener(this);
             panel.add(jb);
@@ -62,9 +64,14 @@ public class Arcade implements Runnable, ActionListener {
         else if (e.getSource().equals(games.get(3))){
             System.out.println("Starting Rise (not chess)");
             javax.swing.SwingUtilities.invokeLater(new RunnerGame("Rise"));
-        } else if (e.getSource().equals(games.get(4))){
+        }
+        else if (e.getSource().equals(games.get(4))){
             System.out.println("Starting Frogger");
             javax.swing.SwingUtilities.invokeLater(new FroggerGame("Frogger"));
+        }
+        else if (e.getSource().equals(games.get(5))){
+            System.out.println("Starting Mars Trip");
+            javax.swing.SwingUtilities.invokeLater(new MarsTrip("Mars Trip"));
         }
     }
     

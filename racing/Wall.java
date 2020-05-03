@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import gameutils.GameObject;
+import racing.SpeedRacers;
+import racing.Car;
 
 public class Wall extends GameObject {
     public static final int SIZE = 50;
