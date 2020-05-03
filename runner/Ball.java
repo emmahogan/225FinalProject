@@ -41,6 +41,7 @@ public class Ball extends GameObject {
     private Texture ball13;
 
     private int animationClock;
+    private int pic;
 
     private ArrayList<Texture> textures = new ArrayList<Texture>();
 
@@ -49,6 +50,7 @@ public class Ball extends GameObject {
         this.texture = new Texture("assets/runner/ball1.png");
         texture.scale(0.25, 0.25);
         animationClock = 0;
+        pic = 0;
 
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
@@ -180,8 +182,9 @@ public class Ball extends GameObject {
     }
 
     public void changeTexture(){
+        /**
         animationClock += 16;
-        if(animationClock >= 64) {
+        if(animationClock >= 32) {
             Random rand = new Random();
             int x = rand.nextInt(13);
             texture = textures.get(x);
@@ -189,6 +192,20 @@ public class Ball extends GameObject {
             calculatePoints();
             animationClock = 0;
         }
+         */
+        animationClock += 16;
+        if(animationClock >= 48) {
+            if(pic >= textures.size()){
+                pic = 0;
+            }
+            texture = textures.get(pic);
+            setBounds();
+            calculatePoints();
+            pic++;
+            animationClock = 0;
+        }
+
+
     }
 
 }
