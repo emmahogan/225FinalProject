@@ -18,7 +18,7 @@ public class RopeSegment extends Thread
     private static final int SIZE = 20;
     private Point previous;
     private Point next;
-    private Object lock = new Object();
+    //private Object lock = new Object();
     private double xVelocity;
     private double xPrevious;
     private static final double GRAVITY = 10;
@@ -69,6 +69,10 @@ public class RopeSegment extends Thread
             //}
             xVelocity = xVelocity + (this.getX() - xPrevious);
             yVelocity = yVelocity + (this.getY() - yPrevious + GRAVITY);
+            if(yPrevious == this.getY())
+            {
+                yVelocity = GRAVITY;
+            }
             container.repaint();
         }
     }

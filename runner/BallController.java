@@ -5,11 +5,12 @@ import gameutils.Controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.security.Key;
 
 public class BallController extends Controller {
     private Ball ball;
     public static final int SPACE = KeyEvent.VK_SPACE;
-
+    private int x = 1;
     public BallController(Ball ball){
         super();
         this.ball = ball;
@@ -18,20 +19,16 @@ public class BallController extends Controller {
 
     @Override
     public void handleKeyInput() {
-        //super.handleKeyInput();
-        if (isKeyPressed(SPACE)) {
-            ball.neuterSpeed();
-            if(ball.getAcceleration() == 0) {
-                ball.setAcceleration(-1);
-
-            }
-            else{
-                ball.setAcceleration(ball.getAcceleration() * -1);
-
-            }
-            }
         }
 
+    @Override
+    public void keyTyped(KeyEvent e){
+        System.out.println("KeyINPuttededdddd");
+        if(isKeyPressed(SPACE)){
+            System.out.println("Changing Acceleration");
+            ball.setAcceleration(ball.getAcceleration() * -1);
+        }
+    }
 
     @Override
     public void mousePressed(MouseEvent e){

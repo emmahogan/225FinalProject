@@ -15,18 +15,16 @@ public class Piece extends GameObject {
     public int col;
     private BoardSquare[][] squaresArr = ChessBoard.squares;
 
-    public Piece(Side side, BoardSquare square, PieceType type){
+    public Piece(Side side,int row, int col, PieceType type){
         super();
         this.side = side;
         this.type = type;
-        this.row = square.getRow();
-        this.col = square.getCol();
-        this.position = square.getPos();
+        this.row = row;
+        this.col = col;
+        this.position = new Point(ChessBoard.BORDER_WIDTH + col*ChessBoard.SQUARE_SIZE, ChessBoard.BORDER_WIDTH + row*ChessBoard.SQUARE_SIZE);
         setTexture(side,type);
         texture.scale((double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth(),(double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth());
-        //setPosition(position);
         setBounds();
-        setPosition(position);
     }
 
     public void setTexture(Side side, PieceType type){
@@ -68,6 +66,7 @@ public class Piece extends GameObject {
                 getMovesPawn();
                 break;
             case ROOK:
+                getMovesRook();
                 break;
             case KNIGHT:
                 getMovesKnight();
@@ -76,8 +75,11 @@ public class Piece extends GameObject {
                 getMovesBishop();
                 break;
             case KING:
+                getMovesKing();
                 break;
             case QUEEN:
+                getMovesRook();
+                getMovesBishop();
                 break;
         }
 
@@ -91,6 +93,48 @@ public class Piece extends GameObject {
         }
         return true;
     }
+
+
+
+
+
+    public void getMovesKing(){
+        movesKingHelper( 1,  0, row, col);
+        movesKingHelper(0, 1, row, col);
+        movesKingHelper(1, 1, row, col);
+        movesKingHelper(0, -1, row, col);
+        movesKingHelper(-1, 0, row, col);
+        movesKingHelper(-1, -1, row, col);
+        movesKingHelper(-1, 1, row, col);
+        movesKingHelper(1, -1, row, col);
+
+
+
+    }
+
+    private void movesKingHelper(int rowAdd, int colAdd, int row, int col){
+        if(isOnBoard(row + rowAdd, col+colAdd)){
+            if(!squaresArr[row+rowAdd][col+colAdd].isOccupied()) {
+                possibleMoves.add(squaresArr[row + rowAdd][col + colAdd]);
+            } else{
+                if(!squaresArr[row + rowAdd][col + colAdd].getPiece().getSide().equals(side)) {
+                    possibleMoves.add(squaresArr[row + rowAdd][col + colAdd]);
+                }
+            }
+        }
+    }
+
+    private void getMovesRook(){
+        //in each diagonal direction, while square is not occupied or off board, add to possible moves
+        helperBishop(1, 0, row, col);
+        helperBishop(0, -1, row, col);
+        helperBishop(0, 1, row, col);
+        helperBishop(-1, 0, row, col);
+    }
+
+
+
+
 
     private void getMovesBishop(){
         //in each diagonal direction, while square is not occupied or off board, add to possible moves
@@ -169,9 +213,9 @@ public class Piece extends GameObject {
         }
         //if pawn is still in its initial position, add the spot two rows ahead
         if(side.equals(Side.WHITE)){
-            if(row == 6){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
+            if(row == 6 && !squaresArr[row+ 2*direction][col].isOccupied()){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
         } else {
-            if(row == 1){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
+            if(row == 1 && !squaresArr[row+ 2*direction][col].isOccupied()){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
         }
     }
 
@@ -191,6 +235,10 @@ public class Piece extends GameObject {
     public void setRowCol(int row, int col){
         this.row = row;
         this.col = col;
+    }
+
+    public PieceType getType(){
+        return type;
     }
 
     @Override
