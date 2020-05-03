@@ -42,7 +42,7 @@ public class BoardSquare {
         if(occupied) {
             this.piece.setPosition(upperLeft);
             this.piece.update();
-            g.drawImage(this.piece.getTexture(), getPos().x, getPos().y, null);
+            g.drawImage(this.piece.getTexture(), upperLeft.x, upperLeft.y, null);
 
         }
     }

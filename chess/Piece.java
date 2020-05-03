@@ -20,9 +20,9 @@ public class Piece extends GameObject {
         super();
         this.side = side;
         this.type = type;
+        this.square = square;
         this.row = square.row;
         this.col = square.column;
-        this.square = square;
         this.position = square.getPos();
         setTexture(side,type);
         texture.scale((double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth(),(double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth());
@@ -64,7 +64,7 @@ public class Piece extends GameObject {
 
     public ArrayList<BoardSquare> getPossibleMoves(){
         possibleMoves.clear();
-        //if pawn
+
         switch (type){
             case PAWN:
                 getMovesPawn();
@@ -168,13 +168,14 @@ public class Piece extends GameObject {
         this.square = s;
         this.row = s.getRow();
         this.col = s.getCol();
+        setPosition(s.getPos());
+        setBounds();
     }
 
     @Override
     public void update() {
         if(!out) {
-            setPosition(position);
-            setBounds();
+            setSquare(square);
         }
     }
 

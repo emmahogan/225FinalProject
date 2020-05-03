@@ -60,7 +60,9 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     //they choose to move it to
     private BoardSquare[] move = new BoardSquare[2];
 
-    
+    //possible moves to highlight
+    ArrayList<BoardSquare> highlight = new ArrayList<BoardSquare>();
+
     /**
      * Constructor for objects of class ChessBoard
      */
@@ -81,6 +83,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 squares[row][col].drawSquare(g);
+                System.out.println(squares[row][col]);
             }
         }
 
@@ -189,26 +192,41 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     }
 
     public void render(Graphics g){
+        System.out.println("Updatin");
         for(int i = 0; i <8; i++){
             for(int j = 0; j < 8; j++){
                 //Initialize all the squares
                 squares[i][j].update();
             }
         }
-
         drawBoard(g);
 
         if(move[0] != null && move[1] == null){
-            ArrayList<BoardSquare> highlight = move[0].getPiece().getPossibleMoves();
+            move[0].getPiece().update();
+            highlight.clear();
+            highlight = move[0].getPiece().getPossibleMoves();
             for(BoardSquare s: highlight){
                 highlightPossMoves(s, g);
             }
         }
 
     }
-    public void update(){
 
+    public void update(){
+        for(int i = 0; i <8; i++){
+            for(int j = 0; j < 8; j++){
+                //Initialize all the squares
+                squares[i][j].update();
+            }
+        }
+        for(Piece p: blackPieces){
+            p.update();
+        }
+        for(Piece p: whitePieces){
+            p.update();
+        }
     }
+
     public void dispose(){}
 
 
