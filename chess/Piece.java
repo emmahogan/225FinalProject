@@ -237,6 +237,10 @@ public class Piece extends GameObject {
         this.col = col;
     }
 
+    public PieceType getType(){
+        return type;
+    }
+
     @Override
     public void update() {
         if(!out) {

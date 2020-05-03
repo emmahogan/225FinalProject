@@ -3,9 +3,7 @@ package chess;
 import gameutils.*;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
@@ -15,7 +13,7 @@ import javax.swing.*;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class ChessBoard extends Screen implements MouseListener, MouseMotionListener
+public class ChessBoard extends Screen implements ActionListener, MouseListener, MouseMotionListener
 {
     //Panel dimensions
     private static final int FRAME_WIDTH = 600;
@@ -63,6 +61,9 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     //possible moves to highlight
     ArrayList<BoardSquare> highlight = new ArrayList<BoardSquare>();
 
+    //restart button
+    JButton restartButton = new JButton("Restart");
+
     /**
      * Constructor for objects of class ChessBoard
      */
@@ -91,6 +92,9 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
                 squares[row][col].drawPiece(g);
             }
         }
+
+        topPanel.add(restartButton);
+        restartButton.setVisible(true);
     }
 
     private void initGame(){
@@ -103,6 +107,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         boardPanel.setPreferredSize(new Dimension(8*SQUARE_SIZE, 8*SQUARE_SIZE));
         mainPanel.add(boardPanel, BorderLayout.CENTER);
         mainPanel.setVisible(false);
+        topPanel.setVisible(true);
 
         //add mouse listeners to board panel, top panel, and bottom panel
         mainPanel.addMouseListener(this);
@@ -122,6 +127,10 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         //Call separate method to create piece objects and put at starting positions
         initPieces(Side.BLACK);
         initPieces(Side.WHITE);
+
+
+        //Restart button
+        topPanel.add(restartButton);
     }
 
     /**
@@ -168,19 +177,19 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         //Make bishops
         Piece bishop1 = new Piece(s, backRow, 1, PieceType.BISHOP);
         pieceArr.add(bishop1);
-        squares[backRow][1].addPiece(bishop1);
+        squares[backRow][2].addPiece(bishop1);
 
         Piece bishop2 = new Piece(s,backRow, 6, PieceType.BISHOP);
         pieceArr.add(bishop2);
-        squares[backRow][6].addPiece(bishop2);
+        squares[backRow][5].addPiece(bishop2);
         //Knights
         Piece knight1 = new Piece(s,backRow,2, PieceType.KNIGHT);
         pieceArr.add(knight1);
-        squares[backRow][2].addPiece(knight1);
+        squares[backRow][1].addPiece(knight1);
 
         Piece knight2 = new Piece(s,backRow,5, PieceType.KNIGHT);
         pieceArr.add(knight2);
-        squares[backRow][5].addPiece(knight2);
+        squares[backRow][6].addPiece(knight2);
         //Queen & King
         Piece queen = new Piece(s, backRow,3, PieceType.QUEEN);
         pieceArr.add(queen);
@@ -223,6 +232,17 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         }
         for(Piece p: whitePieces){
             p.update();
+        }
+
+        for(Piece p: blackPiecesOut){
+            if(p.getType().equals(PieceType.KING)){
+                initGame();
+            }
+        }
+        for(Piece p: whitePiecesOut){
+            if(p.getType().equals(PieceType.KING)){
+                initGame();
+            }
         }
     }
 
@@ -420,5 +440,12 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     @Override
     public void mouseMoved(MouseEvent e) {
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource().equals(restartButton)){
+            initGame();
+        }
     }
 }
