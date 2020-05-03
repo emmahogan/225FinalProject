@@ -21,7 +21,7 @@ public class Tile extends Environment {
 
     @Override
     public void update() {
-        //May not need code in here.
+
     }
 
     public ArrayList<Hazard> getHazards() {

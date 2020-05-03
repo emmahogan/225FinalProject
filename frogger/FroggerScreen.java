@@ -41,12 +41,6 @@ public class FroggerScreen extends Screen
             levelLayout.add(new Tile());
         }
 
-        // png seams don't seem to be right, sometimes they are aligned, sometimes they are not.
-        // error when you reach the end of the level, null obviously
-        // make some sort of rock wall for edges, start, and maybe a little frog nesting hole for the end
-        // start and end never have water, but end needs to work better
-        // probably needs to allow frogger to move upwards to the final tiles
-        // could also happen at start, level only moves when it isn't at the end. (remove frog distance final)
         int riversAdded = 0;
         while (riversAdded < numRivers) {
             int indexToAdd = rand.nextInt(levelLayout.size() - 12) + 12;
@@ -60,12 +54,15 @@ public class FroggerScreen extends Screen
         }
     }
 
-    // ******* Needs functionality and message for when you catch a dub
     public boolean checkWin() {
-//        if (froggah.getPosInLevel() == levelLayout.size()) {
-//            return true;
-//        }
+        if (froggah.getPosInLevel() == levelLayout.size() - 15) {
+            return true;
+        }
         return false;
+    }
+
+    public void gameOver() {
+        System.out.println("Game Over");
     }
     
     @Override
@@ -95,7 +92,7 @@ public class FroggerScreen extends Screen
         }
         froggah.update();
         if (levelLayout.get(froggah.getPosInLevel()) instanceof River) {
-            for(Hazard log: ((River) levelLayout.get(froggah.getPosInLevel())).getHazards()) {
+            for(Hazard log: (levelLayout.get(froggah.getPosInLevel())).getHazards()) {
                 if (!froggah.isOnLog() && log.checkCollision(froggah)) {
                     froggah.setOnLog(true, log.getSpeed());
                 }
@@ -106,10 +103,6 @@ public class FroggerScreen extends Screen
                 //game over
             }
         }
-    }
-
-    public void gameOver() {
-        System.out.println("Game Over");
     }
 
     @Override

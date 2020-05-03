@@ -16,12 +16,12 @@ public class Log extends Hazard {
         setBounds();
     }
 
-    public void setBounds() {
-        bounds = new Rectangle(this.position.x, this.position.y, texture.getWidth(), texture.getHeight());
-    }
-
     public Rectangle getBounds() {
         return bounds;
+    }
+
+    public void setBounds() {
+        bounds = new Rectangle(this.position.x, this.position.y, texture.getWidth(), texture.getHeight());
     }
 
     public double getX() {
@@ -44,12 +44,10 @@ public class Log extends Hazard {
     }
 
     public boolean checkCollision(Frog froggah) {
-
         if (!this.collidesWith(froggah)) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
 }

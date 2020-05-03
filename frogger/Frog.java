@@ -11,8 +11,10 @@ public class Frog extends GameObject {
     private Texture downFroggahTexture;
     private Texture leftFroggahTexture;
     private Texture rightFroggahTexture;
+
     private int posOnLine;
     private int posInLevel;
+
     private boolean alive;
     private boolean onLog;
     private boolean onLand;
@@ -21,18 +23,6 @@ public class Frog extends GameObject {
 
     public final int JUMP_LENGTH = 30;
     public final int Y_VAL = 420;
-
-    @Override
-    public void update() {
-        posOnLine = posOnLine + (int) logSpeed;
-
-        if (!onLog && !onLand) {
-            alive = false;
-            //change texture to "drowned frog"and game over
-        }
-        //add getting mashed by a car
-        setBounds();
-    }
 
     public Frog () {
         super();
@@ -47,7 +37,18 @@ public class Frog extends GameObject {
         onLog = false;
         alive = true;
         setBounds();
+    }
 
+    @Override
+    public void update() {
+        posOnLine = posOnLine + (int) logSpeed;
+
+        if (!onLog && !onLand) {
+            alive = false;
+            //change texture to "drowned frog"and game over
+        }
+        //add getting mashed by a car
+        setBounds();
     }
 
     public int getPosOnLine() {
@@ -66,10 +67,6 @@ public class Frog extends GameObject {
         return alive;
     }
 
-    public boolean isOnLand() {
-        return onLand;
-    }
-
     public boolean isOnLog() {
         return onLog;
     }
@@ -79,16 +76,20 @@ public class Frog extends GameObject {
         logSpeed = speedOfLog;
     }
 
+    public boolean isOnLand() {
+        return onLand;
+    }
+
     public void setOnLand(boolean landStatus) {
         onLand = landStatus;
     }
 
-    public void setBounds() {
-        bounds = new Rectangle(this.position.x, this.position.y, texture.getWidth(), texture.getHeight());
-    }
-
     public Rectangle getBounds() {
         return bounds;
+    }
+
+    public void setBounds() {
+        bounds = new Rectangle(this.position.x, this.position.y, texture.getWidth(), texture.getHeight());
     }
 
     public void jumpForward() {
@@ -103,7 +104,6 @@ public class Frog extends GameObject {
         }
         texture = downFroggahTexture;
         update();
-
     }
 
     public void jumpLeft() {
@@ -112,7 +112,6 @@ public class Frog extends GameObject {
         }
         texture = leftFroggahTexture;
         update();
-
     }
 
     public void jumpRight() {
@@ -121,6 +120,5 @@ public class Frog extends GameObject {
         }
         texture = rightFroggahTexture;
         update();
-
     }
 }
