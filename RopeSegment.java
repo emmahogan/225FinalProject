@@ -14,14 +14,14 @@ public class RopeSegment extends Thread
     protected Point pos;
     private double distance;
     private JComponent container;
-    private static final int DELAY_TIME = 33;
+    private static final int DELAY_TIME = 30;
     private static final int SIZE = 20;
     private Point previous;
     private Point next;
     //private Object lock = new Object();
     private double xVelocity;
     private double xPrevious;
-    private static final double GRAVITY = 10;
+    private static final double GRAVITY = 5;
     private double yVelocity;
     private double yPrevious;
 
