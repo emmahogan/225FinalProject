@@ -61,12 +61,12 @@ public class RopeSegment extends Thread
             }
             
             //FABRIK (May not be needed?)
-            
             //if(next != null)
             //{
             //    setDistance(next);
             //    container.repaint();
             //}
+            
             xVelocity = xVelocity + (this.getX() - xPrevious);
             yVelocity = yVelocity + (this.getY() - yPrevious + GRAVITY);
             if(yPrevious == this.getY())

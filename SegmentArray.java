@@ -15,7 +15,7 @@ public class SegmentArray extends Thread
     protected RopeSegment[] segments = new RopeSegment[4];
     private double distance;
     private JComponent container;
-    private static final int DELAY_TIME = 15;
+    private static final int DELAY_TIME = 5;
     protected Point mousePos;
     
     public SegmentArray(double distance, JComponent container)
@@ -61,6 +61,10 @@ public class SegmentArray extends Thread
             segments[1].setPrevious(new Point((int)segments[0].getX(), (int)segments[0].getY()));
             segments[2].setPrevious(new Point((int)segments[1].getX(), (int)segments[1].getY()));
             segments[3].setPrevious(new Point((int)segments[2].getX(), (int)segments[2].getY()));
+            //FABRIK
+            //segments[2].setNext(new Point((int)segments[3].getX(), (int)segments[3].getY()));
+            //segments[1].setNext(new Point((int)segments[2].getX(), (int)segments[2].getY()));
+            //segments[0].setNext(new Point((int)segments[1].getX(), (int)segments[1].getY()));
             container.repaint();
             try {
                 sleep(DELAY_TIME);
