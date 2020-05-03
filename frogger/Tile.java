@@ -4,6 +4,7 @@ import gameutils.GameObject;
 import gameutils.Texture;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 /**
  * This will create the horizontal row of grass.
@@ -11,7 +12,7 @@ import java.awt.Point;
  * @author Nick Shelby
  * @version Spring 2020
  */
-public class Tile extends GameObject {
+public class Tile extends Environment {
 
     public Tile() {
         super();
@@ -23,6 +24,10 @@ public class Tile extends GameObject {
     @Override
     public void update() {
         //May not need code in here.
+    }
+
+    public ArrayList<Hazard> getHazards() {
+        return null;
     }
 
 }

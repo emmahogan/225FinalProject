@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class River extends Environment {
 
-    private ArrayList<Log> logs;
+    private ArrayList<Hazard> logs;
     private double speed;
 
     public River () {
@@ -16,25 +16,26 @@ public class River extends Environment {
         logs = new ArrayList<>();
         Random rand = new Random();
         speed = rand.nextDouble() + 0.2;
-        int numLogs = rand.nextInt(2) + 3;
+        int numLogs = rand.nextInt(5) + 4;
 
         for (int i = 0; i < numLogs; i++) {
-            logs.add(new Log(speed));
+            logs.add(new Log(speed, i * 100));
+            System.out.println("log" + i);
         }
     }
 
-    public ArrayList<Log> getLogs() {
+    public ArrayList<Hazard> getLogs() {
         return logs;
     }
 
     @Override
     public void update() {
-        for (Log log: logs) {
+        for (Hazard log: logs) {
             log.update();
         }
     }
 
     public ArrayList<Hazard> getHazards() {
-        return null;
+        return logs;
     }
 }

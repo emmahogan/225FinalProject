@@ -6,6 +6,8 @@ import java.util.Random;
 
 import gameutils.GameObject;
 import gameutils.Screen;
+import gameutils.Texture;
+
 /**
  * Outputs the screen and contains classes for functionality regarding output.
  *
@@ -14,7 +16,7 @@ import gameutils.Screen;
  */
 public class FroggerScreen extends Screen
 {
-    private ArrayList<GameObject> levelLayout; // This holds all of the areas of land and rivers.
+    private ArrayList<Environment> levelLayout; // This holds all of the areas of land and rivers.
     private Frog froggah; // This is the player character, the frog object that you control.
     private int screenBottomIndex;
 
@@ -67,16 +69,16 @@ public class FroggerScreen extends Screen
         return false;
     }
     
-     @Override
+    @Override
     public void render(Graphics g) {
          screenBottomIndex = froggah.getPosInLevel() - FROG_TO_BOTTOM_DIST;
          int rowPos = 570;
          for (int i = screenBottomIndex; i < NUM_ROWS + screenBottomIndex; i++) {
              if (levelLayout.get(i) instanceof River) {
                  g.drawImage(levelLayout.get(i).getTexture(), 0, rowPos, null);
-                 //need to change the arraylist to hazards or something so that the lanes display the stuff
-
-
+                 for(Hazard log: levelLayout.get(i).getHazards()) {
+                     g.drawImage(log.getTexture(), (int) log.getX(), rowPos, null);
+                 }
                  rowPos = rowPos - 30;
              } else {
                  g.drawImage(levelLayout.get(i).getTexture(), 0, rowPos, null);
@@ -93,6 +95,23 @@ public class FroggerScreen extends Screen
             levelLayout.get(i).update();
         }
         froggah.update();
+        if (levelLayout.get(froggah.getPosInLevel()) instanceof River) {
+            boolean onLog = false;
+            for(Hazard log: ((River) levelLayout.get(froggah.getPosInLevel())).getHazards()) {
+                if (!onLog && log.checkCollision(froggah)) {
+                    onLog = true;
+                }
+            }
+
+            if (!onLog) {
+                froggah.texture = new Texture("assets/frogger/water_line.png");
+
+            }
+        }
+    }
+
+    public void gameOver() {
+        System.out.println("Game Over");
     }
 
     @Override

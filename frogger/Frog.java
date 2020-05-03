@@ -3,6 +3,8 @@ package frogger;
 import gameutils.GameObject;
 import gameutils.Texture;
 
+import java.awt.*;
+
 public class Frog extends GameObject {
 
     private Texture upFroggahTexture;
@@ -13,7 +15,7 @@ public class Frog extends GameObject {
     private int posInLevel;
 
 
-    public final int JUMP_LENGTH = 50;
+    public final int JUMP_LENGTH = 30;
     public final int Y_VAL = 400;
 
     @Override
@@ -43,6 +45,14 @@ public class Frog extends GameObject {
 
     public int getXVal() {
         return posOnLine * 30;
+    }
+
+    public void setBounds() {
+        bounds = new Rectangle(this.position.x, this.position.y, texture.getWidth(), texture.getHeight());
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
     }
 
     public void jumpForward() {
