@@ -15,18 +15,16 @@ public class Piece extends GameObject {
     public int col;
     private BoardSquare[][] squaresArr = ChessBoard.squares;
 
-    public Piece(Side side, BoardSquare square, PieceType type){
+    public Piece(Side side,int row, int col, PieceType type){
         super();
         this.side = side;
         this.type = type;
-        this.row = square.getRow();
-        this.col = square.getCol();
-        this.position = square.getPos();
+        this.row = row;
+        this.col = col;
+        this.position = new Point(ChessBoard.BORDER_WIDTH + col*ChessBoard.SQUARE_SIZE, ChessBoard.BORDER_WIDTH + row*ChessBoard.SQUARE_SIZE);
         setTexture(side,type);
         texture.scale((double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth(),(double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth());
-        //setPosition(position);
         setBounds();
-        setPosition(position);
     }
 
     public void setTexture(Side side, PieceType type){

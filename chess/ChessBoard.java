@@ -152,41 +152,41 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         //make Pawns
         Piece p;
         for(int i = 0; i < 8; i++){
-            p = new Piece(s, squares[frontRow][i], PieceType.PAWN);
+            p = new Piece(s, frontRow, i, PieceType.PAWN);
             pieceArr.add(p);
             squares[frontRow][i].addPiece(p);
         }
         //Make rooks
-        Piece rook1 = new Piece(s, squares[backRow][0], PieceType.ROOK);
+        Piece rook1 = new Piece(s, backRow, 0, PieceType.ROOK);
         pieceArr.add(rook1);
         squares[backRow][0].addPiece(rook1);
 
-        Piece rook2 = new Piece(s,squares[backRow][7], PieceType.ROOK);
+        Piece rook2 = new Piece(s, backRow, 7, PieceType.ROOK);
         pieceArr.add(rook2);
         squares[backRow][7].addPiece(rook2);
 
         //Make bishops
-        Piece bishop1 = new Piece(s,squares[backRow][1], PieceType.BISHOP);
+        Piece bishop1 = new Piece(s, backRow, 1, PieceType.BISHOP);
         pieceArr.add(bishop1);
         squares[backRow][1].addPiece(bishop1);
 
-        Piece bishop2 = new Piece(s,squares[backRow][6], PieceType.BISHOP);
+        Piece bishop2 = new Piece(s,backRow, 6, PieceType.BISHOP);
         pieceArr.add(bishop2);
         squares[backRow][6].addPiece(bishop2);
         //Knights
-        Piece knight1 = new Piece(s,squares[backRow][2], PieceType.KNIGHT);
+        Piece knight1 = new Piece(s,backRow,2, PieceType.KNIGHT);
         pieceArr.add(knight1);
         squares[backRow][2].addPiece(knight1);
 
-        Piece knight2 = new Piece(s,squares[backRow][5], PieceType.KNIGHT);
+        Piece knight2 = new Piece(s,backRow,5, PieceType.KNIGHT);
         pieceArr.add(knight2);
         squares[backRow][5].addPiece(knight2);
         //Queen & King
-        Piece queen = new Piece(s,squares[backRow][3], PieceType.QUEEN);
+        Piece queen = new Piece(s, backRow,3, PieceType.QUEEN);
         pieceArr.add(queen);
         squares[backRow][3].addPiece(queen);
 
-        Piece king = new Piece(s,squares[backRow][4], PieceType.KING);
+        Piece king = new Piece(s, backRow, 4, PieceType.KING);
         pieceArr.add(king);
         squares[backRow][4].addPiece(king);
     }
