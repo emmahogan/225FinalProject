@@ -1,6 +1,7 @@
 package runner;
 
 import gameutils.Screen;
+import gameutils.Texture;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,7 @@ private Floor floor;
 private ArrayList<Gate> gates;
 private JLabel label;
 private int gatesCleared;
+
 
 //FRAME STATS
     private int frameWidth = RunnerGame.FRAME_WIDTH;

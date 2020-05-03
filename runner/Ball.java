@@ -5,6 +5,7 @@ import gameutils.Texture;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Ball extends GameObject {
@@ -18,6 +19,16 @@ public class Ball extends GameObject {
     private int speedWait = 0;
     private int currentMove = 0;
 
+    //textures for animation
+    private Texture ball0;
+    private Texture ball1;
+    private Texture ball2;
+    private Texture ball3;
+    private Texture ball4;
+    private Texture ball5;
+
+    private ArrayList<Texture> textures = new ArrayList<Texture>();
+
     public Ball(int frameWidth, int frameHeight) {
         super();
         this.texture = new Texture("assets/runner/ball0.png");
@@ -28,7 +39,7 @@ public class Ball extends GameObject {
         setBounds();
         acceleration = -0.10;
         xSpeed = 0;
-
+        scaleTextures();
         //initialize radius and center for collides with purposes
         radius = texture.getWidth()/2;
     }
@@ -70,8 +81,7 @@ public class Ball extends GameObject {
     public void changeTexture(){
         Random rand = new Random();
         int x = rand.nextInt(6);
-        texture = new Texture("assets/runner/ball" + x + ".png");
-        texture.scale(0.25, 0.25);
+        texture = textures.get(x);
     }
 
     public void neuterSpeed() {
@@ -102,6 +112,24 @@ public class Ball extends GameObject {
             return false;
         }
         return true;
+    }
+
+    private void scaleTextures(){
+        ball0 = new Texture("assets/runner/ball0.png");
+        ball1 = new Texture("assets/runner/ball1.png");
+        ball2 = new Texture("assets/runner/ball2.png");
+        ball3 = new Texture("assets/runner/ball3.png");
+        ball4 = new Texture("assets/runner/ball4.png");
+        ball5 = new Texture("assets/runner/ball5.png");
+        textures.add(ball0);
+        textures.add(ball1);
+        textures.add(ball2);
+        textures.add(ball3);
+        textures.add(ball4);
+        textures.add(ball5);
+        for(Texture t: textures) {
+            t.scale(0.25, 0.25);
+        }
     }
 }
 
