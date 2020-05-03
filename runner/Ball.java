@@ -5,6 +5,7 @@ import gameutils.Texture;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.Random;
 
 public class Ball extends GameObject {
     public static int radius;
@@ -12,20 +13,20 @@ public class Ball extends GameObject {
     private int frameWidth;
     private int frameHeight;
     //FOR POSITIONING
-    private int acceleration;
-    private int xSpeed;
+    private double acceleration;
+    private double xSpeed;
     private int speedWait = 0;
     private int currentMove = 0;
 
     public Ball(int frameWidth, int frameHeight) {
         super();
-        this.texture = new Texture("assets/runner/ballStart.png");
+        this.texture = new Texture("assets/runner/ball0.png");
         texture.scale(0.25, 0.25);
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
         position = new Point((frameWidth - (texture.getWidth())) / 2, frameHeight - (texture.getHeight()) - 50);
         setBounds();
-        acceleration = 0;
+        acceleration = -0.10;
         xSpeed = 0;
 
         //initialize radius and center for collides with purposes
@@ -36,36 +37,45 @@ public class Ball extends GameObject {
         return 0;
     }
 
-    public int getAcceleration() {
+    public double getAcceleration() {
         return acceleration;
     }
 
 
 
-    public void setAcceleration(int acceleration) {
+    public void setAcceleration(double acceleration) {
         this.acceleration = acceleration;
     }
 
+
     public void update() {
+        changeTexture();
         speedWait += 16;
 
         //calcPixMove();
-        if (speedWait >= RunnerGame.waitTIme) {
+        //if (speedWait >= RunnerGame.waitTIme) {
             xSpeed = xSpeed + acceleration;
-            position.x += xSpeed;
             speedWait = 0;
-        }
+        //}
+        position.x += xSpeed;
         setBounds();
+
     }
 
     public void calcPixMove() {
-        System.out.println("calcing");
-        currentMove = xSpeed / (RunnerGame.waitTIme / 16);
+        //System.out.println("calcing");
+        currentMove = (int )xSpeed / (RunnerGame.waitTIme / 16);
     }
 
+    public void changeTexture(){
+        Random rand = new Random();
+        int x = rand.nextInt(6);
+        texture = new Texture("assets/runner/ball" + x + ".png");
+        texture.scale(0.25, 0.25);
+    }
 
     public void neuterSpeed() {
-        this.xSpeed = 0;
+        this.xSpeed = 0.0;
     }
 
     public boolean collidesWithRect(int width, int height, Point rectPos){

@@ -2,7 +2,10 @@ package runner;
 
 import gameutils.Screen;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 public class RunnerScreen extends Screen{
@@ -11,7 +14,8 @@ private Walls leftWall;
 private Walls rightWall;
 private Floor floor;
 private ArrayList<Gate> gates;
-
+private JLabel label;
+private int gatesCleared;
 
 //FRAME STATS
     private int frameWidth = RunnerGame.FRAME_WIDTH;
@@ -24,6 +28,10 @@ public RunnerScreen (){
     this.rightWall = new Walls(new Point(RunnerGame.FRAME_WIDTH - Walls.WIDTH*2,0));
     this.gates = new ArrayList<Gate>();
     this.controller = new BallController(ball);
+    gatesCleared = 0;
+    label = new JLabel("SCORE: " + gatesCleared);
+   // label.setPreferredSize(new Dimension(100,100));
+    this.add(label);
     repaint();
 }
 
@@ -54,7 +62,6 @@ public RunnerScreen (){
 
         }
 
-        update();
 
     }
 
@@ -68,12 +75,14 @@ public RunnerScreen (){
             Gate temp = gates.get(i);
             if(temp.getYcoord() > RunnerGame.FRAME_HEIGHT){
                 gates.remove(i);
+                gatesCleared++;
             }
             else {
                 gates.get(i).update();
                 i++;
             }
         }
+        label.setText("SCORE: " + gatesCleared);
         contact();
         repaint();
     }
@@ -109,11 +118,12 @@ public RunnerScreen (){
 
     public void gameOver(){
         gates.clear();
-        ball.setAcceleration(0);
+        gatesCleared = 0;
+        ball.setAcceleration(-0.10);
         ball.neuterSpeed();
-
         ball.setPosition((frameWidth - ball.getTexture().getWidth(null)) / 2, frameHeight - (ball.getTexture().getHeight(null)) - 50);
         repaint();
     }
+
 
 }

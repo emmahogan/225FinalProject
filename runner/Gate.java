@@ -43,13 +43,12 @@ public class Gate extends GameObject implements Runnable{
             System.out.println("Error");
         }
          */
-        gateWaiter += 16;
-        if(gateWaiter >= 200) {
+
             yCoord += 2;
             upperLeft1.y = yCoord;
             upperLeft2.y = yCoord;
             gateWaiter = 0;
-        }
+
     }
 
     public void renderGates(Graphics g){
