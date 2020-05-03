@@ -1,12 +1,11 @@
 package frogger;
 
-import gameutils.GameObject;
 import gameutils.Texture;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class River extends GameObject {
+public class River extends Environment {
 
     private ArrayList<Log> logs;
     private double speed;
@@ -33,5 +32,9 @@ public class River extends GameObject {
         for (Log log: logs) {
             log.update();
         }
+    }
+
+    public ArrayList<Hazard> getHazards() {
+        return null;
     }
 }

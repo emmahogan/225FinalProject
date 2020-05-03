@@ -1,9 +1,8 @@
 package frogger;
 
-import gameutils.GameObject;
 import gameutils.Texture;
 
-public class Log extends GameObject {
+public class Log extends Hazard {
 
     private double speed;
     private double x;
@@ -24,6 +23,10 @@ public class Log extends GameObject {
         } else {
             x = 630.0;
         }
+    }
+
+    public boolean checkCollision(Frog froggah) {
+        return false;
     }
 
 }
