@@ -66,6 +66,7 @@ public class Piece extends GameObject {
                 getMovesPawn();
                 break;
             case ROOK:
+                getMovesRook();
                 break;
             case KNIGHT:
                 getMovesKnight();
@@ -89,6 +90,21 @@ public class Piece extends GameObject {
         }
         return true;
     }
+
+
+
+
+    private void getMovesRook(){
+        //in each diagonal direction, while square is not occupied or off board, add to possible moves
+        helperBishop(1, 0, row, col);
+        helperBishop(0, -1, row, col);
+        helperBishop(0, 1, row, col);
+        helperBishop(-1, 0, row, col);
+    }
+
+
+
+
 
     private void getMovesBishop(){
         //in each diagonal direction, while square is not occupied or off board, add to possible moves
