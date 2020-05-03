@@ -98,7 +98,7 @@ public class Frog extends GameObject {
     }
 
     public void jumpBack() {
-        if (posInLevel > 4) {
+        if (posInLevel > 5) {
             posInLevel--;
         }
         texture = downFroggahTexture;
