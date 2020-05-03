@@ -83,7 +83,6 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 squares[row][col].drawSquare(g);
-                System.out.println(squares[row][col]);
             }
         }
 
