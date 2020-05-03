@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
 
-import gameutils.GameObject;
 import gameutils.Screen;
 import gameutils.Texture;
 
@@ -21,7 +20,7 @@ public class FroggerScreen extends Screen
     private int screenBottomIndex;
 
     private final int NUM_ROWS = 20;
-    private final int FROG_TO_BOTTOM_DIST = 4;
+    private final int FROG_TO_BOTTOM_DIST = 5;
 
     public FroggerScreen() {
         super();
@@ -96,16 +95,15 @@ public class FroggerScreen extends Screen
         }
         froggah.update();
         if (levelLayout.get(froggah.getPosInLevel()) instanceof River) {
-            boolean onLog = false;
             for(Hazard log: ((River) levelLayout.get(froggah.getPosInLevel())).getHazards()) {
-                if (!onLog && log.checkCollision(froggah)) {
-                    onLog = true;
+                if (!froggah.isOnLog() && log.checkCollision(froggah)) {
+                    froggah.setOnLog(true, log.getSpeed());
                 }
             }
 
-            if (!onLog) {
+            if (!froggah.isAlive()) {
                 froggah.texture = new Texture("assets/frogger/water_line.png");
-
+                //game over
             }
         }
     }

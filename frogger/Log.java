@@ -13,6 +13,7 @@ public class Log extends Hazard {
         texture = new Texture("assets/frogger/froggah_left.png");
         speed = inputSpeed;
         x = xPos;
+        setBounds();
     }
 
     public void setBounds() {
@@ -28,12 +29,18 @@ public class Log extends Hazard {
     }
 
     @Override
+    public double getSpeed() {
+        return speed;
+    }
+
+    @Override
     public void update() {
         if (x > 0.0 - 30.0) {
             x = x - speed;
         } else {
             x = 630.0;
         }
+        setBounds();
     }
 
     public boolean checkCollision(Frog froggah) {

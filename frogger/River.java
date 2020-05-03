@@ -20,12 +20,7 @@ public class River extends Environment {
 
         for (int i = 0; i < numLogs; i++) {
             logs.add(new Log(speed, i * 100));
-            System.out.println("log" + i);
         }
-    }
-
-    public ArrayList<Hazard> getLogs() {
-        return logs;
     }
 
     @Override

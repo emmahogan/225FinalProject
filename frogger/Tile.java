@@ -1,9 +1,7 @@
 package frogger;
 
-import gameutils.GameObject;
 import gameutils.Texture;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 /**

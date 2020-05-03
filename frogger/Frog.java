@@ -13,14 +13,25 @@ public class Frog extends GameObject {
     private Texture rightFroggahTexture;
     private int posOnLine;
     private int posInLevel;
+    private boolean alive;
+    private boolean onLog;
+    private boolean onLand;
+    private double logSpeed;
 
 
     public final int JUMP_LENGTH = 30;
-    public final int Y_VAL = 400;
+    public final int Y_VAL = 420;
 
     @Override
     public void update() {
-        //Add code to satisfy update if necessary
+        posOnLine = posOnLine + (int) logSpeed;
+
+        if (!onLog && !onLand) {
+            alive = false;
+            //change texture to "drowned frog"and game over
+        }
+        //add getting mashed by a car
+        setBounds();
     }
 
     public Frog () {
@@ -31,7 +42,11 @@ public class Frog extends GameObject {
         rightFroggahTexture = new Texture("assets/frogger/froggah_right.png");
         texture = upFroggahTexture;
         posOnLine = 10;
-        posInLevel = 4;
+        posInLevel = 5;
+        onLand = true;
+        onLog = false;
+        alive = true;
+        setBounds();
 
     }
 
@@ -45,6 +60,27 @@ public class Frog extends GameObject {
 
     public int getXVal() {
         return posOnLine * 30;
+    }
+
+    public boolean isDead() {
+        return alive;
+    }
+
+    public boolean isOnLand() {
+        return onLand;
+    }
+
+    public boolean isOnLog() {
+        return onLog;
+    }
+
+    public void setOnLog(boolean logStatus, double speedOfLog) {
+        onLog = logStatus;
+        logSpeed = speedOfLog;
+    }
+
+    public void setOnLand(boolean landStatus) {
+        onLand = landStatus;
     }
 
     public void setBounds() {
@@ -64,33 +100,27 @@ public class Frog extends GameObject {
     public void jumpBack() {
         if (posInLevel > 4) {
             posInLevel--;
-            texture = downFroggahTexture;
-            update();
-        } else {
-            texture = downFroggahTexture;
-            update();
         }
+        texture = downFroggahTexture;
+        update();
+
     }
 
     public void jumpLeft() {
         if (posOnLine != 0) {
             posOnLine--;
-            texture = leftFroggahTexture;
-            update();
-        } else {
-            texture = leftFroggahTexture;
-            update();
         }
+        texture = leftFroggahTexture;
+        update();
+
     }
 
     public void jumpRight() {
         if (posOnLine != 19) {
             posOnLine++;
-            texture = rightFroggahTexture;
-            update();
-        } else {
-            texture = rightFroggahTexture;
-            update();
         }
+        texture = rightFroggahTexture;
+        update();
+
     }
 }
