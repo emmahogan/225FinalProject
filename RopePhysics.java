@@ -93,9 +93,9 @@ public class RopePhysics extends MouseAdapter implements Runnable
         segments[1].setPrevious(new Point((int)segments[0].getX(), (int)segments[0].getY()));
         segments[2].setPrevious(new Point((int)segments[1].getX(), (int)segments[1].getY()));
         segments[3].setPrevious(new Point((int)segments[2].getX(), (int)segments[2].getY()));
-        segments[2].setNext(new Point((int)segments[3].getX(), (int)segments[3].getY()));
-        segments[1].setNext(new Point((int)segments[2].getX(), (int)segments[2].getY()));
-        segments[0].setNext(new Point((int)segments[1].getX(), (int)segments[1].getY()));
+        //segments[2].setNext(new Point((int)segments[3].getX(), (int)segments[3].getY()));
+        //segments[1].setNext(new Point((int)segments[2].getX(), (int)segments[2].getY()));
+        //segments[0].setNext(new Point((int)segments[1].getX(), (int)segments[1].getY()));
         panel.repaint();
     }
     
