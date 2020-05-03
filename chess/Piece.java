@@ -75,8 +75,11 @@ public class Piece extends GameObject {
                 getMovesBishop();
                 break;
             case KING:
+                getMovesKing();
                 break;
             case QUEEN:
+                getMovesRook();
+                getMovesBishop();
                 break;
         }
 
@@ -93,6 +96,33 @@ public class Piece extends GameObject {
 
 
 
+
+
+    public void getMovesKing(){
+        movesKingHelper( 1,  0, row, col);
+        movesKingHelper(0, 1, row, col);
+        movesKingHelper(1, 1, row, col);
+        movesKingHelper(0, -1, row, col);
+        movesKingHelper(-1, 0, row, col);
+        movesKingHelper(-1, -1, row, col);
+        movesKingHelper(-1, 1, row, col);
+        movesKingHelper(1, -1, row, col);
+
+
+
+    }
+
+    private void movesKingHelper(int rowAdd, int colAdd, int row, int col){
+        if(isOnBoard(row + rowAdd, col+colAdd)){
+            if(!squaresArr[row+rowAdd][col+colAdd].isOccupied()) {
+                possibleMoves.add(squaresArr[row + rowAdd][col + colAdd]);
+            } else{
+                if(!squaresArr[row + rowAdd][col + colAdd].getPiece().getSide().equals(side)) {
+                    possibleMoves.add(squaresArr[row + rowAdd][col + colAdd]);
+                }
+            }
+        }
+    }
 
     private void getMovesRook(){
         //in each diagonal direction, while square is not occupied or off board, add to possible moves
