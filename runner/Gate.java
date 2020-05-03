@@ -17,7 +17,7 @@ public class Gate extends GameObject implements Runnable{
     public static final int GATE_OPENING = 250;
     private int speedWaiter = 0;
 
-    public Gate(double gameSpeed){
+    public Gate(){
         super();
         //this constructor randomly generate a gate
         yCoord = 0;
@@ -25,7 +25,7 @@ public class Gate extends GameObject implements Runnable{
         width1 = rand.nextInt(RunnerGame.FRAME_WIDTH - GATE_OPENING - 2*Walls.WIDTH) + Walls.WIDTH;
         upperLeft2 = new Point(width1 + GATE_OPENING, yCoord);
         width2 = RunnerGame.FRAME_WIDTH - (2*Walls.WIDTH) - width1 - GATE_OPENING;
-        speed = gameSpeed;
+        speed = 3;
 
 
     }
@@ -51,11 +51,7 @@ public class Gate extends GameObject implements Runnable{
 
     }
 
-    public void increaseSpeed(){
-        System.out.println("Increase gate Speed");
-        speed = speed + RunnerScreen.GAME_CHANGE;
-        System.out.println(speed);
-    }
+
 
     public void renderGates(Graphics g){
             g.fillRect(upperLeft1.x, upperLeft1.y, width1, GATE_HEIGHT);

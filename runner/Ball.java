@@ -57,7 +57,7 @@ public class Ball extends GameObject {
         calculatePoints();
 
         setBounds();
-        acceleration = -0.10;
+        acceleration = -0.23;
         xSpeed = 0;
         scaleTextures();
         //initialize radius and center for collides with purposes
@@ -86,16 +86,6 @@ public class Ball extends GameObject {
         this.acceleration = acceleration;
     }
 
-    public void increaseAcceleration(){
-        System.out.println("Increasing acceleration");
-        if(acceleration < 0){
-            acceleration = acceleration - RunnerScreen.GAME_ACC_CHANGE;
-        }
-        else{
-            acceleration = acceleration + RunnerScreen.GAME_ACC_CHANGE;
-        }
-        System.out.println(acceleration);
-    }
 
 
     public void update() {

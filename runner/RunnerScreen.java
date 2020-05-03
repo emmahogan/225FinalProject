@@ -19,15 +19,6 @@ private ArrayList<Gate> gates;
 private JLabel label;
 private int gatesCleared;
 
-public static final double GAME_CHANGE = 0.25;
-public static final double GAME_ACC_CHANGE = 0.02;
-private double gameSpeed;
-private int speedCounter;
-public static final int GAME_INCREASE_WAIT = 2000;
-private boolean wantSpeedIncrease = false;
-
-private int timeU;
-private int timeO;
 
 
 //FRAME STATS
@@ -36,7 +27,6 @@ private int timeO;
 
 public RunnerScreen (){
     super();
-    int time = 0;
 
     this.ball = new Ball(frameWidth, frameHeight);
     this.leftWall = new Walls(new Point(0, 0));
@@ -47,25 +37,10 @@ public RunnerScreen (){
     label = new JLabel("SCORE: " + gatesCleared);
    // label.setPreferredSize(new Dimension(100,100));
     this.add(label);
-        gameSpeed = 1;
-        speedCounter = 0;
 
 
     repaint();
 }
-    public void gameSpeedIncrease(){
-    System.out.println("Calling method to increase game Speed");
-    gameSpeed += GAME_CHANGE;
-        int i = 0;
-        while(i < gates.size()){
-            Gate temp = gates.get(i);
-            gates.get(i).increaseSpeed();
-            i++;
-
-        }
-        ball.increaseAcceleration();
-
-    }
 
 
     public void createScreen(Graphics g){
@@ -75,7 +50,7 @@ public RunnerScreen (){
 
         //////////////////////////////////////////////////////////////////////////////////////
         if(gates.size() == 0 || gates.get(gates.size()-1).getYcoord() >= 150){
-            gates.add(new Gate(gameSpeed));
+            gates.add(new Gate());
 
         }
         ////////////////////////////////////////////////////////////////////////////////////////
@@ -100,14 +75,6 @@ public RunnerScreen (){
 
     @Override
     public void update(){
-
-        speedCounter += 16;
-        if (speedCounter >= GAME_INCREASE_WAIT) {
-            gameSpeedIncrease();
-            speedCounter = 0;
-        }
-
-
         contact();
         ball.update();
         int i = 0;
@@ -159,9 +126,8 @@ public RunnerScreen (){
     public void gameOver(){
         gates.clear();
         gatesCleared = 0;
-        ball.setAcceleration(-0.10);
+        ball.setAcceleration(-0.23);
         ball.neuterSpeed();
-        gameSpeed = 1;
         ball.setPosition((frameWidth - ball.getTexture().getWidth(null)) / 2, frameHeight - (ball.getTexture().getHeight(null)) - 50);
         repaint();
     }
