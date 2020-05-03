@@ -50,7 +50,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     public static BoardSquare[][] squares = new BoardSquare[8][8];
 
     //true for black, false for white
-    public boolean isBlackTurn = true;
+    public boolean isBlackTurn = false;
 
     //are sides in check
     public boolean blackInCheck = false;
