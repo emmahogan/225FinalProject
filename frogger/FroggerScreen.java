@@ -72,8 +72,16 @@ public class FroggerScreen extends Screen
          screenBottomIndex = froggah.getPosInLevel() - FROG_TO_BOTTOM_DIST;
          int rowPos = 570;
          for (int i = screenBottomIndex; i < NUM_ROWS + screenBottomIndex; i++) {
-             g.drawImage(levelLayout.get(i).getTexture(), 0, rowPos, null);
-             rowPos = rowPos - 30;
+             if (levelLayout.get(i) instanceof River) {
+                 g.drawImage(levelLayout.get(i).getTexture(), 0, rowPos, null);
+                 //need to change the arraylist to hazards or something so that the lanes display the stuff
+
+
+                 rowPos = rowPos - 30;
+             } else {
+                 g.drawImage(levelLayout.get(i).getTexture(), 0, rowPos, null);
+                 rowPos = rowPos - 30;
+             }
          }
          g.drawImage(froggah.getTexture(), froggah.getXVal(), froggah.Y_VAL, null);
     }

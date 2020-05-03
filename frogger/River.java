@@ -16,12 +16,16 @@ public class River extends GameObject {
         texture = new Texture("assets/frogger/water_line.png");
         logs = new ArrayList<>();
         Random rand = new Random();
-        speed = rand.nextDouble() + 0.5;
-        int numLogs = rand.nextInt(7) + 3;
+        speed = rand.nextDouble() + 0.2;
+        int numLogs = rand.nextInt(2) + 3;
 
         for (int i = 0; i < numLogs; i++) {
             logs.add(new Log(speed));
         }
+    }
+
+    public ArrayList<Log> getLogs() {
+        return logs;
     }
 
     @Override
