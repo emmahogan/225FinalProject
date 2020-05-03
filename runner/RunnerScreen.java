@@ -16,8 +16,10 @@ private Walls rightWall;
 private Floor floor;
 private ArrayList<Gate> gates;
 
-private JLabel label;
+private JLabel highScore;
+private JLabel scorelabel;
 private int gatesCleared;
+private int highestScore;
 
 
 
@@ -33,10 +35,14 @@ public RunnerScreen (){
     this.rightWall = new Walls(new Point(RunnerGame.FRAME_WIDTH - Walls.WIDTH*2,0));
     this.gates = new ArrayList<Gate>();
     this.controller = new BallController(ball);
+
     gatesCleared = 0;
-    label = new JLabel("SCORE: " + gatesCleared);
+    highestScore = 0;
+    highScore = new JLabel("HIGH SCORE: " +  highestScore + "  |");
+    scorelabel = new JLabel("SCORE: " + gatesCleared);
    // label.setPreferredSize(new Dimension(100,100));
-    this.add(label);
+    this.add(highScore);
+    this.add(scorelabel);
 
 
     repaint();
@@ -89,7 +95,8 @@ public RunnerScreen (){
                 i++;
             }
         }
-        label.setText("SCORE: " + gatesCleared);
+
+        scorelabel.setText("SCORE: " + gatesCleared);
 
         repaint();
     }
@@ -125,6 +132,11 @@ public RunnerScreen (){
 
     public void gameOver(){
         gates.clear();
+        if(gatesCleared > highestScore){
+            highestScore = gatesCleared;
+        }
+        highScore.setText("HIGH SCORE: " + highestScore + "  |");
+
         gatesCleared = 0;
         ball.setAcceleration(-0.23);
         ball.neuterSpeed();
