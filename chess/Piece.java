@@ -13,16 +13,14 @@ public class Piece extends GameObject {
     private ArrayList<BoardSquare> possibleMoves = new ArrayList<BoardSquare>();
     public int row;
     public int col;
-    private BoardSquare square;
     private BoardSquare[][] squaresArr = ChessBoard.squares;
 
     public Piece(Side side, BoardSquare square, PieceType type){
         super();
         this.side = side;
         this.type = type;
-        this.square = square;
-        this.row = square.row;
-        this.col = square.column;
+        this.row = square.getRow();
+        this.col = square.getCol();
         this.position = square.getPos();
         setTexture(side,type);
         texture.scale((double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth(),(double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth());
@@ -75,6 +73,7 @@ public class Piece extends GameObject {
                 getMovesKnight();
                 break;
             case BISHOP:
+                getMovesBishop();
                 break;
             case KING:
                 break;
@@ -93,10 +92,35 @@ public class Piece extends GameObject {
         return true;
     }
 
+    private void getMovesBishop(){
+        //in each diagonal direction, while square is not occupied or off board, add to possible moves
+        helperBishop(1, 1, row, col);
+        helperBishop(1, -1, row, col);
+        helperBishop(-1, 1, row, col);
+        helperBishop(-1, -1, row, col);
+    }
+
+    private void helperBishop(int rowAdd, int colAdd, int row, int col){
+        boolean stop = false;
+        int i = rowAdd;
+        int j = colAdd;
+        while(!stop){
+            if(isOnBoard(row+i, col+j)){
+              if(!squaresArr[row+i][col+j].isOccupied()) {
+                  possibleMoves.add(squaresArr[row + i][col + j]);
+                  i += rowAdd;
+                  j += colAdd;
+              } else{
+                  if(!squaresArr[row + i][col + j].getPiece().getSide().equals(side)) {
+                      possibleMoves.add(squaresArr[row + i][col + j]);
+                  }
+                  stop = true;
+              }
+            }else { stop = true; }
+        }
+    }
 
     private void getMovesKnight(){
-        int row = square.getRow();
-        int col = square.getCol();
         //array list to hold all l shapes on board
         ArrayList<BoardSquare> couldMove = new ArrayList<BoardSquare>();
         couldMove.clear();
@@ -164,18 +188,15 @@ public class Piece extends GameObject {
         return side;
     }
 
-    public void setSquare(BoardSquare s){
-        this.square = s;
-        this.row = s.getRow();
-        this.col = s.getCol();
-        setPosition(s.getPos());
-        setBounds();
+    public void setRowCol(int row, int col){
+        this.row = row;
+        this.col = col;
     }
 
     @Override
     public void update() {
         if(!out) {
-            setSquare(square);
+
         }
     }
 

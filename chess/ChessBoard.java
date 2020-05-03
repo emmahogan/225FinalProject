@@ -92,6 +92,7 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
             }
         }
     }
+
     private void initGame(){
         //add panels
         this.add(mainPanel);
@@ -191,7 +192,6 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
     }
 
     public void render(Graphics g){
-        System.out.println("Updatin");
         for(int i = 0; i <8; i++){
             for(int j = 0; j < 8; j++){
                 //Initialize all the squares
@@ -367,18 +367,17 @@ public class ChessBoard extends Screen implements MouseListener, MouseMotionList
             move[1].replacePiece(pieceMoved);
         }
         //move piece to destination
-        move[1].addPiece(pieceMoved);
+        else {
+            move[1].addPiece(pieceMoved);
+        }
         if(isBlackTurn){ isBlackTurn = false; }
         else { isBlackTurn = true; }
 
-        pieceMoved.setSquare(move[1]);
+        //pieceMoved.setSquare(move[1]);
         move[0] = null;
         move[1] = null;
         System.out.println(squares[0][5]);
         System.out.println(squares[2][4]);
-        repaint();
-
-
     }
 
     /**

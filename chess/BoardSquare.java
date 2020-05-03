@@ -40,8 +40,8 @@ public class BoardSquare {
 
     public void drawPiece(Graphics g){
         if(occupied) {
-            this.piece.setPosition(upperLeft);
-            this.piece.update();
+            //this.piece.setPosition(upperLeft);
+            //this.piece.update();
             g.drawImage(this.piece.getTexture(), upperLeft.x, upperLeft.y, null);
 
         }
@@ -53,16 +53,14 @@ public class BoardSquare {
     public void addPiece(Piece p){
         this.occupied = true;
         this.piece = p;
-        p.setSquare(this);
-        p.setPosition(getPos());
-        p.setBounds();
+        //p.setSquare(this);
+        //p.setPosition(getPos());
+        //p.setBounds();
     }
 
     public void replacePiece(Piece pieceMoved){
         this.piece = pieceMoved;
-        pieceMoved.setSquare(this);
-        pieceMoved.setPosition(getPos());
-        pieceMoved.setBounds();
+        //pieceMoved.setSquare(this);
     }
 
     public void removePiece(){
@@ -92,8 +90,11 @@ public class BoardSquare {
 
 
     public void update(){
-        this.piece = getPiece();
-        this.occupied = isOccupied();
+        if(piece != null){
+            piece.setPosition(upperLeft);
+            piece.setBounds();
+            piece.setRowCol(row, column);
+        }
     }
 
     public String toString(){
