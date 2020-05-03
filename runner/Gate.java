@@ -12,11 +12,12 @@ public class Gate extends GameObject implements Runnable{
     private int width1;
     private int width2;
     private int yCoord;
+    private double speed;
     public static final int GATE_HEIGHT = 20;
     public static final int GATE_OPENING = 250;
-    private int gateWaiter = 0;
+    private int speedWaiter = 0;
 
-    public Gate(){
+    public Gate(double gameSpeed){
         super();
         //this constructor randomly generate a gate
         yCoord = 0;
@@ -24,7 +25,7 @@ public class Gate extends GameObject implements Runnable{
         width1 = rand.nextInt(RunnerGame.FRAME_WIDTH - GATE_OPENING - 2*Walls.WIDTH) + Walls.WIDTH;
         upperLeft2 = new Point(width1 + GATE_OPENING, yCoord);
         width2 = RunnerGame.FRAME_WIDTH - (2*Walls.WIDTH) - width1 - GATE_OPENING;
-
+        speed = gameSpeed;
 
 
     }
@@ -44,11 +45,16 @@ public class Gate extends GameObject implements Runnable{
         }
          */
 
-            yCoord += 2;
+            yCoord += speed;
             upperLeft1.y = yCoord;
             upperLeft2.y = yCoord;
-            gateWaiter = 0;
 
+    }
+
+    public void increaseSpeed(){
+        System.out.println("Increase gate Speed");
+        speed = speed + RunnerScreen.GAME_CHANGE;
+        System.out.println(speed);
     }
 
     public void renderGates(Graphics g){
@@ -88,12 +94,18 @@ public class Gate extends GameObject implements Runnable{
         return new Rectangle(upperLeft2.x, upperLeft2.y, width2, GATE_HEIGHT);
     }
 
+
+    /**
     @Override
     public boolean collidesWith(GameObject obj) {
+        System.out.println("Checking Collision on:");
+        System.out.println(obj);
         Rectangle rect1 = new Rectangle(upperLeft1.x, upperLeft1.y, width1, GATE_HEIGHT);
         Rectangle rect2 = new Rectangle(upperLeft2.x, upperLeft2.y, width2, GATE_HEIGHT);
         return rect1.intersects(obj.getBounds()) || rect2.intersects(obj.getBounds());
     }
+    */
+
 
 
 

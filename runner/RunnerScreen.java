@@ -15,8 +15,19 @@ private Walls leftWall;
 private Walls rightWall;
 private Floor floor;
 private ArrayList<Gate> gates;
+
 private JLabel label;
 private int gatesCleared;
+
+public static final double GAME_CHANGE = 0.25;
+public static final double GAME_ACC_CHANGE = 0.02;
+private double gameSpeed;
+private int speedCounter;
+public static final int GAME_INCREASE_WAIT = 2000;
+private boolean wantSpeedIncrease = false;
+
+private int timeU;
+private int timeO;
 
 
 //FRAME STATS
@@ -25,6 +36,8 @@ private int gatesCleared;
 
 public RunnerScreen (){
     super();
+    int time = 0;
+
     this.ball = new Ball(frameWidth, frameHeight);
     this.leftWall = new Walls(new Point(0, 0));
     this.rightWall = new Walls(new Point(RunnerGame.FRAME_WIDTH - Walls.WIDTH*2,0));
@@ -34,8 +47,26 @@ public RunnerScreen (){
     label = new JLabel("SCORE: " + gatesCleared);
    // label.setPreferredSize(new Dimension(100,100));
     this.add(label);
+        gameSpeed = 1;
+        speedCounter = 0;
+
+
     repaint();
 }
+    public void gameSpeedIncrease(){
+    System.out.println("Calling method to increase game Speed");
+    gameSpeed += GAME_CHANGE;
+        int i = 0;
+        while(i < gates.size()){
+            Gate temp = gates.get(i);
+            gates.get(i).increaseSpeed();
+            i++;
+
+        }
+        ball.increaseAcceleration();
+
+    }
+
 
     public void createScreen(Graphics g){
         g.drawImage(rightWall.getTexture(), rightWall.getPosition().x, rightWall.getPosition().y, null);
@@ -44,7 +75,7 @@ public RunnerScreen (){
 
         //////////////////////////////////////////////////////////////////////////////////////
         if(gates.size() == 0 || gates.get(gates.size()-1).getYcoord() >= 150){
-            gates.add(new Gate());
+            gates.add(new Gate(gameSpeed));
 
         }
         ////////////////////////////////////////////////////////////////////////////////////////
@@ -70,8 +101,15 @@ public RunnerScreen (){
     @Override
     public void update(){
 
-        ball.update();
+        speedCounter += 16;
+        if (speedCounter >= GAME_INCREASE_WAIT) {
+            gameSpeedIncrease();
+            speedCounter = 0;
+        }
 
+
+        contact();
+        ball.update();
         int i = 0;
         while(i < gates.size()){
             Gate temp = gates.get(i);
@@ -85,7 +123,7 @@ public RunnerScreen (){
             }
         }
         label.setText("SCORE: " + gatesCleared);
-        contact();
+
         repaint();
     }
 
@@ -107,10 +145,10 @@ public RunnerScreen (){
         if(gates.size() > 0) {
             Rectangle left = gates.get(0).getLeftRect();
             Rectangle right = gates.get(0).getRightRect();
-            if (ball.collidesWithRect((int) left.getWidth(), (int) left.getHeight(), left.getLocation())) {
+            if (ball.collidesWithRect(left)){
                 gameOver();
             }
-            if (ball.collidesWithRect((int) right.getWidth(), (int) right.getHeight(), right.getLocation())) {
+            if (ball.collidesWithRect(right)){
                 gameOver();
             }
         }
@@ -123,6 +161,7 @@ public RunnerScreen (){
         gatesCleared = 0;
         ball.setAcceleration(-0.10);
         ball.neuterSpeed();
+        gameSpeed = 1;
         ball.setPosition((frameWidth - ball.getTexture().getWidth(null)) / 2, frameHeight - (ball.getTexture().getHeight(null)) - 50);
         repaint();
     }
