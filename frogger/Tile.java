@@ -12,6 +12,9 @@ import java.util.ArrayList;
  */
 public class Tile extends Environment {
 
+    /**
+     * Creates the ground tile line.
+     */
     public Tile() {
         super();
         texture = new Texture("assets/frogger/grass_line.png");
