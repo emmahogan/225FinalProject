@@ -32,6 +32,9 @@ public class Road extends Environment {
         }
     }
 
+    /**
+     * Updates all of the cars on the road.
+     */
     @Override
     public void update() {
         for (Hazard car: cars) {
@@ -39,6 +42,11 @@ public class Road extends Environment {
         }
     }
 
+    /**
+     * Returns the cars on the road.
+     *
+     * @return The ArrayList of the cars on the road.
+     */
     public ArrayList<Hazard> getHazards() {
         return cars;
     }
