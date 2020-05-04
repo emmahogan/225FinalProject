@@ -6,8 +6,10 @@ import java.util.Random;
 
 public class EnvironmentManager {
     private final int LEVEL_LENGTH = 60;
-    private final int START_GRASS_AMOUNT = 5;
-    private final int END_GRASS_AMOUNT = 25;
+    private final int START_GRASS = 7;
+    private final int END_GRASS = 17;
+    private final int USED_GRASS = 24;
+
     private final int NUM_ROWS = 20;
     private final int FROG_TO_BOTTOM_DIST = 3;
 
@@ -57,8 +59,6 @@ public class EnvironmentManager {
     }
 
     public void drawLevel(Graphics g) {
-        screenBottomIndex = posInLevel - FROG_TO_BOTTOM_DIST;
-
         // Loops through the portion of the level that needs to be rendered.
         for (int i = screenBottomIndex; i < NUM_ROWS + screenBottomIndex; i++) {
 
@@ -95,9 +95,9 @@ public class EnvironmentManager {
         // It will always have at least 4 in a row.
         int i = 0;
         while (i < numRivers) {
-            int row = rand.nextInt(environments.size() - 24) + 7;
+            int row = rand.nextInt(environments.size() - USED_GRASS) + START_GRASS;
 
-            if (row < environments.size() - 17 && row > 7) {
+            if (row < environments.size() - END_GRASS && row > START_GRASS) {
                 environments.set(row, new River(FroggerGame.FRAME_HEIGHT - row * FroggerGame.SCALE));
                 environments.set(row + 1, new River(FroggerGame.FRAME_HEIGHT - (row + 1) * FroggerGame.SCALE));
                 environments.set(row + 2, new River(FroggerGame.FRAME_HEIGHT - (row + 2) * FroggerGame.SCALE));
@@ -111,9 +111,9 @@ public class EnvironmentManager {
         i = 0;
         while (i < numRoads) {
 
-            int row = rand.nextInt(environments.size() - 24) + 7;
+            int row = rand.nextInt(environments.size() - USED_GRASS) + START_GRASS;
 
-            if (row < environments.size() - 17 && row > 7 &&
+            if (row < environments.size() - END_GRASS && row > START_GRASS &&
                     !(environments.get(row) instanceof River) && !(environments.get(row + 4) instanceof River)) {
                 environments.set(row, new Road(FroggerGame.FRAME_HEIGHT - row * FroggerGame.SCALE));
                 environments.set(row + 1, new Road(FroggerGame.FRAME_HEIGHT - (row + 1) * FroggerGame.SCALE));
