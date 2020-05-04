@@ -8,7 +8,6 @@ import java.util.Random;
 public class River extends Environment {
 
     private ArrayList<Hazard> logs; // ArrayList of the logs in the level.
-    private double speed; // Speed of the log.
 
     /**
      * Creates the river and the logs that float on it.
@@ -19,7 +18,7 @@ public class River extends Environment {
 
         logs = new ArrayList<>();
         Random rand = new Random();
-        speed = rand.nextDouble() + 0.2; // Random speed for the logs, needs to be changed to support left and right.
+        double speed = rand.nextDouble() + 0.2; // Random speed for the logs, needs to be changed to support left and right.
         int numLogs = rand.nextInt(5) + 4; // Random number of logs on the river. Has a minimum of 4.
 
         for (int i = 0; i < numLogs; i++) {
