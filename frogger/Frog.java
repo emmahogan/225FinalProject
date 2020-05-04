@@ -3,11 +3,15 @@ package frogger;
 import gameutils.GameObject;
 import gameutils.Texture;
 
-import java.awt.*;
-import java.util.ArrayList;
-
 import static frogger.FroggerGame.SCALE;
+import static gameutils.Game.changeScreen;
 
+/**
+ * This class creates the player frog and controls the frogs movements, death, and textures.
+ *
+ * @author Nick Shelby
+ * @Version Spring 2020
+ */
 public class Frog extends GameObject {
     private final int FRAME_BUFFER = 2;
     private int collisionFrameCount;
@@ -20,6 +24,11 @@ public class Frog extends GameObject {
     private EnvironmentManager environmentManager;
     private double x;
 
+    /**
+     * This creates the frog and places it in the environment that is created.
+     *
+     * @param environmentManager The object that creates the environment.
+     */
     public Frog(EnvironmentManager environmentManager) {
         super();
         initTextures();
@@ -81,14 +90,22 @@ public class Frog extends GameObject {
         texture = rightFroggahTexture;
     }
 
+    /**
+     * This is called when the frog is killed. The Frame Buffer is used to ensure that the frog isn't killed
+     * during the frame it jumps onto a log.
+     */
     private void die() {
         if (collisionFrameCount < FRAME_BUFFER) {
             collisionFrameCount++;
         } else {
-            System.out.println("dead");
+            environmentManager.remakeLevel();
         }
     }
 
+    /**
+     * This checks the collision of the frog and will react accordingly to the collision made.
+     * It kills the frog if it is hit by a car and will ride a log if it is on a log.
+     */
     private void checkCollision() {
         int posInLevel = environmentManager.posInLevel;
         Environment e = environmentManager.environments.get(posInLevel);
@@ -118,6 +135,9 @@ public class Frog extends GameObject {
         }
     }
 
+    /**
+     * Initializes the textures that are used for the frog.
+     */
     private void initTextures() {
         upFroggahTexture = new Texture("assets/frogger/froggah_up.png");
         downFroggahTexture = new Texture("assets/frogger/froggah_down.png");

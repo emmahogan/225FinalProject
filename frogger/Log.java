@@ -7,6 +7,9 @@ import java.awt.*;
 
 /**
  * The logs that the frog can jump on and ride.
+ *
+ * @author Nick Shelby
+ * @version Spring 2020
  */
 public class Log extends Hazard {
 
@@ -41,7 +44,7 @@ public class Log extends Hazard {
                 x = -60.0;
             }
         } else {
-            if (x > -30.0) {
+            if (x > -60.0) {
                 x += speed;
             } else {
                 x = FroggerGame.FRAME_WIDTH;

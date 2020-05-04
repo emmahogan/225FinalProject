@@ -5,6 +5,9 @@ import gameutils.Texture;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * This is the river on which the logs float.
+ */
 public class River extends Environment {
 
     private ArrayList<Hazard> logs; // ArrayList of the logs in the level.
@@ -39,6 +42,11 @@ public class River extends Environment {
         }
     }
 
+    /**
+     * Returns the logs on the river.
+     *
+     * @return The logs on the river.
+     */
     @Override
     public ArrayList<Hazard> getHazards() {
         return logs;

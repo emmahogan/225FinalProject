@@ -2,10 +2,8 @@ package frogger;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Random;
 
 import gameutils.Screen;
-import gameutils.Texture;
 
 import static frogger.FroggerGame.SCALE;
 
@@ -16,9 +14,9 @@ import static frogger.FroggerGame.SCALE;
  * @version Spring 2020
  */
 public class FroggerScreen extends Screen {
-    private EnvironmentManager environmentManager;
+    public EnvironmentManager environmentManager;
     private ArrayList<Environment> environments; // This holds all of the areas of land and rivers.
-    private Frog froggah; // This is the player character, the frog object that you control.
+    public Frog froggah; // This is the player character, the frog object that you control.
 
     /**
      * Creates the screen that the game is played on.
@@ -26,7 +24,6 @@ public class FroggerScreen extends Screen {
     public FroggerScreen() {
         super();
         environmentManager = new EnvironmentManager();
-        environmentManager.makeLevel();
         environments = environmentManager.environments;
 
         froggah = new Frog(environmentManager);
@@ -63,22 +60,4 @@ public class FroggerScreen extends Screen {
 
     }
 
-    /**
-     * This will check to see if the frog has made it to the end of the level.
-     *
-     * @return Whether or not the frog has made it to the end.
-     */
-    public boolean checkWin() {
-        if (environmentManager.posInLevel == environments.size() - 15) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * This output a game over screen if the frog dies.
-     */
-    public void gameOver() {
-        System.out.println("Game Over");
-    }
 }

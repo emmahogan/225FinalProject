@@ -2,8 +2,12 @@ package frogger;
 
 import gameutils.Texture;
 
-import java.awt.*;
-
+/**
+ * This is the car object that is on the road.
+ *
+ * @author Nick Shelby
+ * @version Spring 2020
+ */
 public class CarHazard extends Hazard {
 
     private double x; // X value of the car on the road.
@@ -43,7 +47,7 @@ public class CarHazard extends Hazard {
                 x = -60.0;
             }
         } else {
-            if (x > -30.0) {
+            if (x > -60.0) {
                 x += speed;
             } else {
                 x = 600.0;

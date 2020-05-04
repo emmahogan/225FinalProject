@@ -3,12 +3,19 @@ package frogger;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
 
+/**
+ * This class is used to manage the environments, their hazards, and how they are rendered.
+ *
+ * @author Nick Shelby, Justin Marotta
+ * @version Spring 2020
+ */
 public class EnvironmentManager {
     private final int LEVEL_LENGTH = 60;
     private final int START_GRASS = 7;
-    private final int END_GRASS = 17;
-    private final int USED_GRASS = 24;
+    private final int END_GRASS = 19;
+    private final int USED_GRASS = 25;
 
     private final int NUM_ROWS = 20;
     private final int FROG_TO_BOTTOM_DIST = 3;
@@ -21,8 +28,12 @@ public class EnvironmentManager {
     public EnvironmentManager() {
         posInLevel = 4;
         screenBottomIndex = posInLevel - FROG_TO_BOTTOM_DIST;
+        makeLevel();
     }
 
+    /**
+     * This method updates the environment related objects.
+     */
     public void update() {
         screenBottomIndex = posInLevel - FROG_TO_BOTTOM_DIST;
 
@@ -30,8 +41,15 @@ public class EnvironmentManager {
         for (int i = screenBottomIndex; i < NUM_ROWS + screenBottomIndex; i++) {
             environments.get(i).update();
         }
+
+        if (posInLevel >= LEVEL_LENGTH - END_GRASS) { //Gets the line right before the last grass line.
+            remakeLevel();
+        }
     }
 
+    /**
+     * This method moves the environment up. (Thus moving Frogger further in the level.)
+     */
     public void environmentUp() {
         if (posInLevel > 4) {
             posInLevel--;
@@ -46,6 +64,9 @@ public class EnvironmentManager {
         }
     }
 
+    /**
+     * This method moves the environment down. (Thus moving Frogger back in the level.)
+     */
     public void environmentDown() {
         posInLevel++;
         for (Environment e : environments) {
@@ -58,6 +79,11 @@ public class EnvironmentManager {
         }
     }
 
+    /**
+     * This method dynamically renders the screen and what is to be rendered.
+     *
+     * @param g The Graphics pane to render to.
+     */
     public void drawLevel(Graphics g) {
         // Loops through the portion of the level that needs to be rendered.
         for (int i = screenBottomIndex; i < NUM_ROWS + screenBottomIndex; i++) {
@@ -122,5 +148,14 @@ public class EnvironmentManager {
             }
             i = i + 4;
         }
+    }
+
+    /**
+     * This method remakes the level when you die or reach the end.
+     */
+    public void remakeLevel() {
+        posInLevel = 4;
+        screenBottomIndex = posInLevel - FROG_TO_BOTTOM_DIST;
+        makeLevel();
     }
 }
