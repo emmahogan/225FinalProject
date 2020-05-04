@@ -1,22 +1,20 @@
 package chess;
+
 import gameutils.Game;
-import gameutils.Controller;
-import gameutils.Screen;
-import java.awt.Dimension;
-import javax.swing.JFrame;
 
 /**
- * Write a description of class Chess here.
+ * Runs a simulation of a chess game by calling the creation of a new ChessBoard
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Justin, Andrew, Emma, Tim, Nick
+ * @version Spring 2020
  */
 public class Chess extends Game
 {
+    //The chess board
     private ChessBoard board;
 
     /**
-     * Constructor for objects of class Chess
+     * Constructor calls for the creation of a new ChessBoard, and switches to that screen
      */
     public Chess(String name)
     {
@@ -25,6 +23,9 @@ public class Chess extends Game
         changeScreen(board);
     }
 
+    /**
+     * Calls the run method of it's super class, Game
+     */
     @Override
     public void run() {
         super.run();

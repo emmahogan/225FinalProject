@@ -6,6 +6,13 @@ import gameutils.Texture;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Write a description of class ChessBoard here.
+ *
+ * @author Justin, Andrew, Emma, Tim, Nick
+ * @version Spring 2020
+ */
+
 public class Piece extends GameObject {
     private Side side;
     public PieceType type;

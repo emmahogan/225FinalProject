@@ -1,48 +1,29 @@
 package chess;
 
-import gameutils.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.event.*;
+import gameutils.Controller;
+import java.awt.event.MouseEvent;
 
 /**
- * Write a description of class ChessController here.
+ * Controller object needed for constructor of ChessBoard
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Justin, Andrew, Emma, Tim, Nick
+ * @version Spring 2020
  */
 public class ChessController extends Controller
 {
-
-
     /**
-     * Constructor for objects of class ChessController
+     * Constructor calls super class
      */
-    public ChessController(ArrayList<Piece> white, ArrayList<Piece> black)
+    public ChessController()
     {
         super();
-
-
-    }
-
-
-
-
-
-
-
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
     }
 
     @Override
-    public void handleKeyInput(){
+    public void mousePressed(MouseEvent e) {}
 
-    }
+    @Override
+    public void handleKeyInput(){}
 
 
 }

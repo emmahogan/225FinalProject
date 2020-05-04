@@ -10,14 +10,15 @@ import javax.swing.*;
 /**
  * Write a description of class ChessBoard here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Justin, Andrew, Emma, Tim, Nick
+ * @version Spring 2020
  */
-public class ChessBoard extends Screen implements ActionListener, MouseListener, MouseMotionListener
+public class ChessBoard extends Screen implements ActionListener, MouseListener
 {
     //Panel dimensions
     private static final int FRAME_WIDTH = 600;
     private static final int FRAME_HEIGHT = 600;
+
     //Board measurements
     public static final int SQUARE_SIZE = 50;
     public static final int BORDER_WIDTH = (FRAME_WIDTH - (8*SQUARE_SIZE))/2;
@@ -71,32 +72,16 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener,
     {
         super();
         initGame();
-        this.controller = new ChessController(whitePieces, blackPieces);
+        this.controller = new ChessController();
         repaint();
         this.addMouseListener(this);
     }
     
-    public void drawBoard(Graphics g) {
+    /////////////////////////////////// INITIALIZING NEW GAME /////////////////////////////////////////////
 
-        setBackground(BACKGROUND_COLOR);
-        g.setColor(Color.BLACK);
-        g.drawRect(BORDER_WIDTH, BORDER_WIDTH, FRAME_WIDTH - 2 * BORDER_WIDTH, FRAME_WIDTH - 2 * BORDER_WIDTH);
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                squares[row][col].drawSquare(g);
-            }
-        }
-
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                squares[row][col].drawPiece(g);
-            }
-        }
-
-        topPanel.add(restartButton);
-        restartButton.setVisible(true);
-    }
-
+    /**
+     *
+     */
     private void initGame(){
         //add panels
         this.add(mainPanel);
@@ -109,11 +94,6 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener,
         mainPanel.setVisible(false);
         topPanel.setVisible(true);
 
-        //add mouse listeners to board panel, top panel, and bottom panel
-        mainPanel.addMouseListener(this);
-        boardPanel.addMouseListener(this);
-        topPanel.addMouseListener(this);
-        bottomPanel.addMouseListener(this);
 
         //for all squares:
         for(int i = 0; i < 8; i++){
@@ -200,6 +180,10 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener,
         squares[backRow][4].addPiece(king);
     }
 
+
+    ///////////////////////////////// REPAINTING AND UPDATING //////////////////////////////////////
+
+
     public void render(Graphics g){
         for(int i = 0; i <8; i++){
             for(int j = 0; j < 8; j++){
@@ -219,6 +203,40 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener,
         }
 
     }
+
+    public void drawBoard(Graphics g) {
+
+        setBackground(BACKGROUND_COLOR);
+        g.setColor(Color.BLACK);
+        g.drawRect(BORDER_WIDTH, BORDER_WIDTH, FRAME_WIDTH - 2 * BORDER_WIDTH, FRAME_WIDTH - 2 * BORDER_WIDTH);
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                squares[row][col].drawSquare(g);
+            }
+        }
+
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                squares[row][col].drawPiece(g);
+            }
+        }
+
+        topPanel.add(restartButton);
+        restartButton.setVisible(true);
+    }
+
+
+    /**
+     * Method to highlight a square on the board that is a possible move with a blue border
+     *
+     * @param s Square to highlight
+     * @param g the Graphics object
+     */
+    public void highlightPossMoves(BoardSquare s, Graphics g){
+        g.setColor(new Color(150,255,255, 100));
+        g.fillRect(positions[s.getRow()][s.getCol()].x + 1, positions[s.getRow()][s.getCol()].y + 1, SQUARE_SIZE-2, SQUARE_SIZE-2);
+    }
+
 
     public void update(){
         for(int i = 0; i <8; i++){
@@ -246,66 +264,14 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener,
         }
     }
 
-    public void dispose(){}
 
-
-
-    public BoardSquare getSquare(int row, int col){
-        return squares[row][col];
-    }
+    ////////////////////////////////////// ACCESSORS ////////////////////////////////////////
 
     /**
-     * Method to highlight a square on the board that is a possible move with a blue border
-     * @param s Square to highlight
-     * @param g the Graphics object
+     * Accessor method for whose turn it is
+     *
+     * @return the Side whose turn it is
      */
-    public void highlightPossMoves(BoardSquare s, Graphics g){
-        g.setColor(new Color(150,255,255, 100));
-        g.fillRect(positions[s.getRow()][s.getCol()].x + 1, positions[s.getRow()][s.getCol()].y + 1, SQUARE_SIZE-2, SQUARE_SIZE-2);
-    }
-
-    /**
-     * Check if a point is on the board
-     * @param p the point
-     * @return true if on board, false otherwise
-     */
-    public boolean isOnBoard(Point p){
-        int xStart = positions[0][0].x;
-        int xEnd = xStart + 8*SQUARE_SIZE;
-        int yStart = positions[0][0].y;
-        int yEnd = yStart + 8*SQUARE_SIZE;
-        System.out.println(p);
-        return p.x > xStart && p.x < xEnd && p.y > yStart && p.y < yEnd;
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        //if click is on board
-        Point p = e.getPoint();
-    System.out.println("Mouse clicked somewhere atleast");
-        if(isOnBoard(p)){
-            BoardSquare s = whichSquareClicked(p);
-            validateMove(s);
-        }
-    }
-
-    public BoardSquare whichSquareClicked(Point p){
-        int col = (p.x - BORDER_WIDTH)/SQUARE_SIZE;
-        int row = (p.y - BORDER_WIDTH)/SQUARE_SIZE;
-        System.out.println(row + ", " + col);
-        return squares[row][col];
-    }
-
-
-    public boolean isInCheck(Side side){
-        if(side.equals(Side.BLACK)){
-            return blackInCheck;
-        } else {
-            return whiteInCheck;
-        }
-    }
-
-
     public Side getTurn(){
         if(isBlackTurn){
             return Side.BLACK;
@@ -314,8 +280,27 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener,
         }
     }
 
+    /**
+     * Returns whether the input side is in check
+     * TODO take out methods never used, or finish javadoc
+     * @param side
+     * @return
+     */
+    public boolean isInCheck(Side side){
+        if(side.equals(Side.BLACK)){
+            return blackInCheck;
+        } else {
+            return whiteInCheck;
+        }
+    }
 
+    ////////////////////////////////// MOVE VALIDATION ////////////////////////////////////////////
 
+    /**
+     * TODO javadoc
+     * TODO add special cases
+     * @param s
+     */
     public void validateMove(BoardSquare s) {
         //if square is occupied and piece can be chosen
         if (move[0] == null) {
@@ -357,7 +342,11 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener,
     }
 
 
-
+    /**
+     * TODO javadoc and inline
+     * @param p
+     * @return
+     */
     public boolean canBeChosen(Piece p){
         if(!p.isOut()){
             if(isBlackTurn){
@@ -374,6 +363,10 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener,
         return false;
     }
 
+    /**
+     * TODO javadoc for method
+     * TODO add special cases
+     */
     private void completeMove(){
         System.out.println(squares[0][5]);
         Piece pieceMoved = move[0].getPiece();
@@ -401,51 +394,105 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener,
     }
 
     /**
-     * Method to knock out piece
+     * Method to knock out piece that sets the piece's attribute to out, and adds it to the
+     * correct team's arraylist of pieces knocked out
+     *
      * @param p the piece knocked out
      */
     private void knockout(Piece p){
+        //set piece's out attribute to true
         p.setOut(true);
+
+        //add the piece to its team's arraylist of pieces knocked out
         if(p.getSide().equals(Side.WHITE)){
             whitePiecesOut.add(p);
         } else { blackPiecesOut.add(p); }
     }
 
+    /**
+     * TODO add method for check
+     * @param e
+     */
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-            //mouseClicked(e);
+    ////////////////////////////// CALCULATIONS FOR CLICKS //////////////////////////////////
+
+    /**
+     * Check if a point is on the board
+     * @param p the point
+     * @return true if on board, false otherwise
+     */
+    public boolean isOnBoard(Point p){
+        int xStart = positions[0][0].x;
+        int xEnd = xStart + 8*SQUARE_SIZE;
+        int yStart = positions[0][0].y;
+        int yEnd = yStart + 8*SQUARE_SIZE;
+        System.out.println(p);
+        return p.x > xStart && p.x < xEnd && p.y > yStart && p.y < yEnd;
     }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
 
+    /**
+     * Once it is known that a click happened somewhere on the board, this
+     * method is called to tell which square the click was in
+     *
+     * @param p The point clicked
+     *
+     * @return The square the click was in
+     */
+    public BoardSquare whichSquareClicked(Point p){
+        int col = (p.x - BORDER_WIDTH)/SQUARE_SIZE;
+        int row = (p.y - BORDER_WIDTH)/SQUARE_SIZE;
+        System.out.println(row + ", " + col);
+        return squares[row][col];
     }
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
 
+    ////////////////////////////////// EVENT HANDLING ///////////////////////////////////////
+
+
+    /**
+     * When the mouse is clicked, checks if the click was on the board and calls methods to
+     * validate move
+     *
+     * @param e The MouseEvent
+     */
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        //if click is on board
+        Point p = e.getPoint();
+        System.out.println("Mouse clicked somewhere atleast");
+        if(isOnBoard(p)){
+            BoardSquare s = whichSquareClicked(p);
+            validateMove(s);
+        }
     }
 
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-
-    }
-
+    /**
+     * TODO if figured out add javadoc, else delete
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(restartButton)){
             initGame();
         }
     }
+
+    //Other methods not used, but needed to be included
+
+    @Override
+    public void mousePressed(MouseEvent e) {}
+
+    @Override
+    public void mouseReleased(MouseEvent e) {}
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
+
+    @Override
+    public void dispose(){}
+
 }

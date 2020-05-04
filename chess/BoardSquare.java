@@ -1,6 +1,15 @@
 package chess;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+
+/**
+ * This class represents a Square on a ChessBoard
+ *
+ * @author Justin, Andrew, Emma, Tim, Nick
+ * @version Spring 2020
+ */
 
 public class BoardSquare {
     //whether square has piece in it
