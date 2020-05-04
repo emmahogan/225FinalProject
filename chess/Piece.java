@@ -220,11 +220,15 @@ public class Piece extends GameObject {
                 possibleMoves.add(squaresArr[row+direction][col+1]);
             }
         }
-        //if pawn is still in its initial position, add the spot two rows ahead
-        if(side.equals(Side.WHITE)){
-            if(row == 6 && !squaresArr[row+ 2*direction][col].isOccupied()){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
-        } else {
-            if(row == 1 && !squaresArr[row+ 2*direction][col].isOccupied()){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
+        //if pawn is still in its initial position
+        if((side.equals(Side.WHITE) && row == 6) || (side.equals(Side.BLACK) && row == 1)){
+
+            //if both of those spots in front of it are not occupied
+            if(!squaresArr[row+ direction][col].isOccupied() && !squaresArr[row+ 2*direction][col].isOccupied()){
+
+                //add the spot two rows ahead to possible moves
+                possibleMoves.add(squaresArr[row+ 2*direction][col]);
+            }
         }
     }
 
