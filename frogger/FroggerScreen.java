@@ -128,6 +128,7 @@ public class FroggerScreen extends Screen
                  // Loops through all of the logs.
                  for(Hazard log: levelLayout.get(i).getHazards()) {
                      g.drawImage(log.getTexture(), (int) log.getX(), rowPos, null);
+                     g.drawRect(log.bounds.x, log.bounds.y, log.bounds.width, log.bounds.height);
                  }
              }
 

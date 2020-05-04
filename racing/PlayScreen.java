@@ -32,6 +32,7 @@ public class PlayScreen extends Screen {
             }
         }
         g.drawImage(p1.getTexture(), p1.getPosition().x, p1.getPosition().y, null);
+        g.drawRect(p1.bounds.x, p1.bounds.y, p1.bounds.width, p1.bounds.height);
         g.drawImage(p2.getTexture(), p2.getPosition().x, p2.getPosition().y, null);
     }
 
