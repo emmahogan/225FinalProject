@@ -121,8 +121,8 @@ public class Piece extends GameObject {
         movesKingHelper(-1, 1, row, col);
         movesKingHelper(1, -1, row, col);
 
-
-
+        //check castling by calling separate method
+        checkCastling();
     }
 
     private void movesKingHelper(int rowAdd, int colAdd, int row, int col){
@@ -242,27 +242,17 @@ public class Piece extends GameObject {
      * If so, the move is added to the possible moves array
      */
     private void checkCastling(){
-        //the index of the back row
-        int backrow;
 
-        //set to appropriate index depending on team
-        if(side.equals(Side.WHITE)){
-            backrow = 7;
-        }
-        else {
-            backrow = 0;
-        }
-
-        //if the king is located in the back row
-        if(row == backrow && col == 4){
+        //if the king has not been moved
+        if(!hasBeenMoved){
 
             //Check left side
             //check if 3 spots to left are not occupied and one all the way to left is occupied
             if(squaresArr[row][0].isOccupied() && !squaresArr[row][1].isOccupied() && !squaresArr[row][2].isOccupied() && !squaresArr[row][3].isOccupied()){
 
-                //if left corner is occupied with a rook of the same side
+                //if left corner is occupied with a rook that hasn't been moved
                 Piece p = squaresArr[row][0].getPiece();
-                if(p.getType().equals(PieceType.ROOK) && side.equals(p.getSide())){
+                if(p.getType().equals(PieceType.ROOK) && !p.getHasBeenMoved()){
 
                     //add 2 columns to the left to possiblemoves array, completeMove method in
                     //chess board class will handle the rest if executed
@@ -275,13 +265,13 @@ public class Piece extends GameObject {
             //check if 2 spots to right are not occupied and one all the way to right is occupied
             if(squaresArr[row][7].isOccupied() && !squaresArr[row][6].isOccupied() && !squaresArr[row][5].isOccupied()){
 
-                //if left corner is occupied with a rook of the same side
-                Piece p = squaresArr[row][0].getPiece();
-                if(p.getType().equals(PieceType.ROOK) && side.equals(p.getSide())){
+                //if right corner is occupied with a rook that hasn't been moved
+                Piece p = squaresArr[row][7].getPiece();
+                if(p.getType().equals(PieceType.ROOK) && !p.getHasBeenMoved()){
 
-                    //add 2 columns to the left to possiblemoves array, completeMove method in
+                    //add 2 columns to the right to possiblemoves array, completeMove method in
                     //chess board class will handle the rest if executed
-                    possibleMoves.add(squaresArr[row][2]);
+                    possibleMoves.add(squaresArr[row][6]);
                 }
 
             }
@@ -293,6 +283,10 @@ public class Piece extends GameObject {
 
     public void setHasBeenMoved(boolean val){
         hasBeenMoved = val;
+    }
+
+    public boolean getHasBeenMoved(){
+        return hasBeenMoved;
     }
 
     public boolean isOut(){

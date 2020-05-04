@@ -11,8 +11,6 @@ import javax.swing.event.*;
  */
 public class RopePhysics extends MouseAdapter implements Runnable
 {
-    //private RopeSegment[] segments = new RopeSegment[4];
-    
     private JPanel panel;
     private static final double DISTANCE = 50.0;
     private Point mousePos = new Point(250, 250);
