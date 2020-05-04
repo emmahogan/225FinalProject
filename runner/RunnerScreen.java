@@ -164,14 +164,16 @@ public class RunnerScreen extends Screen{
             gameOver();
         }
         if(gates.size() > 0) {
-            Rectangle left = gates.get(0).getLeftRect();
-            Rectangle right = gates.get(0).getRightRect();
-            if (ball.collidesWithRect(left)){
-                gameOver();
-            }
-            if (ball.collidesWithRect(right)){
-                gameOver();
-            }
+                Rectangle left = gates.get(0).getLeftRect();
+                Rectangle right = gates.get(0).getRightRect();
+                if (ball.collidesWithRect(left)){
+                    gameOver();
+                }
+                if (ball.collidesWithRect(right)){
+                    gameOver();
+                }
+
+
         }
 
 
