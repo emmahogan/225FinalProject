@@ -4,36 +4,30 @@ import gameutils.GameObject;
 import gameutils.Texture;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import static frogger.FroggerGame.SCALE;
 
 public class Frog extends GameObject {
-    private final int Y_POS = 390;
-
     private Texture upFroggahTexture;
     private Texture downFroggahTexture;
     private Texture leftFroggahTexture;
     private Texture rightFroggahTexture;
 
     private EnvironmentManager environmentManager;
+    private double x;
 
-    private boolean alive;
-    private boolean onLog;
-    private boolean onLand;
-    private double logSpeed;
 
-    public Frog (EnvironmentManager environmentManager) {
+    public Frog(EnvironmentManager environmentManager) {
         super();
         initTextures();
 
         this.environmentManager = environmentManager;
 
-        position.y = Y_POS;
-        position.x = 10 * SCALE;
+        position.y = FroggerGame.FRAME_HEIGHT - (4 * SCALE);
+        this.x = 10 * SCALE;
+        position.x = (int) x;
 
-        onLand = true;
-        onLog = false;
-        alive = true;
         setBounds();
     }
 
@@ -42,62 +36,11 @@ public class Frog extends GameObject {
      */
     @Override
     public void update() {
-        // Checks if the frog fell in the river.
-        if (!onLog && !onLand) {
-            alive = false;
-            // *****change texture to "drowned frog"and game over
-        }
-        // ******add getting mashed by a car
         setBounds();
+        position.x = (int) x;
+        checkCollision();
     }
 
-    /**
-     * Checks if the frog is alive. (Couldn't be isAlive() since Threads use those.)
-     *
-     * @return Whether or not the frog is alive.
-     */
-    public boolean isDead() {
-        return alive;
-    }
-
-    /**
-     * Returns whether or not the frog is alive.
-     *
-     * @return Whether or not the frog is alive.
-     */
-    public boolean isOnLog() {
-        return onLog;
-    }
-
-    /**
-     * Used to put the frog on a log and then give him horizontal velocity so that he moves with the log. Also used
-     * to remove the frog from a log and bring his velocity back to 0.
-     *
-     * @param logStatus Whether or not the frog is on a log.
-     * @param speedOfLog The speed of the log.
-     */
-    public void setOnLog(boolean logStatus, double speedOfLog) {
-        onLog = logStatus;
-        logSpeed = speedOfLog;
-    }
-
-    /**
-     * Returns whether or not the frog is on land.
-     *
-     * @return Whether or not the frog is on land.
-     */
-    public boolean isOnLand() {
-        return onLand;
-    }
-
-    /**
-     * Sets the frog to being on land.
-     *
-     * @param landStatus Whether or not the frog is to be set to on or off land.
-     */
-    public void setOnLand(boolean landStatus) {
-        onLand = landStatus;
-    }
 
     /**
      * Moves the frog forward and changes its texture accordingly.
@@ -119,8 +62,8 @@ public class Frog extends GameObject {
      * Moves the frog left and changes its texture accordingly.
      */
     public void jumpLeft() {
-        if (position.x != 0) {
-            position.x -= SCALE;
+        if (x != 0) {
+            x -= SCALE;
         }
         texture = leftFroggahTexture;
         update();
@@ -130,10 +73,40 @@ public class Frog extends GameObject {
      * Moves the frog right and changes its texture accordingly.
      */
     public void jumpRight() {
-        if (position.x != FroggerGame.FRAME_WIDTH - SCALE) {
-            position.x += SCALE;
+        if (x != FroggerGame.FRAME_WIDTH - SCALE) {
+            x += SCALE;
         }
         texture = rightFroggahTexture;
+    }
+
+    private void die() {
+        //FroggerGame.changeScreen();
+        System.out.println("dead");
+    }
+
+    private void checkCollision() {
+        int posInLevel = environmentManager.posInLevel;
+        Environment e = environmentManager.environments.get(posInLevel);
+        boolean done = false;
+
+        if (e instanceof River) {
+            for (int i = 0; i < e.getHazards().size() && !done; i++) {
+                Hazard log = e.getHazards().get(i);
+                if (this.collidesWith(log)) {
+                    x += log.speed;
+                    done = true;
+                } else {
+                    done = true;
+                    die();
+                }
+            }
+        } else if (e instanceof Road) {
+            for (Hazard car : e.getHazards()) {
+                if (this.collidesWith(car)) {
+                    die();
+                }
+            }
+        }
     }
 
     private void initTextures() {

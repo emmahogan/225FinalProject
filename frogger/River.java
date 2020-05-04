@@ -24,6 +24,8 @@ public class River extends Environment {
         for (int i = 0; i < numLogs; i++) {
             logs.add(new Log(speed, i * 150, this));
         }
+
+        setBounds();
     }
 
     /**
@@ -31,6 +33,7 @@ public class River extends Environment {
      */
     @Override
     public void update() {
+        setBounds();
         for (Hazard log: logs) {
             log.update();
         }

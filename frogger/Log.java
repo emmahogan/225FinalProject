@@ -1,6 +1,7 @@
 package frogger;
 
 import gameutils.Texture;
+import marstrip.MarsTrip;
 
 import java.awt.*;
 
@@ -34,7 +35,7 @@ public class Log extends Hazard {
     public void update() {
         //Checks if the log is at the end of the level and will reset it to the other side if it is.
         if (speed > 0) {
-            if (x < 600.0) {
+            if (x < FroggerGame.FRAME_WIDTH) {
                 x += speed;
             } else {
                 x = -60.0;
@@ -43,7 +44,7 @@ public class Log extends Hazard {
             if (x > -30.0) {
                 x += speed;
             } else {
-                x = 600.0;
+                x = FroggerGame.FRAME_WIDTH;
             }
         }
         setPosition((int) x, river.position.y);
