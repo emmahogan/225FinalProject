@@ -24,6 +24,11 @@ public abstract class Hazard extends GameObject {
     public abstract double getX();
 
     /**
+     * Sets the y value of the hazard.
+     */
+    public abstract void setY(int y);
+
+    /**
      * Returns the speed of the hazard.
      *
      * @return The speed of the hazard.

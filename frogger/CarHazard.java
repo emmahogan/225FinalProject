@@ -8,6 +8,7 @@ public class CarHazard extends Hazard {
 
     private double speed; // Speed of the car.
     private double x; // X value of the car on the road.
+    private int y;
 
     /**
      * The constructor for the car on the road.
@@ -42,6 +43,11 @@ public class CarHazard extends Hazard {
      */
     public void setBounds() {
         bounds = new Rectangle(this.position.x, this.position.y, texture.getWidth(), texture.getHeight());
+    }
+
+    @Override
+    public void setY(int inputY) {
+        y = inputY;
     }
 
     /**
@@ -83,6 +89,7 @@ public class CarHazard extends Hazard {
                 x = 630.0;
             }
         }
+        setPosition((int) x, y);
         setBounds();
     }
 

@@ -11,6 +11,7 @@ public class Log extends Hazard {
 
     private double speed; // Speed of the log.
     private double x; // X value of the log on the river.
+    private int y;
 
     /**
      * The constructor for the log on the river.
@@ -39,6 +40,11 @@ public class Log extends Hazard {
      */
     public void setBounds() {
         bounds = new Rectangle(this.position.x, this.position.y, texture.getWidth(), texture.getHeight());
+    }
+
+    @Override
+    public void setY(int inputY) {
+        y = inputY;
     }
 
     /**
@@ -80,6 +86,7 @@ public class Log extends Hazard {
                 x = 630.0;
             }
         }
+        setPosition((int) x, y);
         setBounds();
     }
 
