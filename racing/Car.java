@@ -96,49 +96,6 @@ public class Car extends GameObject {
         }
     }
 
-    public void checkCollision(Wall[][] walls, Car other) {
-        if (topBound.intersects(other.bounds)) {
-            velocity.y = 0;
-            velocity.y += 1;
-        } else if (bottomBound.intersects(other.bounds)) {
-            velocity.y = 0;
-            velocity.y -= 1;
-        } else if (leftBound.intersects(other.bounds)) {
-            velocity.x = 0;
-            velocity.x += 1;
-        } else if (rightBound.intersects(other.bounds)) {
-            velocity.x = 0;
-            velocity.x -= 1;
-        }
-        for (Wall[] wallRow : walls) {
-            for (Wall wall : wallRow) {
-                if (wall != null) {
-
-                    // check top
-                    if (topBound.intersects(wall.bounds)) {
-                        velocity.y = 0;
-                        velocity.y += 1;
-
-                        // check bottom
-                    } else if (bottomBound.intersects(wall.bounds)) {
-                        velocity.y = 0;
-                        velocity.y -= 1;
-
-                        // check left
-                    } else if (leftBound.intersects(wall.bounds)) {
-                        velocity.x = 0;
-                        velocity.x += 1;
-
-                        // check right
-                    } else if (rightBound.intersects(wall.bounds)) {
-                        velocity.x = 0;
-                        velocity.x -= 1;
-                    }
-                }
-            }
-        }
-    }
-
     @Override
     public Point getPosition() {
         return new Point((int) position.x, (int) position.y);
@@ -155,6 +112,47 @@ public class Car extends GameObject {
         bottomBound = new Rectangle(bounds.x + 2, bounds.y + bounds.height - 1, bounds.width - 4, 3);
         leftBound = new Rectangle(bounds.x, bounds.y + 2, 3, bounds.height - 4);
         rightBound = new Rectangle(bounds.x + bounds.width - 1, bounds.y + 2, 3, bounds.height - 4);
+    }
+
+    public void checkCollision(Wall[][] walls, Car other) {
+        if (topBound.intersects(other.bounds)) {
+            velocity.y = 0;
+            velocity.y += 1;
+        }
+        if (bottomBound.intersects(other.bounds)) {
+            velocity.y = 0;
+            velocity.y -= 1;
+        }
+        if (leftBound.intersects(other.bounds)) {
+            velocity.x = 0;
+            velocity.x += 1;
+        }
+        if (rightBound.intersects(other.bounds)) {
+            velocity.x = 0;
+            velocity.x -= 1;
+        }
+        for (Wall[] wallRow : walls) {
+            for (Wall wall : wallRow) {
+                if (wall != null) {
+                    if (topBound.intersects(wall.bounds)) {
+                        velocity.y = 0;
+                        velocity.y += 1;
+                    }
+                    if (bottomBound.intersects(wall.bounds)) {
+                        velocity.y = 0;
+                        velocity.y -= 1;
+                    }
+                    if (leftBound.intersects(wall.bounds)) {
+                        velocity.x = 0;
+                        velocity.x += 1;
+                    }
+                    if (rightBound.intersects(wall.bounds)) {
+                        velocity.x = 0;
+                        velocity.x -= 1;
+                    }
+                }
+            }
+        }
     }
 
     private void initTextures(String color) {
