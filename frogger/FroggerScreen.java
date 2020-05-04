@@ -167,8 +167,8 @@ public class FroggerScreen extends Screen
                     froggah.setOnLog(true, log.getSpeed());
                 }
             }
-            // Checks if the frog is alive so that it can change it's texture and cause a game over if necessary.
-            if (!froggah.isAlive()) {
+            // Checks if the frog is on a log so that it can change it's texture and cause a game over if necessary.
+            if (!froggah.isOnLog()) {
                 froggah.texture = new Texture("assets/frogger/water_line.png");
                 //game over
             }
@@ -177,7 +177,7 @@ public class FroggerScreen extends Screen
         // Checks if the layer that the frog is on is a Road so that it will check for collision with a car.
         if (levelLayout.get(frogLevelPos) instanceof Road) {
             for(Hazard car: (levelLayout.get(frogLevelPos).getHazards())) {
-                if (!froggah.isOnLog() && car.checkCollision(froggah)) {
+                if (car.checkCollision(froggah)) {
                     System.out.println("Frog dead");
                 }
             }
