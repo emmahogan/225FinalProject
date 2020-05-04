@@ -44,7 +44,7 @@ public class Sound extends Thread implements LineListener {
                 audioClip.start();
                 while (!playCompleted) {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(16);
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
@@ -77,12 +77,9 @@ public class Sound extends Thread implements LineListener {
         LineEvent.Type type = event.getType();
 
         if (type == LineEvent.Type.START) {
-            System.out.println("Playback started.");
-
+            playCompleted = false;
         } else if (type == LineEvent.Type.STOP) {
             playCompleted = true;
-            System.out.println("Playback completed.");
         }
-
     }
 }

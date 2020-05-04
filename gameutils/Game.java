@@ -16,8 +16,11 @@ import javax.swing.WindowConstants;
 public abstract class Game implements Runnable {
     public static int FRAME_WIDTH;
     public static int FRAME_HEIGHT;
+    private static Object lock = new Object();
     private static JFrame frame;
     private static Screen screen;
+    public SoundManager soundManager;
+    public static boolean running;
 
     /**
      * Generic constructor for a Game
@@ -27,7 +30,9 @@ public abstract class Game implements Runnable {
         frame = new JFrame(name);
         FRAME_WIDTH = 600;
         FRAME_HEIGHT = 600;
+        running = true;
         screen = null;
+        soundManager = null;
     }
 
     /**
@@ -48,25 +53,33 @@ public abstract class Game implements Runnable {
      */
     @Override
     public void run(){
-        Thread gameManager = new Thread(() -> {
-            while (true) {
-                try { Thread.sleep(16); }
-                catch (InterruptedException e) {}
+        Thread gameManager = new Thread() {
 
-                screen.update();
-                if (screen.controller != null) {
-                    screen.controller.handleKeyInput();
+            @Override
+            public synchronized void run() {
+                super.run();
+                while (running) {
+                    try { Thread.sleep(32); }
+                    catch (InterruptedException e) {}
+
+                    screen.update();
+                    if (screen.controller != null) {
+                        screen.controller.handleKeyInput();
+                    }
+                    screen.repaint();
                 }
-                screen.repaint();
             }
-        });
+        };
         JFrame.setDefaultLookAndFeelDecorated(true);
         frame.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT + 21));
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent windowEvent) {
-                gameManager.stop();
+                if (soundManager != null) {
+                    soundManager.killAll();
+                }
+                running = false;
             }
         });
         frame.pack();
@@ -90,6 +103,15 @@ public abstract class Game implements Runnable {
             newScreen.addMouseListener(newScreen.controller);
             newScreen.addMouseMotionListener(newScreen.controller);
         }
+    }
+
+    public void changeSoundManager(SoundManager soundManager) {
+        this.soundManager = soundManager;
+    }
+
+    public static void killGame() {
+        running = false;
+        frame.dispose();
     }
 
     private static void setExitOnClose(boolean exitOnClose) {

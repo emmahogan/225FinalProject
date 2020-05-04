@@ -5,18 +5,18 @@ import java.util.ArrayList;
 
 import gameutils.Screen;
 import gameutils.Sound;
+import gameutils.SoundManager;
 
 public class PlayScreen extends Screen {
     ArrayList<Background> bgImgs;
-    Sound music;
     Ship ship;
 
-    public PlayScreen() {
+    public PlayScreen(SoundManager soundManager) {
         initBackground();
+        this.soundManager = soundManager;
         this.ship = new Ship(100, 100);
         this.controller = new ShipController(ship);
-        music = new Sound("assets/marstrip/music.wav");
-        music.start();
+        soundManager.play("assets/marstrip/music.wav");
     }
 
     @Override

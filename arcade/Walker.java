@@ -50,10 +50,12 @@ public class Walker extends GameObject {
         System.out.println("We made it here");
         if (game.equals(ArcadeScreen.gameEntrances.get(0))) {
             System.out.println("Starting Example Game");
+            ArcadeMenu.killGame();
             javax.swing.SwingUtilities.invokeLater(new ExampleGame("Example Game"));
         }
         else if (game.equals(ArcadeScreen.gameEntrances.get(1))) {
             System.out.println("Starting Speed Racers");
+            ArcadeMenu.killGame();
             javax.swing.SwingUtilities.invokeLater(new SpeedRacers("Speed Racers"));
         }
         else if (game.equals(ArcadeScreen.gameEntrances.get(2))){
