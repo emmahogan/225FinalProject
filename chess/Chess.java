@@ -33,13 +33,14 @@ public class Chess extends Game
     }
 
     /**
-     * Called from ChessBoard class when game is over
+     * Switches to game over screen
      *
      * @param winner The winning team
      */
     public void gameOver(Side winner){
         changeScreen(new GameOverScreen(winner));
     }
+
 
     /**
      * Calls the run method of it's super class, Game

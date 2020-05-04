@@ -16,7 +16,7 @@ import javax.swing.*;
 public class ChessBoard extends Screen implements ActionListener, MouseListener
 {
     //Panel dimensions
-    private static final int FRAME_WIDTH = 600;
+    public static final int FRAME_WIDTH = 600;
     private static final int FRAME_HEIGHT = 600;
 
     //Board measurements
@@ -272,16 +272,6 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
             p.update();
         }
 
-        for(Piece p: blackPiecesOut){
-            if(p.getType().equals(PieceType.KING)){
-                initGame();
-            }
-        }
-        for(Piece p: whitePiecesOut){
-            if(p.getType().equals(PieceType.KING)){
-                initGame();
-            }
-        }
     }
 
 
@@ -417,9 +407,22 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
      * Method to knock out piece that sets the piece's attribute to out, and adds it to the
      * correct team's arraylist of pieces knocked out
      *
+     * Also checks if piece being knocked out is King, and if so ends game
+     *
      * @param p the piece knocked out
      */
     private void knockout(Piece p){
+
+        //If a king was knocked out, game is over
+        if(p.getType().equals(PieceType.KING)) {
+            if(p.getSide().equals(Side.WHITE)){
+                //Chess.gameOver(Side.WHITE);
+            } else {
+                //Chess.gameOver(Side.BLACK);
+            }
+            initGame();
+        }
+
         //set piece's out attribute to true
         p.setOut(true);
 
