@@ -19,28 +19,19 @@ public class FroggerController extends Controller
     public FroggerController (Frog frogToControl) {
         super();
         froggah = frogToControl;
-        keyNeedsToBeReleased = false;
     }
 
     public void handleKeyInput() {
-        // Need to use keyPressed, not isKeyPressed
-
-        if (isKeyPressed(W) && !keyNeedsToBeReleased) {
+        if (isKeyJustPressed(W)) {
             froggah.jumpForward();
-            keyNeedsToBeReleased = true;
-        } else if (isKeyPressed(S) && !keyNeedsToBeReleased) {
+        } else if (isKeyJustPressed(S)) {
             froggah.jumpBack();
             keyNeedsToBeReleased = true;
-        } else if (isKeyPressed(A) && !keyNeedsToBeReleased) {
+        } else if (isKeyJustPressed(A)) {
             froggah.jumpLeft();
-            keyNeedsToBeReleased = true;
-        } else if (isKeyPressed(D) && !keyNeedsToBeReleased) {
+        } else if (isKeyJustPressed(D)) {
             froggah.jumpRight();
-            keyNeedsToBeReleased = true;
-        }
-
-        if (!isKeyPressed(W) && !isKeyPressed(A) && !isKeyPressed(S) && !isKeyPressed(D)) {
-            keyNeedsToBeReleased = false;
         }
     }
+
 }
