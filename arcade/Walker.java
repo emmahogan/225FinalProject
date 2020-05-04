@@ -17,7 +17,7 @@ public class Walker extends GameObject {
     private GameEntrance game;
 
     public Walker (){
-        isInGame = false;
+        //isInGame = false;
         game = null;
         position = new Point(ArcadeMenu.FRAME_WIDTH/2, ArcadeMenu.FRAME_HEIGHT/2);
         texture = new Texture("assets/runner/ball1.png");

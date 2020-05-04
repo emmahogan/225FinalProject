@@ -18,6 +18,7 @@ public abstract class Screen extends JPanel {
      */
     public Screen() {
         super();
+        controller = null;
     }
 
     /**

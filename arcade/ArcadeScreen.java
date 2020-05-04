@@ -16,14 +16,6 @@ public class ArcadeScreen extends Screen {
 
     public static ArrayList<GameEntrance> gameEntrances;
 
-    private GameEntrance smiley;
-    private GameEntrance speedRacers;
-    private GameEntrance chess;
-    private GameEntrance mars;
-    private GameEntrance frog;
-    private GameEntrance rise;
-
-
     private Walker walker;
 
     private JLabel label;
@@ -39,19 +31,7 @@ public class ArcadeScreen extends Screen {
         gameEntrances = new ArrayList<GameEntrance>();
         this.controller = new ArcadeController(walker);
 
-        smiley = new GameEntrance(new Point(PADDING + ICON_BORDER, 100 + PADDING + ICON_BORDER),  new Texture("assets/arcade/smileyIcon.png"));
-        speedRacers = new GameEntrance(new Point(PADDING * 3 + ICON_BORDER * 3 + ICON_SIZE, 100 + PADDING + ICON_BORDER),  new Texture("assets/arcade/racingIcon.png"));
-        chess = new GameEntrance(new Point(PADDING * 5 + ICON_BORDER * 5 + ICON_SIZE * 2, 100 + PADDING + ICON_BORDER),  new Texture("assets/arcade/chessIcon.png"));
-        mars = new GameEntrance(new Point(PADDING + ICON_BORDER, 100 + PADDING * 5 + ICON_BORDER * 3 + ICON_SIZE),  new Texture("assets/arcade/marsIcon.png"));
-        frog = new GameEntrance(new Point(PADDING * 3 + ICON_BORDER * 3 + ICON_SIZE, 100 + PADDING * 5 + ICON_BORDER * 3 + ICON_SIZE),  new Texture("assets/arcade/froggerIcon.png"));
-        rise = new GameEntrance(new Point(PADDING * 5 + ICON_BORDER * 5 + ICON_SIZE * 2, 100 + PADDING * 5 + ICON_BORDER * 3 + ICON_SIZE),  new Texture("assets/arcade/riseIcon.png"));
-
-        gameEntrances.add(smiley);
-        gameEntrances.add(speedRacers);
-        gameEntrances.add(chess);
-        gameEntrances.add(mars);
-        gameEntrances.add(frog);
-        gameEntrances.add(rise);
+        initGameEntrences();
 
         this.add(label);
     }
@@ -99,5 +79,34 @@ public class ArcadeScreen extends Screen {
     @Override
     public void dispose() {
 
+    }
+
+    private void initGameEntrences() {
+        GameEntrance smiley;
+        GameEntrance speedRacers;
+        GameEntrance chess;
+        GameEntrance mars;
+        GameEntrance frog;
+        GameEntrance rise;
+
+        smiley = new GameEntrance(new Point(PADDING + ICON_BORDER, 100 + PADDING + ICON_BORDER),
+                new Texture("assets/arcade/smileyIcon.png"));
+        speedRacers = new GameEntrance(new Point(PADDING * 3 + ICON_BORDER * 3 + ICON_SIZE, 100 + PADDING + ICON_BORDER),
+                new Texture("assets/arcade/racingIcon.png"));
+        chess = new GameEntrance(new Point(PADDING * 5 + ICON_BORDER * 5 + ICON_SIZE * 2, 100 + PADDING + ICON_BORDER),
+                new Texture("assets/arcade/chessIcon.png"));
+        mars = new GameEntrance(new Point(PADDING + ICON_BORDER, 100 + PADDING * 5 + ICON_BORDER * 3 + ICON_SIZE),
+                new Texture("assets/arcade/marsIcon.png"));
+        frog = new GameEntrance(new Point(PADDING * 3 + ICON_BORDER * 3 + ICON_SIZE, 100 + PADDING * 5 + ICON_BORDER * 3 + ICON_SIZE),
+                new Texture("assets/arcade/froggerIcon.png"));
+        rise = new GameEntrance(new Point(PADDING * 5 + ICON_BORDER * 5 + ICON_SIZE * 2, 100 + PADDING * 5 + ICON_BORDER * 3 + ICON_SIZE),
+                new Texture("assets/arcade/riseIcon.png"));
+
+        gameEntrances.add(smiley);
+        gameEntrances.add(speedRacers);
+        gameEntrances.add(chess);
+        gameEntrances.add(rise);
+        gameEntrances.add(frog);
+        gameEntrances.add(mars);
     }
 }

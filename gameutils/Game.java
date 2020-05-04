@@ -5,6 +5,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 /**
  * An abstract Game class to make creating games simpler
@@ -52,12 +53,15 @@ public abstract class Game implements Runnable {
                 catch (InterruptedException e) {}
 
                 screen.update();
-                screen.controller.handleKeyInput();
+                if (screen.controller != null) {
+                    screen.controller.handleKeyInput();
+                }
                 screen.repaint();
             }
         });
         JFrame.setDefaultLookAndFeelDecorated(true);
         frame.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT + 21));
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent windowEvent) {
@@ -80,8 +84,18 @@ public abstract class Game implements Runnable {
         }
         screen = newScreen;
         frame.add(newScreen);
-        frame.addKeyListener(newScreen.controller);
-        newScreen.addMouseListener(newScreen.controller);
-        newScreen.addMouseMotionListener(newScreen.controller);
+        if (newScreen.controller != null) {
+            frame.addKeyListener(newScreen.controller);
+            newScreen.addMouseListener(newScreen.controller);
+            newScreen.addMouseMotionListener(newScreen.controller);
+        }
+    }
+
+    private static void setExitOnClose(boolean exitOnClose) {
+        if (exitOnClose) {
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        } else {
+            frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        }
     }
 }
