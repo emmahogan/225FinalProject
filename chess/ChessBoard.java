@@ -369,6 +369,10 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
     private void completeMove(){
         checkSpecialCasePawn();
         Piece pieceMoved = move[0].getPiece();
+
+        //set piece's hasBeenMoved to true
+        pieceMoved.setHasBeenMoved(true);
+
         //remove piece from its current spot
         move[0].removePiece();
 

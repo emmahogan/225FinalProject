@@ -22,12 +22,16 @@ public class Piece extends GameObject {
     public int col;
     private BoardSquare[][] squaresArr = ChessBoard.squares;
 
+    //True if piece has been moved at least once during current game
+    private boolean hasBeenMoved = false;
+
     public Piece(Side side,int row, int col, PieceType type){
         super();
         this.side = side;
         this.type = type;
         this.row = row;
         this.col = col;
+        this.hasBeenMoved = false;
         this.position = new Point(ChessBoard.BORDER_WIDTH + col*ChessBoard.SQUARE_SIZE, ChessBoard.BORDER_WIDTH + row*ChessBoard.SQUARE_SIZE);
         setTexture(side,type);
         setBounds();
@@ -220,14 +224,76 @@ public class Piece extends GameObject {
                 possibleMoves.add(squaresArr[row+direction][col+1]);
             }
         }
-        //if pawn is still in its initial position, add the spot two rows ahead
-        if(side.equals(Side.WHITE)){
-            if(row == 6 && !squaresArr[row+ 2*direction][col].isOccupied()){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
-        } else {
-            if(row == 1 && !squaresArr[row+ 2*direction][col].isOccupied()){ possibleMoves.add(squaresArr[row+ 2*direction][col]); }
+        //if pawn is still in its initial position
+        if((side.equals(Side.WHITE) && row == 6) || (side.equals(Side.BLACK) && row == 1)){
+
+            //if both of those spots in front of it are not occupied
+            if(!squaresArr[row+ direction][col].isOccupied() && !squaresArr[row+ 2*direction][col].isOccupied()){
+
+                //add the spot two rows ahead to possible moves
+                possibleMoves.add(squaresArr[row+ 2*direction][col]);
+            }
         }
     }
 
+
+    /**
+     * Method to check for King if castling should be an option added in possible moves
+     * If so, the move is added to the possible moves array
+     */
+    private void checkCastling(){
+        //the index of the back row
+        int backrow;
+
+        //set to appropriate index depending on team
+        if(side.equals(Side.WHITE)){
+            backrow = 7;
+        }
+        else {
+            backrow = 0;
+        }
+
+        //if the king is located in the back row
+        if(row == backrow && col == 4){
+
+            //Check left side
+            //check if 3 spots to left are not occupied and one all the way to left is occupied
+            if(squaresArr[row][0].isOccupied() && !squaresArr[row][1].isOccupied() && !squaresArr[row][2].isOccupied() && !squaresArr[row][3].isOccupied()){
+
+                //if left corner is occupied with a rook of the same side
+                Piece p = squaresArr[row][0].getPiece();
+                if(p.getType().equals(PieceType.ROOK) && side.equals(p.getSide())){
+
+                    //add 2 columns to the left to possiblemoves array, completeMove method in
+                    //chess board class will handle the rest if executed
+                    possibleMoves.add(squaresArr[row][2]);
+                }
+
+            }
+
+            //Check right side
+            //check if 2 spots to right are not occupied and one all the way to right is occupied
+            if(squaresArr[row][7].isOccupied() && !squaresArr[row][6].isOccupied() && !squaresArr[row][5].isOccupied()){
+
+                //if left corner is occupied with a rook of the same side
+                Piece p = squaresArr[row][0].getPiece();
+                if(p.getType().equals(PieceType.ROOK) && side.equals(p.getSide())){
+
+                    //add 2 columns to the left to possiblemoves array, completeMove method in
+                    //chess board class will handle the rest if executed
+                    possibleMoves.add(squaresArr[row][2]);
+                }
+
+            }
+
+        }
+
+
+    }
+
+    public void setHasBeenMoved(boolean val){
+        hasBeenMoved = val;
+    }
 
     public boolean isOut(){
         return out;
