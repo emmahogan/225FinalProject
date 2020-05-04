@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import static frogger.FroggerGame.SCALE;
 
 public class Frog extends GameObject {
+    private final int FRAME_BUFFER = 2;
+    private int collisionFrameCount;
+
     private Texture upFroggahTexture;
     private Texture downFroggahTexture;
     private Texture leftFroggahTexture;
@@ -16,9 +19,6 @@ public class Frog extends GameObject {
 
     private EnvironmentManager environmentManager;
     private double x;
-
-    private int deathCount = 0;
-
 
     public Frog(EnvironmentManager environmentManager) {
         super();
@@ -82,8 +82,8 @@ public class Frog extends GameObject {
     }
 
     private void die() {
-        if (deathCount < 2) {
-            deathCount++;
+        if (collisionFrameCount < FRAME_BUFFER) {
+            collisionFrameCount++;
         } else {
             System.out.println("dead");
         }
@@ -105,7 +105,7 @@ public class Frog extends GameObject {
             }
             if (done && currentHazard != null) {
                 x += currentHazard.speed;
-                deathCount = 0;
+                collisionFrameCount = 0;
             } else {
                 die();
             }
