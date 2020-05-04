@@ -30,7 +30,6 @@ public class Piece extends GameObject {
         this.col = col;
         this.position = new Point(ChessBoard.BORDER_WIDTH + col*ChessBoard.SQUARE_SIZE, ChessBoard.BORDER_WIDTH + row*ChessBoard.SQUARE_SIZE);
         setTexture(side,type);
-        texture.scale((double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth(),(double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth());
         setBounds();
     }
 
@@ -63,6 +62,9 @@ public class Piece extends GameObject {
         }
         filepath += ".png";
         texture = new Texture(filepath);
+
+        //Scale texture to the size of a square on the Chess Board
+        texture.scale((double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth(),(double)ChessBoard.SQUARE_SIZE/(double)texture.getWidth());
     }
 
     public ArrayList<BoardSquare> getPossibleMoves(){
@@ -246,6 +248,10 @@ public class Piece extends GameObject {
 
     public PieceType getType(){
         return type;
+    }
+
+    public void setType(PieceType type){
+        this.type = type;
     }
 
     @Override
