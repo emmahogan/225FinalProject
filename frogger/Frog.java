@@ -144,6 +144,7 @@ public class Frog extends GameObject {
         posInLevel++;
         texture = upFroggahTexture;
         update();
+        System.out.println("frog" + posInLevel);
     }
 
     /**

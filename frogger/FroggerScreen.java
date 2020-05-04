@@ -19,7 +19,7 @@ public class FroggerScreen extends Screen
     private Frog froggah; // This is the player character, the frog object that you control.
     private int screenBottomIndex; // This is where in the ArrayList the bottom of the screen begins.
     private double frogX; // This is the x value of the frog.
-    private final double frogY = froggah.Y_VAL; // This is the y value of the frog. (Always stays the same.)
+    private final int frogY = 420; // This is the y value of the frog. (Always stays the same.)
     private int frogLevelPos; // This is how far into the level the frog has progressed.
 
     private final int NUM_ROWS = 20; // This is how many rows are to be displayed on the screen at once.
@@ -33,7 +33,8 @@ public class FroggerScreen extends Screen
         froggah = new Frog();
         controller = new FroggerController(froggah);
         makeLevel();
-        screenBottomIndex = froggah.getPosInLevel() - FROG_TO_BOTTOM_DIST;
+        frogLevelPos = 5;
+        screenBottomIndex = frogLevelPos - FROG_TO_BOTTOM_DIST;
         
     }
 
@@ -116,7 +117,7 @@ public class FroggerScreen extends Screen
              rowPos = rowPos - 30;
          }
 
-         g.drawImage(froggah.getTexture(), (int) frogX, (int) frogY, null);
+         g.drawImage(froggah.getTexture(), (int) frogX, frogY, null);
     }
 
     /**
@@ -131,7 +132,7 @@ public class FroggerScreen extends Screen
         screenBottomIndex = frogLevelPos - FROG_TO_BOTTOM_DIST;
 
         // Updates each of the level parts.
-        for (int i = screenBottomIndex; i < NUM_ROWS; i++) {
+        for (int i = screenBottomIndex; i < NUM_ROWS + screenBottomIndex; i++) {
             levelLayout.get(i).update();
         }
 
