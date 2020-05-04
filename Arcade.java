@@ -1,10 +1,8 @@
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import examplegame.ExampleGame;
 import marstrip.MarsTrip;
@@ -25,25 +23,58 @@ public class Arcade implements Runnable, ActionListener {
     private JFrame frame = new JFrame("Arcade");
     private JPanel panel = new JPanel();
     private ArrayList<JButton> games = new ArrayList<>();
+    private JLabel label;
     
     public void run(){
         JFrame.setDefaultLookAndFeelDecorated(true);
         frame.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        games.add(new JButton("Example Game"));
-        games.add(new JButton("Speed Racers"));
-        games.add(new JButton("Chess"));
-        games.add(new JButton("Rise"));
-        games.add(new JButton("Frogger"));
-        games.add(new JButton("Mars Trip"));
-        
-        for (JButton jb : games) {
-            jb.addActionListener(this);
-            panel.add(jb);
+
+        ImageIcon smileyIcon = new ImageIcon("assets/arcade/smileyIcon.png");
+        ImageIcon froggerIcon = new ImageIcon("assets/arcade/froggerIcon.png");
+        ImageIcon marsIcon = new ImageIcon("assets/arcade/marsIcon.png");
+        ImageIcon racingIcon = new ImageIcon("assets/arcade/racingIcon.png");
+        ImageIcon riseIcon = new ImageIcon("assets/arcade/riseIcon.png");
+        ImageIcon chessIcon = new ImageIcon("assets/arcade/chessIcon.png");
+
+
+        games.add(new JButton(smileyIcon));
+        games.add(new JButton(racingIcon));
+        games.add(new JButton(chessIcon));
+        games.add(new JButton(riseIcon));
+        games.add(new JButton(froggerIcon));
+        games.add(new JButton(marsIcon));
+
+
+        JPanel mainPanel = new JPanel(new GridLayout(3, 1));
+        JPanel row1 = new JPanel(new GridLayout(1, 3));
+        JPanel row2 = new JPanel(new GridLayout(3, 1));
+        JPanel row3 = new JPanel(new GridLayout(1, 3));
+
+        mainPanel.add(row1);
+        mainPanel.add(row2);
+        mainPanel.add(row3);
+
+        for (int i = 0; i < 3; i++) {
+            games.get(i).addActionListener(this);
+            row1.add(games.get(i));
         }
-        
-        frame.add(panel);
+        for (int i = 3; i < 6; i++) {
+            games.get(i).addActionListener(this);
+            row3.add(games.get(i));
+        }
+
+
+        label = new JLabel("         ARCADE");
+        Font msgFont = new Font("Helvetica", Font.BOLD, 65);
+        label.setFont(msgFont);
+        label.setForeground(new Color(0, 0, 0, 200));
+
+        row2.add(new JLabel(""));
+        row2.add(label);
+
+        frame.add(mainPanel);
         frame.pack();
         frame.setVisible(true);
     }
