@@ -95,9 +95,9 @@ public class EnvironmentManager {
         // It will always have at least 4 in a row.
         int i = 0;
         while (i < numRivers) {
-            int row = rand.nextInt(environments.size() - 12) + 12;
+            int row = rand.nextInt(environments.size() - 16) + 6;
 
-            if (row < environments.size() - 6 && row > 6) {
+            if (row < environments.size() - 16 && row > 6) {
                 environments.set(row, new River(FroggerGame.FRAME_HEIGHT - row * FroggerGame.SCALE));
                 environments.set(row + 1, new River(FroggerGame.FRAME_HEIGHT - (row + 1) * FroggerGame.SCALE));
                 environments.set(row + 2, new River(FroggerGame.FRAME_HEIGHT - (row + 2) * FroggerGame.SCALE));
