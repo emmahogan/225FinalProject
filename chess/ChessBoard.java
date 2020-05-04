@@ -49,7 +49,7 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
     public static BoardSquare[][] squares = new BoardSquare[8][8];
 
     //true for black, false for white
-    public boolean isBlackTurn = false;
+    public boolean isBlackTurn;
 
     //are sides in check
     public boolean blackInCheck = false;
@@ -64,6 +64,7 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
 
     //restart button
     JButton restartButton = new JButton("Restart");
+
 
     /**
      * Constructor for objects of class ChessBoard
@@ -83,21 +84,6 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
      *
      */
     private void initGame(){
-        //add panels
-        /*
-        this.add(mainPanel);
-        topPanel.setPreferredSize(new Dimension(8*SQUARE_SIZE, BORDER_WIDTH));
-        bottomPanel.setPreferredSize(new Dimension(8*SQUARE_SIZE, BORDER_WIDTH));
-        mainPanel.add(topPanel, BorderLayout.NORTH);
-        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
-        boardPanel.setPreferredSize(new Dimension(8*SQUARE_SIZE, 8*SQUARE_SIZE));
-        mainPanel.add(boardPanel, BorderLayout.CENTER);
-        mainPanel.setVisible(false);
-        topPanel.setVisible(true);
-        */
-
-
-
 
         //Initialize all 16 squares on board as new BoardSquare objects, and
         //also initialize array of points representing the square's upper left corners
@@ -118,6 +104,9 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
 
         //Restart button
         topPanel.add(restartButton);
+
+        //White turn first
+        isBlackTurn = false;
     }
 
     /**
@@ -378,7 +367,7 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
      * TODO add special cases
      */
     private void completeMove(){
-        System.out.println(squares[0][5]);
+        checkSpecialCasePawn();
         Piece pieceMoved = move[0].getPiece();
         //remove piece from its current spot
         move[0].removePiece();
@@ -403,6 +392,28 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         System.out.println(squares[2][4]);
     }
 
+    private void checkSpecialCasePawn(){
+        //Check if a pawn has reached the other side of the board
+        Piece p = move[0].getPiece();
+
+        if(p.getType().equals(PieceType.PAWN)){
+
+            //Check if the pawn has reached the opposite side of the board
+            //if so, make it a queen
+            if(p.getSide().equals(Side.BLACK)){
+                if(move[1].getRow() == 7){
+                    p.setTexture(Side.BLACK, PieceType.QUEEN);
+                    p.setType(PieceType.QUEEN);
+                }
+            } else {
+                if (move[1].getRow() == 0) {
+                    p.setTexture(Side.WHITE, PieceType.QUEEN);
+                    p.setType(PieceType.QUEEN);
+                }
+            }
+        }
+    }
+
     /**
      * Method to knock out piece that sets the piece's attribute to out, and adds it to the
      * correct team's arraylist of pieces knocked out
@@ -415,12 +426,7 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
 
         //If a king was knocked out, game is over
         if(p.getType().equals(PieceType.KING)) {
-            if(p.getSide().equals(Side.WHITE)){
-                //Chess.gameOver(Side.WHITE);
-            } else {
-                //Chess.gameOver(Side.BLACK);
-            }
-            initGame();
+            gameOver();
         }
 
         //set piece's out attribute to true
@@ -432,6 +438,25 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         } else { blackPiecesOut.add(p); }
     }
 
+
+    /**
+     * Method called when a King is taken to clear all information from
+     * current game and restart a new game
+     */
+    private void gameOver(){
+        //Clear all piece arrays
+        whitePieces.clear();
+        blackPieces.clear();
+        whitePiecesOut.clear();
+        blackPiecesOut.clear();
+
+        //clear move information
+        move[0] = null;
+        move[1] = null;
+
+        //initialize new game
+        initGame();
+    }
     /**
      * TODO add method for check
      * @param e
