@@ -2,8 +2,6 @@ package arcade;
 
 import gameutils.Controller;
 
-import static java.awt.event.KeyEvent.VK_ENTER;
-
 public class ArcadeController extends Controller {
     private Walker walker;
 

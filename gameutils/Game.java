@@ -20,10 +20,10 @@ public abstract class Game implements Runnable {
 
     /**
      * Generic constructor for a Game
-     * @param name
+     * @param name the name of the game
      */
     public Game(String name) {
-        this.frame = new JFrame(name);
+        frame = new JFrame(name);
         FRAME_WIDTH = 600;
         FRAME_HEIGHT = 600;
     }
@@ -36,7 +36,7 @@ public abstract class Game implements Runnable {
      * @param height the height of the window
      */
     public Game(String name, int width, int height) {
-        this.frame = new JFrame(name);
+        frame = new JFrame(name);
         FRAME_WIDTH = width;
         FRAME_HEIGHT = height;
     }

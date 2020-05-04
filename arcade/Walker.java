@@ -1,16 +1,15 @@
 package arcade;
 
+import java.awt.Point;
+
 import chess.Chess;
 import examplegame.ExampleGame;
 import frogger.FroggerGame;
-import gameutils.Game;
 import gameutils.GameObject;
 import gameutils.Texture;
 import marstrip.MarsTrip;
 import racing.SpeedRacers;
 import runner.RunnerGame;
-
-import java.awt.*;
 
 public class Walker extends GameObject {
 
@@ -52,7 +51,6 @@ public class Walker extends GameObject {
         if (game.equals(ArcadeScreen.gameEntrances.get(0))) {
             System.out.println("Starting Example Game");
             javax.swing.SwingUtilities.invokeLater(new ExampleGame("Example Game"));
-
         }
         else if (game.equals(ArcadeScreen.gameEntrances.get(1))) {
             System.out.println("Starting Speed Racers");
