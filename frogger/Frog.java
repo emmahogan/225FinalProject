@@ -36,9 +36,9 @@ public class Frog extends GameObject {
      */
     @Override
     public void update() {
-        setBounds();
-        position.x = (int) x;
         checkCollision();
+        position.x = (int) x;
+        setBounds();
     }
 
 
@@ -87,18 +87,21 @@ public class Frog extends GameObject {
     private void checkCollision() {
         int posInLevel = environmentManager.posInLevel;
         Environment e = environmentManager.environments.get(posInLevel);
+        Hazard currentHazard = null;
         boolean done = false;
 
         if (e instanceof River) {
             for (int i = 0; i < e.getHazards().size() && !done; i++) {
                 Hazard log = e.getHazards().get(i);
-                if (this.collidesWith(log)) {
-                    x += log.speed;
+                if (this.collidesWith(log) && this.collidesWith(e)) {
                     done = true;
+                    currentHazard = log;
                 } else {
-                    done = true;
                     die();
                 }
+            }
+            if (done && currentHazard != null) {
+                x += currentHazard.speed;
             }
         } else if (e instanceof Road) {
             for (Hazard car : e.getHazards()) {
