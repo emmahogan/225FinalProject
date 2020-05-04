@@ -12,22 +12,12 @@ import javax.swing.JPanel;
  */
 public abstract class Screen extends JPanel {
     protected Controller controller;
-    public SoundManager soundManager;
 
     /**
      * A generic constructor for a Screen
      */
     public Screen() {
         super();
-        controller = null;
-    }
-
-    /**
-     * A constructor for a Screen with a SoundManager
-     */
-    public Screen(SoundManager soundManager) {
-        super();
-        this.soundManager = soundManager;
         controller = null;
     }
 

@@ -8,21 +8,13 @@ public class SoundManager {
 
     public SoundManager() {
         sounds = new ArrayList<>();
-    }
-
-    public void update() {
-        for (Sound s : sounds) {
-            if (s.done) {
-                rmSounds.add(s);
-            }
-        }
-        sounds.removeAll(rmSounds);
+        rmSounds = new ArrayList<>();
     }
 
     public void play(String filePath) {
         for (Sound s : sounds) {
             if (s.filePath.equals(filePath)) {
-                s.setIsLoop(true);
+                s.setIsLoop(false);
                 s.start();
             }
         }
@@ -31,7 +23,7 @@ public class SoundManager {
     public void loop(String filePath) {
         for (Sound s : sounds) {
             if (s.filePath.equals(filePath)) {
-                s.setIsLoop(false);
+                s.setIsLoop(true);
                 s.start();
             }
         }
@@ -49,6 +41,7 @@ public class SoundManager {
         for (Sound s : sounds) {
             if (!s.done) {
                 s.done = true;
+                s.interrupt();
                 rmSounds.add(s);
             }
         }

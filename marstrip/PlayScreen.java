@@ -11,12 +11,11 @@ public class PlayScreen extends Screen {
     ArrayList<Background> bgImgs;
     Ship ship;
 
-    public PlayScreen(SoundManager soundManager) {
+    public PlayScreen() {
         initBackground();
-        this.soundManager = soundManager;
+        MarsTrip.soundManager.play("assets/marstrip/music.wav");
         this.ship = new Ship(100, 100);
         this.controller = new ShipController(ship);
-        soundManager.play("assets/marstrip/music.wav");
     }
 
     @Override

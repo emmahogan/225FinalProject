@@ -58,18 +58,6 @@ public class Texture {
                 Image.SCALE_DEFAULT));
     }
 
-//    public void rotate(double angle) {
-//        BufferedImage temp = this.img;
-//        int w = this.img.getWidth();
-//        int h = this.img.getHeight();
-//
-//        this.img = new BufferedImage(w, h, temp.getType());
-//        Graphics2D graphic = this.img.createGraphics();
-//        graphic.rotate(Math.toRadians(angle), w/2, h/2);
-//        graphic.drawImage(temp, null, 0, 0);
-//        graphic.dispose();
-//    }
-
     /**
      * Converts an Image to a BufferedImage
      * @param image the image to be converted

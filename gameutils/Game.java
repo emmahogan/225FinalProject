@@ -16,7 +16,6 @@ import javax.swing.WindowConstants;
 public abstract class Game implements Runnable {
     public static int FRAME_WIDTH;
     public static int FRAME_HEIGHT;
-    private static Object lock = new Object();
     private static JFrame frame;
     private static Screen screen;
     public SoundManager soundManager;
@@ -46,6 +45,9 @@ public abstract class Game implements Runnable {
         frame = new JFrame(name);
         FRAME_WIDTH = width;
         FRAME_HEIGHT = height;
+        running = true;
+        screen = null;
+        soundManager = null;
     }
 
     /**
@@ -54,9 +56,8 @@ public abstract class Game implements Runnable {
     @Override
     public void run(){
         Thread gameManager = new Thread() {
-
             @Override
-            public synchronized void run() {
+            public void run() {
                 super.run();
                 while (running) {
                     try { Thread.sleep(32); }

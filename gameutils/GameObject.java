@@ -15,7 +15,6 @@ public abstract class GameObject extends Thread {
     public Texture texture;
     public Point position;
     public Rectangle bounds;
-//    public double rotation;
     
     /**
      * Generic constructor for a GameObject
@@ -86,11 +85,6 @@ public abstract class GameObject extends Thread {
         this.position.x = x;
         this.position.y = y;
     }
-
-//    public void rotate(double angle) {
-//        texture.rotate(angle);
-//        setBounds();
-//    }
     
     /**
      * Returns whether the GameObject is colliding
