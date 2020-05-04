@@ -31,9 +31,9 @@ public class ArcadeScreen extends Screen {
     public ArcadeScreen() {
         super();
         label = new JLabel("ARCADE");
-        Font msgFont = new Font("Helvetica", Font.BOLD, 50);
+        Font msgFont = new Font("Helvetica", Font.BOLD, 65);
         label.setFont(msgFont);
-        label.setForeground(new Color(255, 255, 255, 100));
+        label.setForeground(new Color(255, 255, 255, 200));
 
         walker = new Walker();
         gameEntrances = new ArrayList<GameEntrance>();
@@ -62,14 +62,13 @@ public class ArcadeScreen extends Screen {
     g.fillRect(0, 0, ArcadeMenu.FRAME_WIDTH, ArcadeMenu.FRAME_HEIGHT);
 
         for(GameEntrance game: gameEntrances){
-            g.setColor(new Color(255, 255, 255, 100));
+            g.setColor(new Color(255, 255, 255, 150));
             g.fillRect(game.position.x - ICON_BORDER, game.position.y - ICON_BORDER, ICON_SIZE + ICON_BORDER * 2, ICON_SIZE + ICON_BORDER * 2);
-            g.setColor(new Color(255, 255, 255, 100));
-            if(game.isContainsWalker()){
-                g.fillRect(game.position.x, game.position.y, ICON_SIZE, ICON_SIZE);
-            }
 
             g.drawImage(game.getTexture(), game.position.x, game.position.y, null);
+            if(game.isContainsWalker()){
+                g.fillRect(game.position.x - ICON_BORDER, game.position.y - ICON_BORDER, ICON_SIZE + ICON_BORDER * 2, ICON_SIZE + ICON_BORDER * 2);
+            }
         }
             g.drawImage(walker.getTexture(), walker.position.x, walker.position.y, null );
 
