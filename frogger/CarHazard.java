@@ -6,7 +6,6 @@ import java.awt.*;
 
 public class CarHazard extends Hazard {
 
-    private double speed; // Speed of the car.
     private double x; // X value of the car on the road.
     private int y;
 
@@ -27,46 +26,6 @@ public class CarHazard extends Hazard {
         texture = new Texture("assets/frogger/frogger_car_right.png");
 
         setBounds();
-    }
-
-    /**
-     * Returns the bounds of the car's collision box.
-     *
-     * @return The bounds of the car's collision box.
-     */
-    public Rectangle getBounds() {
-        return bounds;
-    }
-
-    /**
-     * Sets the bounds of the car's collision box.
-     */
-    public void setBounds() {
-        bounds = new Rectangle(this.position.x, this.position.y, texture.getWidth(), texture.getHeight());
-    }
-
-    @Override
-    public void setY(int inputY) {
-        y = inputY;
-    }
-
-    /**
-     * Returns the position of the car on the road.
-     *
-     * @return The x value of the car.
-     */
-    public double getX() {
-        return x;
-    }
-
-    /**
-     * Returns the speed of the car.
-     *
-     * @return The speed of the car.
-     */
-    @Override
-    public double getSpeed() {
-        return speed;
     }
 
     /**

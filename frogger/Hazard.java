@@ -7,6 +7,7 @@ import gameutils.GameObject;
  * since the functionality is the same.)
  */
 public abstract class Hazard extends GameObject {
+    public double speed;
 
     /**
      * Checks whether or not the input frog collides with the hazard and returns true if it does, false if not.
@@ -17,21 +18,11 @@ public abstract class Hazard extends GameObject {
     public abstract boolean checkCollision(Frog froggah);
 
     /**
-     * Returns the x value of the hazard.
-     *
-     * @return The x value of the hazard.
-     */
-    public abstract double getX();
-
-    /**
-     * Sets the y value of the hazard.
-     */
-    public abstract void setY(int y);
-
-    /**
      * Returns the speed of the hazard.
      *
      * @return The speed of the hazard.
      */
-    public abstract double getSpeed();
+    public double getSpeed() {
+        return speed;
+    }
 }

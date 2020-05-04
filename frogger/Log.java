@@ -9,7 +9,6 @@ import java.awt.*;
  */
 public class Log extends Hazard {
 
-    private double speed; // Speed of the log.
     private double x; // X value of the log on the river.
     private int y;
 
@@ -24,46 +23,6 @@ public class Log extends Hazard {
         speed = inputSpeed;
         x = xPos;
         setBounds();
-    }
-
-    /**
-     * Returns the bounds of the log's collision box.
-     *
-     * @return The bounds of the log's collision box.
-     */
-    public Rectangle getBounds() {
-        return bounds;
-    }
-
-    /**
-     * Sets the bounds of the log's collision box.
-     */
-    public void setBounds() {
-        bounds = new Rectangle(this.position.x, this.position.y, texture.getWidth(), texture.getHeight());
-    }
-
-    @Override
-    public void setY(int inputY) {
-        y = inputY;
-    }
-
-    /**
-     * Returns the position of the log on the river.
-     *
-     * @return The x value of the log.
-     */
-    public double getX() {
-        return x;
-    }
-
-    /**
-     * Returns the speed of the log.
-     *
-     * @return The speed of the log.
-     */
-    @Override
-    public double getSpeed() {
-        return speed;
     }
 
     /**

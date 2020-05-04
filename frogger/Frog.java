@@ -7,6 +7,7 @@ import java.awt.*;
 
 public class Frog extends GameObject {
 
+    public final int Y_POS = 420;
     private Texture upFroggahTexture;
     private Texture downFroggahTexture;
     private Texture leftFroggahTexture;
@@ -22,7 +23,6 @@ public class Frog extends GameObject {
 
 
     public final int JUMP_LENGTH = 30;
-    public final int Y_VAL = 420;
 
     public Frog () {
         super();
@@ -31,6 +31,9 @@ public class Frog extends GameObject {
         leftFroggahTexture = new Texture("assets/frogger/froggah_left.png");
         rightFroggahTexture = new Texture("assets/frogger/froggah_right.png");
         texture = upFroggahTexture;
+
+        position.y = Y_POS;
+
         posOnLine = 10;
         posInLevel = 5;
         onLand = true;
@@ -119,22 +122,6 @@ public class Frog extends GameObject {
      */
     public void setOnLand(boolean landStatus) {
         onLand = landStatus;
-    }
-
-    /**
-     * Returns the bounds of the frog's collision box.
-     *
-     * @return The bounds of the frog's collision box.
-     */
-    public Rectangle getBounds() {
-        return bounds;
-    }
-
-    /**
-     * Sets the bounds of the frog's collision box.
-     */
-    public void setBounds() {
-        bounds = new Rectangle(this.position.x, this.position.y, texture.getWidth(), texture.getHeight());
     }
 
     /**
