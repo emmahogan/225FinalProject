@@ -34,16 +34,16 @@ public class Log extends Hazard {
     public void update() {
         //Checks if the log is at the end of the level and will reset it to the other side if it is.
         if (speed > 0) {
-            if (x < 630.0) {
+            if (x < 600.0) {
                 x += speed;
             } else {
-                x = -30.0;
+                x = -60.0;
             }
         } else {
             if (x > -30.0) {
-                x -= speed;
+                x += speed;
             } else {
-                x = 630.0;
+                x = 600.0;
             }
         }
         setPosition((int) x, river.position.y);

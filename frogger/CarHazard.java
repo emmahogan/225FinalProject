@@ -16,13 +16,14 @@ public class CarHazard extends Hazard {
      * @param x The position of the car on the road.
      */
     public CarHazard(double inputSpeed, double x, Road road) {
-        if (speed > 0) {
+        speed = inputSpeed;
+
+        if (speed < 0) {
             texture = new Texture("assets/frogger/frogger_car_left.png");
         } else {
             texture = new Texture("assets/frogger/frogger_car_right.png");
         }
 
-        speed = inputSpeed;
         this.x = x;
         this.road = road;
         setBounds();
@@ -36,16 +37,16 @@ public class CarHazard extends Hazard {
     public void update() {
         //Checks if the car is at the end of the level and will reset it to the other side if it is.
         if (speed > 0) {
-            if (x < 630.0) {
-                x = x + speed;
+            if (x < 600.0) {
+                x += speed;
             } else {
-                x = -30.0;
+                x = -60.0;
             }
         } else {
             if (x > -30.0) {
-                x = x - speed;
+                x += speed;
             } else {
-                x = 630.0;
+                x = 600.0;
             }
         }
         setPosition((int) x, road.position.y);

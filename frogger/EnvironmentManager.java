@@ -9,7 +9,7 @@ public class EnvironmentManager {
     private final int START_GRASS_AMOUNT = 5;
     private final int END_GRASS_AMOUNT = 25;
     private final int NUM_ROWS = 20;
-    private final int FROG_TO_BOTTOM_DIST = 4;
+    private final int FROG_TO_BOTTOM_DIST = 3;
 
     private int screenBottomIndex; // This is where in the ArrayList the bottom of the screen begins.
     public int posInLevel; // This is how far into the level the frog has progressed.

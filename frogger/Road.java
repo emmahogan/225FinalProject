@@ -24,7 +24,7 @@ public class Road extends Environment {
 
         cars = new ArrayList<>();
         Random rand = new Random();
-        double speed = (rand.nextDouble() * 2) - 1.0; // Random speed for the logs, needs to be changed to support left and right.
+        double speed = (rand.nextDouble() * 2 - 1.0); // Random speed for the logs, needs to be changed to support left and right.
         int numCars = rand.nextInt(2) + 2; // Random number of logs on the river. Has a minimum of 4.
 
         for (int i = 0; i < numCars; i++) {
