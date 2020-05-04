@@ -24,6 +24,24 @@ public class Chess extends Game
     }
 
     /**
+     * Called from game over screen if button is selected to play again, starts
+     * a new game by creating a new board
+     */
+    public void playAgain(){
+        this.board = new ChessBoard();
+        changeScreen(board);
+    }
+
+    /**
+     * Called from ChessBoard class when game is over
+     *
+     * @param winner The winning team
+     */
+    public void gameOver(Side winner){
+        changeScreen(new GameOverScreen(winner));
+    }
+
+    /**
      * Calls the run method of it's super class, Game
      */
     @Override
