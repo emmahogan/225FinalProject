@@ -15,8 +15,8 @@ public class Grass extends Environment {
     /**
      * Creates the ground tile line.
      */
-    public Grass() {
-        super();
+    public Grass(int y) {
+        super(y);
         texture = new Texture("assets/frogger/grass_line.png");
 
     }

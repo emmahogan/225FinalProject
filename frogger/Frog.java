@@ -5,30 +5,32 @@ import gameutils.Texture;
 
 import java.awt.*;
 
+import static frogger.FroggerGame.SCALE;
+
 public class Frog extends GameObject {
-    private final int Y_POS = 420;
-    private final int SCALE = 30;
+    private final int Y_POS = 390;
 
     private Texture upFroggahTexture;
     private Texture downFroggahTexture;
     private Texture leftFroggahTexture;
     private Texture rightFroggahTexture;
 
-    private int posInLevel;
+    private EnvironmentManager environmentManager;
 
     private boolean alive;
     private boolean onLog;
     private boolean onLand;
     private double logSpeed;
 
-    public Frog () {
+    public Frog (EnvironmentManager environmentManager) {
         super();
         initTextures();
+
+        this.environmentManager = environmentManager;
 
         position.y = Y_POS;
         position.x = 10 * SCALE;
 
-        posInLevel = 5;
         onLand = true;
         onLog = false;
         alive = true;
@@ -47,15 +49,6 @@ public class Frog extends GameObject {
         }
         // ******add getting mashed by a car
         setBounds();
-    }
-
-    /**
-     * Returns where the frog is in the level. (Progress made.)
-     *
-     * @return The index of it's positioning in the level.
-     */
-    public int getPosInLevel() {
-        return posInLevel;
     }
 
     /**
@@ -110,7 +103,7 @@ public class Frog extends GameObject {
      * Moves the frog forward and changes its texture accordingly.
      */
     public void jumpForward() {
-        posInLevel++;
+        environmentManager.environmentDown();
         texture = upFroggahTexture;
     }
 
@@ -118,9 +111,7 @@ public class Frog extends GameObject {
      * Moves the frog backward and changes its texture accordingly.
      */
     public void jumpBack() {
-        if (posInLevel > 5) {
-            posInLevel--;
-        }
+        environmentManager.evnvironmentUp();
         texture = downFroggahTexture;
     }
 

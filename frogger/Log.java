@@ -9,19 +9,20 @@ import java.awt.*;
  */
 public class Log extends Hazard {
 
+    private River river;
     private double x; // X value of the log on the river.
-    private int y;
 
     /**
      * The constructor for the log on the river.
      *
      * @param inputSpeed The speed of the log.
-     * @param xPos The position of the log on the river.
+     * @param x The position of the log on the river.
      */
-    public Log(double inputSpeed, double xPos) {
+    public Log(double inputSpeed, double x, River river) {
         texture = new Texture("assets/frogger/log.png");
         speed = inputSpeed;
-        x = xPos;
+        this.x = x;
+        this.river = river;
         setBounds();
     }
 
@@ -34,32 +35,19 @@ public class Log extends Hazard {
         //Checks if the log is at the end of the level and will reset it to the other side if it is.
         if (speed > 0) {
             if (x < 630.0) {
-                x = x + speed;
+                x += speed;
             } else {
                 x = -30.0;
             }
         } else {
             if (x > -30.0) {
-                x = x - speed;
+                x -= speed;
             } else {
                 x = 630.0;
             }
         }
-        setPosition((int) x, y);
+        setPosition((int) x, river.position.y);
         setBounds();
-    }
-
-    /**
-     * Checks if the frog is on the log.
-     *
-     * @param froggah The input frog to check collision with.
-     * @return Whether or not the frog is on the log.
-     */
-    public boolean checkCollision(Frog froggah) {
-        if (!this.collidesWith(froggah)) {
-            return true;
-        }
-        return false;
     }
 
 }

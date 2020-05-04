@@ -57,7 +57,7 @@ public abstract class Game implements Runnable {
             }
         });
         JFrame.setDefaultLookAndFeelDecorated(true);
-        frame.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+        frame.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT + 21));
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent windowEvent) {

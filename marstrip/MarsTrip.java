@@ -3,7 +3,7 @@ package marstrip;
 import gameutils.Game;
 
 public class MarsTrip extends Game {
-    public static final int FRAME_HEIGHT = 821;
+    public static final int FRAME_HEIGHT = 800;
     public static final int FRAME_WIDTH = 480;
     private PlayScreen playScreen;
 

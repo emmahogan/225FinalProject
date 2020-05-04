@@ -7,24 +7,24 @@ import java.awt.*;
 public class CarHazard extends Hazard {
 
     private double x; // X value of the car on the road.
-    private int y;
+    private Road road;
 
     /**
      * The constructor for the car on the road.
      *
      * @param inputSpeed The speed of the car.
-     * @param xPos The position of the car on the road.
+     * @param x The position of the car on the road.
      */
-    public CarHazard(double inputSpeed, double xPos) {
-
-        speed = inputSpeed;
-        x = xPos;
-
+    public CarHazard(double inputSpeed, double x, Road road) {
         if (speed > 0) {
             texture = new Texture("assets/frogger/frogger_car_left.png");
+        } else {
+            texture = new Texture("assets/frogger/frogger_car_right.png");
         }
-        texture = new Texture("assets/frogger/frogger_car_right.png");
 
+        speed = inputSpeed;
+        this.x = x;
+        this.road = road;
         setBounds();
     }
 
@@ -48,20 +48,7 @@ public class CarHazard extends Hazard {
                 x = 630.0;
             }
         }
-        setPosition((int) x, y);
+        setPosition((int) x, road.position.y);
         setBounds();
-    }
-
-    /**
-     * Checks if the frog is hit by the car.
-     *
-     * @param froggah The input frog to check collision with.
-     * @return Whether or not the frog was hit by the car.
-     */
-    public boolean checkCollision(Frog froggah) {
-        if (!this.collidesWith(froggah)) {
-            return true;
-        }
-        return false;
     }
 }

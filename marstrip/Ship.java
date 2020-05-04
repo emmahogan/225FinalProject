@@ -50,8 +50,8 @@ public class Ship extends GameObject {
         if (position.y < 0) {
             position.y = 0;
         }
-        if (position.y > MarsTrip.FRAME_HEIGHT - 21 - texture.getHeight() - 40) {
-            position.y =  MarsTrip.FRAME_HEIGHT - 21 - texture.getHeight() - 40;
+        if (position.y > MarsTrip.FRAME_HEIGHT- texture.getHeight() - 40) {
+            position.y =  MarsTrip.FRAME_HEIGHT- texture.getHeight() - 40;
         }
     }
 

@@ -10,7 +10,7 @@ public class Background extends GameObject {
         texture = new Texture(filePath);
         texture.scale(2f, 2f);
         this.speed = speed;
-        setPosition(x, MarsTrip.FRAME_HEIGHT - texture.getHeight() - 21);
+        setPosition(x, MarsTrip.FRAME_HEIGHT - texture.getHeight());
     }
 
     @Override

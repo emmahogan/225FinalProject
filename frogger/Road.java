@@ -18,8 +18,8 @@ public class Road extends Environment {
     /**
      * Creates the ground tile line.
      */
-    public Road() {
-        super();
+    public Road(int y) {
+        super(y);
         texture = new Texture("assets/frogger/road_line.png");
 
         cars = new ArrayList<>();
@@ -28,7 +28,7 @@ public class Road extends Environment {
         int numCars = rand.nextInt(2) + 2; // Random number of logs on the river. Has a minimum of 4.
 
         for (int i = 0; i < numCars; i++) {
-            cars.add(new CarHazard(speed, i * 150));
+            cars.add(new CarHazard(speed, (i * 150), this));
         }
     }
 
