@@ -18,7 +18,6 @@ public class RopeSegment extends Thread
     private static final int SIZE = 20;
     private Point previous;
     private Point next;
-    //private Object lock = new Object();
     private double xVelocity;
     private double xPrevious;
     private static final double GRAVITY = 5;

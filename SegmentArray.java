@@ -57,6 +57,7 @@ public class SegmentArray extends Thread
     @Override
     public void run() {
         while (true) {
+            
             segments[0].setPrevious(mousePos);
             segments[1].setPrevious(new Point((int)segments[0].getX(), (int)segments[0].getY()));
             segments[2].setPrevious(new Point((int)segments[1].getX(), (int)segments[1].getY()));
@@ -74,16 +75,25 @@ public class SegmentArray extends Thread
         }
     }
     
+    /**
+     * returns the RopeSegment in the array at the designated number
+     */
     public RopeSegment get(int num)
     {
         return segments[num];
     }
     
+    /**
+     * returns the length of the array
+     */
     public int length()
     {
         return segments.length;
     }
     
+    /**
+     * sets mousePos
+     */
     public void setMousePos(Point p)
     {
         mousePos = p;
