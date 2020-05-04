@@ -6,9 +6,13 @@ import gameutils.Screen;
 
 public class ArcadeScreen extends Screen {
 
+    private GameEntrance smiley;
+    private GameEntrance speedRacers;
+    private GameEntrance chess;
 
     public ArcadeScreen() {
         super();
+        this.controller = new ArcadeController();
     }
 
     @Override
@@ -18,6 +22,7 @@ public class ArcadeScreen extends Screen {
 
     @Override
     public void update() {
+
 
     }
 
