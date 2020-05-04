@@ -11,6 +11,7 @@ public class Log extends Hazard {
 
     private double speed; // Speed of the log.
     private double x; // X value of the log on the river.
+    private int y;
 
     /**
      * The constructor for the log on the river.
@@ -19,7 +20,7 @@ public class Log extends Hazard {
      * @param xPos The position of the log on the river.
      */
     public Log(double inputSpeed, double xPos) {
-        texture = new Texture("assets/frogger/froggah_left.png");
+        texture = new Texture("assets/frogger/log.png");
         speed = inputSpeed;
         x = xPos;
         setBounds();
@@ -39,6 +40,11 @@ public class Log extends Hazard {
      */
     public void setBounds() {
         bounds = new Rectangle(this.position.x, this.position.y, texture.getWidth(), texture.getHeight());
+    }
+
+    @Override
+    public void setY(int inputY) {
+        y = inputY;
     }
 
     /**
@@ -67,11 +73,20 @@ public class Log extends Hazard {
     @Override
     public void update() {
         //Checks if the log is at the end of the level and will reset it to the other side if it is.
-        if (x > -30.0) {
-            x = x - speed;
+        if (speed > 0) {
+            if (x < 630.0) {
+                x = x + speed;
+            } else {
+                x = -30.0;
+            }
         } else {
-            x = 630.0;
+            if (x > -30.0) {
+                x = x - speed;
+            } else {
+                x = 630.0;
+            }
         }
+        setPosition((int) x, y);
         setBounds();
     }
 
