@@ -111,7 +111,7 @@ public class Frog extends GameObject {
      * Moves the frog backward and changes its texture accordingly.
      */
     public void jumpBack() {
-        environmentManager.evnvironmentUp();
+        environmentManager.environmentUp();
         texture = downFroggahTexture;
     }
 
