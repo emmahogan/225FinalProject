@@ -69,10 +69,17 @@ public class Arcade implements Runnable, ActionListener {
         label = new JLabel("         ARCADE");
         Font msgFont = new Font("Helvetica", Font.BOLD, 65);
         label.setFont(msgFont);
-        label.setForeground(new Color(0, 0, 0, 200));
+        label.setForeground(new Color(255, 255, 255));
 
         row2.add(new JLabel(""));
         row2.add(label);
+
+        Color background = new Color(150, 150, 150);
+
+        mainPanel.setBackground(background);
+        row1.setBackground(background);
+        row2.setBackground(background);
+        row3.setBackground(background);
 
         frame.add(mainPanel);
         frame.pack();
