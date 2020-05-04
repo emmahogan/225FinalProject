@@ -6,14 +6,14 @@ import gameutils.Texture;
 import java.awt.*;
 
 public class Frog extends GameObject {
+    private final int Y_POS = 420;
+    private final int SCALE = 30;
 
-    public final int Y_POS = 420;
     private Texture upFroggahTexture;
     private Texture downFroggahTexture;
     private Texture leftFroggahTexture;
     private Texture rightFroggahTexture;
 
-    private int posOnLine;
     private int posInLevel;
 
     private boolean alive;
@@ -21,20 +21,13 @@ public class Frog extends GameObject {
     private boolean onLand;
     private double logSpeed;
 
-
-    public final int JUMP_LENGTH = 30;
-
     public Frog () {
         super();
-        upFroggahTexture = new Texture("assets/frogger/froggah_up.png");
-        downFroggahTexture = new Texture("assets/frogger/froggah_down.png");
-        leftFroggahTexture = new Texture("assets/frogger/froggah_left.png");
-        rightFroggahTexture = new Texture("assets/frogger/froggah_right.png");
-        texture = upFroggahTexture;
+        initTextures();
 
         position.y = Y_POS;
+        position.x = 10 * SCALE;
 
-        posOnLine = 10;
         posInLevel = 5;
         onLand = true;
         onLog = false;
@@ -47,8 +40,6 @@ public class Frog extends GameObject {
      */
     @Override
     public void update() {
-        posOnLine = posOnLine + (int) logSpeed;
-
         // Checks if the frog fell in the river.
         if (!onLog && !onLand) {
             alive = false;
@@ -65,15 +56,6 @@ public class Frog extends GameObject {
      */
     public int getPosInLevel() {
         return posInLevel;
-    }
-
-    /**
-     * Returns the x value of the frog so it can be drawn.
-     *
-     * @return The x value of the frog.
-     */
-    public int getXVal() {
-        return posOnLine * 30;
     }
 
     /**
@@ -130,7 +112,6 @@ public class Frog extends GameObject {
     public void jumpForward() {
         posInLevel++;
         texture = upFroggahTexture;
-        update();
     }
 
     /**
@@ -141,15 +122,14 @@ public class Frog extends GameObject {
             posInLevel--;
         }
         texture = downFroggahTexture;
-        update();
     }
 
     /**
      * Moves the frog left and changes its texture accordingly.
      */
     public void jumpLeft() {
-        if (posOnLine != 0) {
-            posOnLine--;
+        if (position.x != 0) {
+            position.x -= SCALE;
         }
         texture = leftFroggahTexture;
         update();
@@ -159,10 +139,17 @@ public class Frog extends GameObject {
      * Moves the frog right and changes its texture accordingly.
      */
     public void jumpRight() {
-        if (posOnLine != 19) {
-            posOnLine++;
+        if (position.x != FroggerGame.FRAME_WIDTH - SCALE) {
+            position.x += SCALE;
         }
         texture = rightFroggahTexture;
-        update();
+    }
+
+    private void initTextures() {
+        upFroggahTexture = new Texture("assets/frogger/froggah_up.png");
+        downFroggahTexture = new Texture("assets/frogger/froggah_down.png");
+        leftFroggahTexture = new Texture("assets/frogger/froggah_left.png");
+        rightFroggahTexture = new Texture("assets/frogger/froggah_right.png");
+        texture = upFroggahTexture;
     }
 }

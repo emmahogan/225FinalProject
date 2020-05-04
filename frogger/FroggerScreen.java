@@ -15,11 +15,9 @@ import gameutils.Texture;
  */
 public class FroggerScreen extends Screen
 {
-    private ArrayList<Environment> levelLayout; // This holds all of the areas of land and rivers.
+    private ArrayList<Environment> environments; // This holds all of the areas of land and rivers.
     private Frog froggah; // This is the player character, the frog object that you control.
     private int screenBottomIndex; // This is where in the ArrayList the bottom of the screen begins.
-    private double frogX; // This is the x value of the frog.
-    private final int frogY = 420; // This is the y value of the frog. (Always stays the same.)
     private int frogLevelPos; // This is how far into the level the frog has progressed.
 
     private final int NUM_ROWS = 20; // This is how many rows are to be displayed on the screen at once.
@@ -32,7 +30,6 @@ public class FroggerScreen extends Screen
         super();
         froggah = new Frog();
         controller = new FroggerController(froggah);
-        makeLevel();
         frogLevelPos = 5;
         screenBottomIndex = frogLevelPos - FROG_TO_BOTTOM_DIST;
         
@@ -52,20 +49,20 @@ public class FroggerScreen extends Screen
          for (int i = screenBottomIndex; i < NUM_ROWS + screenBottomIndex; i++) {
 
              // Draws the water or ground.
-             g.drawImage(levelLayout.get(i).getTexture(), 0, rowPos, null);
+             g.drawImage(environments.get(i).getTexture(), 0, rowPos, null);
 
              // Checks if the portion is a river so that it can then render the logs as well.
-             if (levelLayout.get(i) instanceof River) {
+             if (environments.get(i) instanceof River) {
                  // Loops through all of the logs.
-                 for(Hazard log: levelLayout.get(i).getHazards()) {
+                 for(Hazard log: environments.get(i).getHazards()) {
                      g.drawImage(log.getTexture(), log.position.x, rowPos, null);
                      g.drawRect(log.bounds.x, log.bounds.y, log.bounds.width, log.bounds.height);
                  }
              }
 
-             if (levelLayout.get(i) instanceof Road) {
+             if (environments.get(i) instanceof Road) {
                  // Loops through all of the cars.
-                 for(Hazard car: levelLayout.get(i).getHazards()) {
+                 for(Hazard car: environments.get(i).getHazards()) {
                      g.drawImage(car.getTexture(), car.position.x, rowPos, null);
                  }
              }
@@ -73,7 +70,7 @@ public class FroggerScreen extends Screen
              rowPos = rowPos - 30;
          }
 
-         g.drawImage(froggah.getTexture(), (int) frogX, froggah.position.y, null);
+         g.drawImage(froggah.getTexture(), froggah.position.x, froggah.position.y, null);
          g.drawRect(froggah.bounds.x, froggah.bounds.y, froggah.bounds.width, froggah.bounds.height);
     }
 
@@ -84,18 +81,17 @@ public class FroggerScreen extends Screen
     public void update() {
         // Updates values regarding the frog's positioning.
         froggah.update();
-        frogX = froggah.getXVal();
         frogLevelPos = froggah.getPosInLevel();
         screenBottomIndex = frogLevelPos - FROG_TO_BOTTOM_DIST;
 
         // Updates each of the level parts.
         for (int i = screenBottomIndex; i < NUM_ROWS + screenBottomIndex; i++) {
-            levelLayout.get(i).update();
+            environments.get(i).update();
         }
 
         // Checks if the layer that the frog is on is a River so that it will check for collision on a log.
-        if (levelLayout.get(frogLevelPos) instanceof River) {
-            ArrayList<Hazard> logs = levelLayout.get(frogLevelPos).getHazards();
+        if (environments.get(frogLevelPos) instanceof River) {
+            ArrayList<Hazard> logs = environments.get(frogLevelPos).getHazards();
             for(int j = 0; j < logs.size(); j++) {
                 logs.get(j).position.y = (600 - (screenBottomIndex * 30));
                 if (!froggah.isOnLog() && logs.get(j).checkCollision(froggah)) {
@@ -111,8 +107,8 @@ public class FroggerScreen extends Screen
         }
 
         // Checks if the layer that the frog is on is a Road so that it will check for collision with a car.
-        if (levelLayout.get(frogLevelPos) instanceof Road) {
-            ArrayList<Hazard> cars = levelLayout.get(frogLevelPos).getHazards();
+        if (environments.get(frogLevelPos) instanceof Road) {
+            ArrayList<Hazard> cars = environments.get(frogLevelPos).getHazards();
             for(int j = 0; j < cars.size(); j++) {
                 cars.get(j).position.y = (600 - (screenBottomIndex * 30));
                    if (cars.get(j).checkCollision(froggah)) {
@@ -139,7 +135,7 @@ public class FroggerScreen extends Screen
      * @return Whether or not the frog has made it to the end.
      */
     public boolean checkWin() {
-        if (frogLevelPos == levelLayout.size() - 15) {
+        if (frogLevelPos == environments.size() - 15) {
             return true;
         }
         return false;
@@ -150,55 +146,5 @@ public class FroggerScreen extends Screen
      */
     public void gameOver() {
         System.out.println("Game Over");
-    }
-
-    /**
-     * Creates the randomly generated level.
-     */
-    public void makeLevel() {
-        levelLayout = new ArrayList<>();
-        Random rand = new Random();
-        int levelLength = rand.nextInt(60) + 60; //Generates a random number to use for the level length (Number of horizontal lines 30px in height)
-        int numRivers = levelLength / 3;  // Makes 1/3 of the level rivers.
-
-        int numRoads = levelLength / 3;  // Makes 1/3 of the level roads.
-
-        // This loops through and makes everything in the level just ground tiles.
-        for (int i = 0; i < levelLength; i++) {
-            levelLayout.add(new Tile());
-        }
-
-        // This will go through and make all of the rivers needed for the level.
-        // It will always have at least 4 in a row.
-        int riversAdded = 0;
-        while (riversAdded < numRivers) {
-
-            int indexToAdd = rand.nextInt(levelLayout.size() - 12) + 12;
-
-            if (indexToAdd < levelLayout.size() - 6 && indexToAdd > 6) {
-                levelLayout.set(indexToAdd, new River());
-                levelLayout.set(indexToAdd + 1, new River());
-                levelLayout.set(indexToAdd + 2, new River());
-                levelLayout.set(indexToAdd + 3, new River());
-            }
-            riversAdded = riversAdded + 4;
-        }
-
-        // This will go through and make all of the roads needed for the level.
-        // It will always have at least 4 in a row.
-        int roadsAdded = 0;
-        while (roadsAdded < numRoads) {
-
-            int indexToAdd = rand.nextInt(levelLayout.size() - 12) + 12;
-
-            if (indexToAdd < levelLayout.size() - 6 && indexToAdd > 6 &&
-                    !(levelLayout.get(indexToAdd) instanceof River) && !(levelLayout.get(indexToAdd + 4) instanceof River)) {
-                levelLayout.set(indexToAdd, new Road());
-                levelLayout.set(indexToAdd + 1, new Road());
-                levelLayout.set(indexToAdd + 2, new Road());
-                levelLayout.set(indexToAdd + 3, new Road());
-            }
-            roadsAdded = roadsAdded + 4;
-        }
     }
 }

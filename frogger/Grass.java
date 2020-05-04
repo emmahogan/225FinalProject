@@ -10,12 +10,12 @@ import java.util.ArrayList;
  * @author Nick Shelby
  * @version Spring 2020
  */
-public class Tile extends Environment {
+public class Grass extends Environment {
 
     /**
      * Creates the ground tile line.
      */
-    public Tile() {
+    public Grass() {
         super();
         texture = new Texture("assets/frogger/grass_line.png");
 
