@@ -24,5 +24,8 @@ public class ShipController extends Controller {
         if (isKeyPressed(D) && ship.velocity.x < (4)) {
             ship.velocity.x += .4f;
         }
+        if (isKeyJustPressed(SPACE)) {
+            ship.shoot();
+        }
     }
 }

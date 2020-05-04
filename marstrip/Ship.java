@@ -1,16 +1,19 @@
 package marstrip;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import gameutils.FloatPoint;
 import gameutils.GameObject;
 import gameutils.Texture;
 
 public class Ship extends GameObject {
+    public ArrayList<Bullet> bullets;
     FloatPoint velocity;
     FloatPoint position;
 
     public Ship(int x, int y) {
+        bullets = new ArrayList<>();
         texture = new Texture("assets/marstrip/ship.png");
         texture.scale(2, 2);
         position = new FloatPoint(x, y);
@@ -24,15 +27,31 @@ public class Ship extends GameObject {
             setBounds();
         }
         moveByVelocity();
+        flyingBoundry();
         drag();
     }
 
+    public void shoot() {
+        bullets.add(new Bullet(this));
+    }
+
     private void moveByVelocity() {
-        if (position.x >= 0 && position.x <= MarsTrip.FRAME_WIDTH - texture.getWidth()) {
-            position.x += velocity.x;
+        position.x += velocity.x;
+        position.y += velocity.y;
+    }
+
+    private void flyingBoundry() {
+        if (position.x < 0) {
+            position.x = 0;
         }
-        if (position.y >= 0 && position.y <= MarsTrip.FRAME_HEIGHT + texture.getHeight() + 40) {
-            position.y += velocity.y;
+        if (position.x > MarsTrip.FRAME_WIDTH - texture.getWidth()) {
+            position.x = MarsTrip.FRAME_WIDTH - texture.getWidth();
+        }
+        if (position.y < 0) {
+            position.y = 0;
+        }
+        if (position.y > MarsTrip.FRAME_HEIGHT - 21 - texture.getHeight() - 40) {
+            position.y =  MarsTrip.FRAME_HEIGHT - 21 - texture.getHeight() - 40;
         }
     }
 

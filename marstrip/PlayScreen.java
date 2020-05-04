@@ -20,6 +20,9 @@ public class PlayScreen extends Screen {
         for (Background bg : bgImgs) {
             g.drawImage(bg.getTexture(), bg.getPosition().x, bg.getPosition().y, null);
         }
+        for (Bullet bullet : ship.bullets) {
+            g.drawImage(bullet.getTexture(), bullet.position.x, bullet.position.y, null);
+        }
         g.drawImage(ship.getTexture(), ship.getPosition().x, ship.getPosition().y, null);
     }
 
@@ -28,8 +31,10 @@ public class PlayScreen extends Screen {
         for (Background bg : bgImgs) {
             bg.update();
         }
-
         ship.update();
+        for (Bullet bullet : ship.bullets) {
+            bullet.update();
+        }
     }
 
     @Override

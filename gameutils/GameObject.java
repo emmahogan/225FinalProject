@@ -14,8 +14,8 @@ import java.awt.Point;
 public abstract class GameObject extends Thread {
     public Texture texture;
     public Point position;
-    public double rotation;
     public Rectangle bounds;
+//    public double rotation;
     
     /**
      * Generic constructor for a GameObject
@@ -87,10 +87,10 @@ public abstract class GameObject extends Thread {
         this.position.y = y;
     }
 
-    public void rotate(double angle) {
-        texture.rotate(angle);
-        setBounds();
-    }
+//    public void rotate(double angle) {
+//        texture.rotate(angle);
+//        setBounds();
+//    }
     
     /**
      * Returns whether the GameObject is colliding

@@ -1,7 +1,6 @@
 package racing;
 
 import gameutils.Game;
-import gameutils.Screen;
 
 /**
  * Write a description of class SpeedRacers here.
