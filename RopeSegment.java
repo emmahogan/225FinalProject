@@ -18,9 +18,6 @@ public class RopeSegment extends Thread
     private static final int SIZE = 20;
     private Point previous;
     
-    //FABRIK
-    private Point next;
-    
     //velocity stuff
     private double xVelocity;
     private double xPrevious;
@@ -58,7 +55,6 @@ public class RopeSegment extends Thread
             if(previous != null)
             {
                 setDistance(previous);
-                //container.repaint();
             }
             try {
                 sleep(DELAY_TIME);
@@ -72,13 +68,6 @@ public class RopeSegment extends Thread
             {
                 yVelocity = GRAVITY;
             }
-            
-            //FABRIK (May not be needed?)
-            //if(next != null)
-            //{
-            //    setDistance(next);
-            //    container.repaint();
-            //}
             container.repaint();
         }
     }
@@ -158,13 +147,5 @@ public class RopeSegment extends Thread
     public void setPrevious(Point p)
     {
         previous = p;
-    }
-    
-    /**
-     * allows next to be set
-     */
-    public void setNext(Point p)
-    {
-        next = p;
     }
 }

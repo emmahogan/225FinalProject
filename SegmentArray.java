@@ -68,11 +68,6 @@ public class SegmentArray extends Thread
             }
             catch (InterruptedException e) {
             }
-            //FABRIK
-            //segments[2].setNext(new Point((int)segments[3].getX(), (int)segments[3].getY()));
-            //segments[1].setNext(new Point((int)segments[2].getX(), (int)segments[2].getY()));
-            //segments[0].setNext(new Point((int)segments[1].getX(), (int)segments[1].getY()));
-            //container.repaint();
         }
     }
     
