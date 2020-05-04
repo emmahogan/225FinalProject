@@ -39,12 +39,12 @@ public class ArcadeScreen extends Screen {
         gameEntrances = new ArrayList<GameEntrance>();
         this.controller = new ArcadeController(walker);
 
-        smiley = new GameEntrance(new Point(PADDING + ICON_BORDER, 100 + PADDING + ICON_BORDER),  new Texture("assets/runner/ball4.png"));
-        speedRacers = new GameEntrance(new Point(PADDING * 3 + ICON_BORDER * 3 + ICON_SIZE, 100 + PADDING + ICON_BORDER),  new Texture("assets/runner/ball1.png"));
-        chess = new GameEntrance(new Point(PADDING * 5 + ICON_BORDER * 5 + ICON_SIZE * 2, 100 + PADDING + ICON_BORDER),  new Texture("assets/chess/whitequeen.png"));
-        mars = new GameEntrance(new Point(PADDING + ICON_BORDER, 100 + PADDING * 5 + ICON_BORDER * 3 + ICON_SIZE),  new Texture("assets/runner/ball4.png"));
-        frog = new GameEntrance(new Point(PADDING * 3 + ICON_BORDER * 3 + ICON_SIZE, 100 + PADDING * 5 + ICON_BORDER * 3 + ICON_SIZE),  new Texture("assets/runner/ball1.png"));
-        rise = new GameEntrance(new Point(PADDING * 5 + ICON_BORDER * 5 + ICON_SIZE * 2, 100 + PADDING * 5 + ICON_BORDER * 3 + ICON_SIZE),  new Texture("assets/chess/whitequeen.png"));
+        smiley = new GameEntrance(new Point(PADDING + ICON_BORDER, 100 + PADDING + ICON_BORDER),  new Texture("assets/arcade/smileyIcon.png"));
+        speedRacers = new GameEntrance(new Point(PADDING * 3 + ICON_BORDER * 3 + ICON_SIZE, 100 + PADDING + ICON_BORDER),  new Texture("assets/arcade/racingIcon.png"));
+        chess = new GameEntrance(new Point(PADDING * 5 + ICON_BORDER * 5 + ICON_SIZE * 2, 100 + PADDING + ICON_BORDER),  new Texture("assets/arcade/chessIcon.png"));
+        mars = new GameEntrance(new Point(PADDING + ICON_BORDER, 100 + PADDING * 5 + ICON_BORDER * 3 + ICON_SIZE),  new Texture("assets/arcade/marsIcon.png"));
+        frog = new GameEntrance(new Point(PADDING * 3 + ICON_BORDER * 3 + ICON_SIZE, 100 + PADDING * 5 + ICON_BORDER * 3 + ICON_SIZE),  new Texture("assets/arcade/froggerIcon.png"));
+        rise = new GameEntrance(new Point(PADDING * 5 + ICON_BORDER * 5 + ICON_SIZE * 2, 100 + PADDING * 5 + ICON_BORDER * 3 + ICON_SIZE),  new Texture("assets/arcade/riseIcon.png"));
 
         gameEntrances.add(smiley);
         gameEntrances.add(speedRacers);
