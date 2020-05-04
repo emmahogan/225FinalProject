@@ -17,6 +17,8 @@ public class Frog extends GameObject {
     private EnvironmentManager environmentManager;
     private double x;
 
+    private int deathCount = 0;
+
 
     public Frog(EnvironmentManager environmentManager) {
         super();
@@ -80,8 +82,11 @@ public class Frog extends GameObject {
     }
 
     private void die() {
-        //FroggerGame.changeScreen();
-        System.out.println("dead");
+        if (deathCount < 2) {
+            deathCount++;
+        } else {
+            System.out.println("dead");
+        }
     }
 
     private void checkCollision() {
@@ -96,12 +101,13 @@ public class Frog extends GameObject {
                 if (this.collidesWith(log) && this.collidesWith(e)) {
                     done = true;
                     currentHazard = log;
-                } else {
-                    die();
                 }
             }
             if (done && currentHazard != null) {
                 x += currentHazard.speed;
+                deathCount = 0;
+            } else {
+                die();
             }
         } else if (e instanceof Road) {
             for (Hazard car : e.getHazards()) {
