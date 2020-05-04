@@ -42,7 +42,6 @@ public class FroggerScreen extends Screen {
         environmentManager.drawLevel(g);
 
         g.drawImage(froggah.getTexture(), froggah.position.x, froggah.position.y, null);
-        g.drawRect(froggah.bounds.x, froggah.bounds.y, froggah.bounds.width, froggah.bounds.height);
     }
 
     /**

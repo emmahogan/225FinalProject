@@ -99,6 +99,7 @@ public class Frog extends GameObject {
             collisionFrameCount++;
         } else {
             environmentManager.remakeLevel();
+            collisionFrameCount = 0;
         }
     }
 

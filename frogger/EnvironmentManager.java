@@ -95,7 +95,6 @@ public class EnvironmentManager {
             if (!(environments.get(i) instanceof Grass)) {
                 for (Hazard hazard : environments.get(i).getHazards()) {
                     g.drawImage(hazard.getTexture(), hazard.position.x, hazard.position.y, null);
-                    g.drawRect(hazard.bounds.x, hazard.bounds.y, hazard.bounds.width, hazard.bounds.height);
                 }
             }
         }
