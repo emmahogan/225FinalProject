@@ -58,7 +58,7 @@ public class GameOverScreen extends Screen implements ActionListener {
         this.add(bottomPanel, BorderLayout.SOUTH);
         bottomPanel.add(newGame);
 
-
+        this.controller = new ChessController();
     }
 
     /**
@@ -109,6 +109,6 @@ public class GameOverScreen extends Screen implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        Chess.playAgain();
     }
 }

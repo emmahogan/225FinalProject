@@ -11,7 +11,7 @@ import gameutils.Game;
 public class Chess extends Game
 {
     //The chess board
-    private ChessBoard board;
+    private static ChessBoard board;
 
     /**
      * Constructor calls for the creation of a new ChessBoard, and switches to that screen
@@ -27,8 +27,8 @@ public class Chess extends Game
      * Called from game over screen if button is selected to play again, starts
      * a new game by creating a new board
      */
-    public void playAgain(){
-        this.board = new ChessBoard();
+    public static void playAgain(){
+        board = new ChessBoard();
         changeScreen(board);
     }
 
@@ -37,7 +37,7 @@ public class Chess extends Game
      *
      * @param winner The winning team
      */
-    public void gameOver(Side winner){
+    public static void gameOver(Side winner){
         changeScreen(new GameOverScreen(winner));
     }
 
