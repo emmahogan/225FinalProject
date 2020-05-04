@@ -27,6 +27,7 @@ public abstract class Game implements Runnable {
         frame = new JFrame(name);
         FRAME_WIDTH = 600;
         FRAME_HEIGHT = 600;
+        screen = null;
     }
 
     /**

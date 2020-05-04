@@ -15,8 +15,8 @@ public class PlayScreen extends Screen {
         initBackground();
         this.ship = new Ship(100, 100);
         this.controller = new ShipController(ship);
-        music = new Sound("assets/marstrip/music.wav");
-        music.play();
+        //music = new Sound("assets/marstrip/music.wav");
+        //music.play();
     }
 
     @Override
