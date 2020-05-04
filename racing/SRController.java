@@ -20,30 +20,30 @@ public class SRController extends Controller {
     
     public void handleKeyInput() {
         // player 1
-        if (isKeyPressed(W) && p1.velocity.y > (-4)) {
-            p1.velocity.y -= .2f;
+        if (isKeyPressed(W) && p1.velocity.y > (-4.18)) {
+            p1.velocity.y -= .22f;
         }
-        if (isKeyPressed(S) && p1.velocity.y < (4)) {
-            p1.velocity.y += .2f;
+        if (isKeyPressed(S) && p1.velocity.y < (4.18)) {
+            p1.velocity.y += .22f;
         }
-        if (isKeyPressed(A) && p1.velocity.x > (-4)) {
-            p1.velocity.x -= .2f;
+        if (isKeyPressed(A) && p1.velocity.x > (-4.18)) {
+            p1.velocity.x -= .22f;
         }
-        if (isKeyPressed(D) && p1.velocity.x < (4)) {
-            p1.velocity.x += .2f;
+        if (isKeyPressed(D) && p1.velocity.x < (4.18)) {
+            p1.velocity.x += .22f;
         }
 
         // player 2
-        if (isKeyPressed(UP) && p2.velocity.y > (-4)) {
+        if (isKeyPressed(UP) && p2.velocity.y > (-4.18)) {
             p2.velocity.y -= .2f;
         }
-        if (isKeyPressed(DOWN) && p2.velocity.y < (4)) {
+        if (isKeyPressed(DOWN) && p2.velocity.y < (4.18)) {
             p2.velocity.y += .2f;
         }
-        if (isKeyPressed(LEFT) && p2.velocity.x > (-4)) {
+        if (isKeyPressed(LEFT) && p2.velocity.x > (-4.18)) {
             p2.velocity.x -= .2f;
         }
-        if (isKeyPressed(RIGHT) && p2.velocity.x < (4)) {
+        if (isKeyPressed(RIGHT) && p2.velocity.x < (4.18)) {
             p2.velocity.x += .2f;
         }
     }

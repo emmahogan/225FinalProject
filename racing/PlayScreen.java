@@ -32,8 +32,6 @@ public class PlayScreen extends Screen {
             }
         }
         g.drawImage(p1.getTexture(), p1.getPosition().x, p1.getPosition().y, null);
-        //g.fillRect(p1.top.x, p1.top.y, p1.top.width, p1.top.height);
-        g.drawRect(p1.bounds.x, p1.bounds.y, p1.bounds.width - 1, p1.bounds.height - 1);
         g.drawImage(p2.getTexture(), p2.getPosition().x, p2.getPosition().y, null);
     }
 
@@ -41,13 +39,8 @@ public class PlayScreen extends Screen {
     public void update() {
         p1.update();
         p2.update();
-
-        for (int i = 0; i < walls.length; i++) {
-            for (int j = 0; j < walls.length; j++) {
-                if (walls[i][j] != null)
-                    walls[i][j].collision(p1, p2);
-            }
-        }
+        p1.checkCollision(walls, p2);
+        p2.checkCollision(walls, p1);
     }
 
     @Override

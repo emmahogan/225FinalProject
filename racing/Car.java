@@ -8,10 +8,10 @@ import gameutils.Texture;
 import gameutils.FloatPoint;
 
 public class Car extends GameObject {
-    public Rectangle top;
-    public Rectangle bottom;
-    public Rectangle leftSide;
-    public Rectangle rightSide;
+    public Rectangle topBound;
+    public Rectangle bottomBound;
+    public Rectangle leftBound;
+    public Rectangle rightBound;
 
     private Texture up;
     private Texture down;
@@ -71,17 +71,71 @@ public class Car extends GameObject {
     }
 
     private void drag() {
-        if (velocity.x >= .09) {
-            velocity.x -= .1;
+        if (velocity.x >= .12) {
+            velocity.x -= .12;
+        } else if (velocity.x > 0) {
+            velocity.x = 0;
         }
-        if (velocity.x <= -.09) {
-            velocity.x += .1;
+
+        if (velocity.x <= -.12) {
+            velocity.x += .12;
+        } else if (velocity.x < 0) {
+            velocity.x = 0;
         }
-        if (velocity.y <= -.09) {
-            velocity.y += .1;
+
+        if (velocity.y >= .12) {
+            velocity.y -= .12;
+        } else if (velocity.y > 0) {
+            velocity.y = 0;
         }
-        if (velocity.y >= .09) {
-            velocity.y -= .1;
+
+        if (velocity.y <= -.12) {
+            velocity.y += .12;
+        } else if (velocity.y < 0) {
+            velocity.y = 0;
+        }
+    }
+
+    public void checkCollision(Wall[][] walls, Car other) {
+        if (topBound.intersects(other.bounds)) {
+            velocity.y = 0;
+            velocity.y += 1;
+        } else if (bottomBound.intersects(other.bounds)) {
+            velocity.y = 0;
+            velocity.y -= 1;
+        } else if (leftBound.intersects(other.bounds)) {
+            velocity.x = 0;
+            velocity.x += 1;
+        } else if (rightBound.intersects(other.bounds)) {
+            velocity.x = 0;
+            velocity.x -= 1;
+        }
+        for (Wall[] wallRow : walls) {
+            for (Wall wall : wallRow) {
+                if (wall != null) {
+
+                    // check top
+                    if (topBound.intersects(wall.bounds)) {
+                        velocity.y = 0;
+                        velocity.y += 1;
+
+                        // check bottom
+                    } else if (bottomBound.intersects(wall.bounds)) {
+                        velocity.y = 0;
+                        velocity.y -= 1;
+
+                        // check left
+                    } else if (leftBound.intersects(wall.bounds)) {
+                        velocity.x = 0;
+                        velocity.x += 1;
+
+                        // check right
+                    } else if (rightBound.intersects(wall.bounds)) {
+                        velocity.x = 0;
+                        velocity.x -= 1;
+                    }
+                }
+            }
         }
     }
 
@@ -97,10 +151,10 @@ public class Car extends GameObject {
 
     private void setBoundsAndLines() {
         bounds = new Rectangle((int) position.x, (int) position.y, texture.getWidth(), texture.getHeight());
-        top = new Rectangle(bounds.x, bounds.y, bounds.width, 1);
-        bottom = new Rectangle(bounds.x, bounds.y + bounds.height - 1, bounds.width, 1);
-        leftSide = new Rectangle(bounds.x, bounds.y, 1, bounds.height);
-        rightSide = new Rectangle(bounds.x + bounds.width - 1, bounds.y, 1, bounds.height);
+        topBound = new Rectangle(bounds.x + 2, bounds.y, bounds.width - 4, 3);
+        bottomBound = new Rectangle(bounds.x + 2, bounds.y + bounds.height - 1, bounds.width - 4, 3);
+        leftBound = new Rectangle(bounds.x, bounds.y + 2, 3, bounds.height - 4);
+        rightBound = new Rectangle(bounds.x + bounds.width - 1, bounds.y + 2, 3, bounds.height - 4);
     }
 
     private void initTextures(String color) {

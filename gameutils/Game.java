@@ -15,8 +15,8 @@ import javax.swing.JFrame;
 public abstract class Game implements Runnable {
     public static int FRAME_WIDTH;
     public static int FRAME_HEIGHT;
-    private JFrame frame;
-    private Screen screen;
+    private static JFrame frame;
+    private static Screen screen;
 
     /**
      * Generic constructor for a Game
@@ -72,16 +72,16 @@ public abstract class Game implements Runnable {
     /**
      * Switches the screens and adds the new one
      * to the JFrame
-     * @param screen the new screen to change to
+     * @param newScreen the new screen to change to
      */
-    public void changeScreen(Screen screen) {
-        if (this.screen != null) {
-            frame.remove(this.screen);
+    public static void changeScreen(Screen newScreen) {
+        if (screen != null) {
+            frame.remove(screen);
         }
-        this.screen = screen;
-        frame.add(screen);
-        frame.addKeyListener(screen.controller);
-        screen.addMouseListener(screen.controller);
-        screen.addMouseMotionListener(screen.controller);
+        screen = newScreen;
+        frame.add(newScreen);
+        frame.addKeyListener(newScreen.controller);
+        newScreen.addMouseListener(newScreen.controller);
+        newScreen.addMouseMotionListener(newScreen.controller);
     }
 }
