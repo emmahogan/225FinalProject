@@ -367,7 +367,7 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
      * TODO add special cases
      */
     private void completeMove(){
-        checkSpecialCasePawn();
+        //the piece chosen to move
         Piece pieceMoved = move[0].getPiece();
 
         //set piece's hasBeenMoved to true
@@ -389,6 +389,9 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         if(isBlackTurn){ isBlackTurn = false; }
         else { isBlackTurn = true; }
 
+        //call method to check all special cases
+        checkSpecialCases(pieceMoved);
+
         //pieceMoved.setSquare(move[1]);
         move[0] = null;
         move[1] = null;
@@ -396,11 +399,53 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         System.out.println(squares[2][4]);
     }
 
-    private void checkSpecialCasePawn(){
-        //Check if a pawn has reached the other side of the board
-        Piece p = move[0].getPiece();
 
+    private void checkSpecialCases(Piece p){
+
+        //for pawns, call method to check special case
         if(p.getType().equals(PieceType.PAWN)){
+            checkSpecialCasePawn(p);
+        }
+
+        //if king, check if castling was executed by seeing whether it is being
+        //moved more than one spot over
+        int moveRow = move[0].getRow();
+        if(p.getType().equals(PieceType.KING)){
+
+            //check castling left
+            if(move[1].getCol() < (move[0].getCol()-1)){
+
+                //create new move and complete move of left rook to column 3
+                move[0] = squares[moveRow][0];
+                move[1] = squares[moveRow][3];
+                completeMove();
+
+                //switch back to other team's turn even though 2 pieces were moved
+                if(isBlackTurn) { isBlackTurn = false; } else { isBlackTurn = true; }
+            }
+
+            //check castling right
+            else if(move[1].getCol() > (move[0].getCol()+1)){
+
+                //create new move and complete move of right rook to column 5
+                move[0] = squares[moveRow][7];
+                move[1] = squares[moveRow][5];
+                completeMove();
+
+                //switch back to other team's turn even though 2 pieces were moved
+                if(isBlackTurn) { isBlackTurn = false; } else { isBlackTurn = true; }
+            }
+
+        }
+    }
+
+    /**
+     * Check if a pawn has reached the other side of the board, and if so, then
+     * replace with a queen
+     *
+     * @param p The pawn
+     */
+    private void checkSpecialCasePawn(Piece p){
 
             //Check if the pawn has reached the opposite side of the board
             //if so, make it a queen
@@ -415,7 +460,6 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
                     p.setType(PieceType.QUEEN);
                 }
             }
-        }
     }
 
     /**
