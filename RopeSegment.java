@@ -72,11 +72,6 @@ public class RopeSegment extends Thread
         }
     }
 
-    public Boolean isDone()
-    {
-        return false;
-    }
-
     /**
      * calculates distance between two segments
      */

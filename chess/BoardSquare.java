@@ -61,12 +61,10 @@ public class BoardSquare {
     public void addPiece(Piece p){
         this.occupied = true;
         this.piece = p;
-
     }
 
     public void replacePiece(Piece pieceMoved){
         this.piece = pieceMoved;
-        //pieceMoved.setSquare(this);
     }
 
     public void removePiece(){

@@ -379,8 +379,8 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         //if it is taking out another piece call separate method
         if(move[1].isOccupied()){
             Piece pieceOut = move[1].getPiece();
-            knockout(pieceOut);
             move[1].replacePiece(pieceMoved);
+            knockout(pieceOut);
         }
         //move piece to destination
         else {
@@ -392,7 +392,7 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         //call method to check all special cases
         checkSpecialCases(pieceMoved);
 
-        //pieceMoved.setSquare(move[1]);
+
         move[0] = null;
         move[1] = null;
         System.out.println(squares[0][5]);
@@ -409,33 +409,43 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
 
         //if king, check if castling was executed by seeing whether it is being
         //moved more than one spot over
-        int moveRow = move[0].getRow();
-        if(p.getType().equals(PieceType.KING)){
+        if(move[0] != null) {
+            int moveRow = move[0].getRow();
+            if (p.getType().equals(PieceType.KING)) {
 
-            //check castling left
-            if(move[1].getCol() < (move[0].getCol()-1)){
+                //check castling left
+                if (move[1].getCol() < (move[0].getCol() - 1)) {
 
-                //create new move and complete move of left rook to column 3
-                move[0] = squares[moveRow][0];
-                move[1] = squares[moveRow][3];
-                completeMove();
+                    //create new move and complete move of left rook to column 3
+                    move[0] = squares[moveRow][0];
+                    move[1] = squares[moveRow][3];
+                    completeMove();
 
-                //switch back to other team's turn even though 2 pieces were moved
-                if(isBlackTurn) { isBlackTurn = false; } else { isBlackTurn = true; }
+                    //switch back to other team's turn even though 2 pieces were moved
+                    if (isBlackTurn) {
+                        isBlackTurn = false;
+                    } else {
+                        isBlackTurn = true;
+                    }
+                }
+
+                //check castling right
+                else if (move[1].getCol() > (move[0].getCol() + 1)) {
+
+                    //create new move and complete move of right rook to column 5
+                    move[0] = squares[moveRow][7];
+                    move[1] = squares[moveRow][5];
+                    completeMove();
+
+                    //switch back to other team's turn even though 2 pieces were moved
+                    if (isBlackTurn) {
+                        isBlackTurn = false;
+                    } else {
+                        isBlackTurn = true;
+                    }
+                }
+
             }
-
-            //check castling right
-            else if(move[1].getCol() > (move[0].getCol()+1)){
-
-                //create new move and complete move of right rook to column 5
-                move[0] = squares[moveRow][7];
-                move[1] = squares[moveRow][5];
-                completeMove();
-
-                //switch back to other team's turn even though 2 pieces were moved
-                if(isBlackTurn) { isBlackTurn = false; } else { isBlackTurn = true; }
-            }
-
         }
     }
 

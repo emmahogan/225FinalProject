@@ -131,8 +131,13 @@ public class RunnerScreen extends Screen{
      */
     @Override
     public void update(){
+        //calls method to check for contact
         contact();
+
+        //calls ball's update method
         ball.update();
+
+        //Checks if a gate has reached the bottom of the screen
         int i = 0;
         while(i < gates.size()){
             Gate temp = gates.get(i);
