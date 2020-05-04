@@ -17,13 +17,13 @@ public class ArcadeController extends Controller {
     @Override
     public void handleKeyInput() {
         if (isKeyPressed(W))
-            walker.position.y -= 2;
+            walker.position.y -= 4;
         if (isKeyPressed(A))
-            walker.position.x -= 2;
+            walker.position.x -= 4;
         if (isKeyPressed(S))
-            walker.position.y += 2;
+            walker.position.y += 4;
         if (isKeyPressed(D))
-            walker.position.x += 2;
+            walker.position.x += 4;
         if (isKeyPressed(VK_ENTER))
             walker.startGame();
     }
