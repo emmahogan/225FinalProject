@@ -22,6 +22,7 @@ public abstract class Controller extends MouseAdapter implements KeyListener {
     protected static final int LEFT = KeyEvent.VK_LEFT;
     protected static final int RIGHT = KeyEvent.VK_RIGHT;
     protected static final int SPACE = KeyEvent.VK_SPACE;
+    protected static final int ENTER = KeyEvent.VK_ENTER;
 
     private boolean[] keys;
     private boolean[] justPressedKeys;

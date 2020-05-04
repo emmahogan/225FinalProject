@@ -24,7 +24,7 @@ public class ArcadeController extends Controller {
             walker.position.y += 4;
         if (isKeyPressed(D))
             walker.position.x += 4;
-        if (isKeyPressed(VK_ENTER))
+        if (isKeyPressed(ENTER))
             walker.startGame();
     }
 }
