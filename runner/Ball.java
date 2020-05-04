@@ -6,7 +6,6 @@ import gameutils.Texture;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * This class represents an instance of the ball used in the runner game, which extends GameObject
