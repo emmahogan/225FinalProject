@@ -60,7 +60,7 @@ public abstract class Game implements Runnable {
             public void run() {
                 super.run();
                 while (running) {
-                    try { Thread.sleep(32); }
+                    try { Thread.sleep(16); }
                     catch (InterruptedException e) {}
 
                     screen.update();
