@@ -47,6 +47,8 @@ public class FroggerScreen extends Screen
         int levelLength = rand.nextInt(60) + 60; //Generates a random number to use for the level length (Number of horizontal lines 30px in height)
         int numRivers = levelLength / 3;  // Makes 1/3 of the level rivers.
 
+        int numRoads = levelLength / 3;  // Makes 1/3 of the level roads.
+
         // This loops through and makes everything in the level just ground tiles.
         for (int i = 0; i < levelLength; i++) {
             levelLayout.add(new Tile());
@@ -66,6 +68,23 @@ public class FroggerScreen extends Screen
                 levelLayout.set(indexToAdd + 3, new River());
             }
             riversAdded = riversAdded + 4;
+        }
+
+        // This will go through and make all of the roads needed for the level.
+        // It will always have at least 4 in a row.
+        int roadsAdded = 0;
+        while (roadsAdded < numRoads) {
+
+            int indexToAdd = rand.nextInt(levelLayout.size() - 12) + 12;
+
+            if (indexToAdd < levelLayout.size() - 6 && indexToAdd > 6 &&
+                    !(levelLayout.get(indexToAdd) instanceof River) && !(levelLayout.get(indexToAdd + 4) instanceof River)) {
+                levelLayout.set(indexToAdd, new Road());
+                levelLayout.set(indexToAdd + 1, new Road());
+                levelLayout.set(indexToAdd + 2, new Road());
+                levelLayout.set(indexToAdd + 3, new Road());
+            }
+            roadsAdded = roadsAdded + 4;
         }
     }
 
@@ -113,6 +132,14 @@ public class FroggerScreen extends Screen
                  }
              }
 
+             if (levelLayout.get(i) instanceof Road) {
+
+                 // Loops through all of the cars.
+                 for(Hazard car: levelLayout.get(i).getHazards()) {
+                     g.drawImage(car.getTexture(), (int) car.getX(), rowPos, null);
+                 }
+             }
+
              // Changes the value to draw at so it can draw the different parts of the level in order.
              rowPos = rowPos - 30;
          }
@@ -149,6 +176,23 @@ public class FroggerScreen extends Screen
             // Checks if the frog is alive so that it can change it's texture and cause a game over if necessary.
             if (!froggah.isAlive()) {
                 froggah.texture = new Texture("assets/frogger/water_line.png");
+                //game over
+            }
+        }
+
+        // Checks if the layer that the frog is on is a Road so that it will check for collision with a car.
+        if (levelLayout.get(frogLevelPos) instanceof Road) {
+
+            for(Hazard car: (levelLayout.get(frogLevelPos).getHazards())) {
+
+                if (!froggah.isOnLog() && car.checkCollision(froggah)) {
+                    System.out.println("Frog dead");
+                }
+            }
+
+            // Checks if the frog is alive so that it can change it's texture and cause a game over if necessary.
+            if (!froggah.isAlive()) {
+                froggah.texture = new Texture("assets/frogger/grass_line.png");
                 //game over
             }
         }

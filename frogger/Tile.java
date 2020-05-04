@@ -18,8 +18,7 @@ public class Tile extends Environment {
     public Tile() {
         super();
         texture = new Texture("assets/frogger/grass_line.png");
-        //Add code to construct land
-        //Add code to have random chance for two adjacent land lines to have road.
+
     }
 
     @Override
