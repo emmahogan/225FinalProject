@@ -125,7 +125,6 @@ public class FroggerScreen extends Screen
 
              // Checks if the portion is a river so that it can then render the logs as well.
              if (levelLayout.get(i) instanceof River) {
-
                  // Loops through all of the logs.
                  for(Hazard log: levelLayout.get(i).getHazards()) {
                      g.drawImage(log.getTexture(), (int) log.getX(), rowPos, null);
@@ -133,13 +132,11 @@ public class FroggerScreen extends Screen
              }
 
              if (levelLayout.get(i) instanceof Road) {
-
                  // Loops through all of the cars.
                  for(Hazard car: levelLayout.get(i).getHazards()) {
                      g.drawImage(car.getTexture(), (int) car.getX(), rowPos, null);
                  }
              }
-
              // Changes the value to draw at so it can draw the different parts of the level in order.
              rowPos = rowPos - 30;
          }
@@ -165,14 +162,11 @@ public class FroggerScreen extends Screen
 
         // Checks if the layer that the frog is on is a River so that it will check for collision on a log.
         if (levelLayout.get(frogLevelPos) instanceof River) {
-
             for(Hazard log: (levelLayout.get(frogLevelPos).getHazards())) {
-
                 if (!froggah.isOnLog() && log.checkCollision(froggah)) {
                     froggah.setOnLog(true, log.getSpeed());
                 }
             }
-
             // Checks if the frog is alive so that it can change it's texture and cause a game over if necessary.
             if (!froggah.isAlive()) {
                 froggah.texture = new Texture("assets/frogger/water_line.png");
@@ -182,14 +176,11 @@ public class FroggerScreen extends Screen
 
         // Checks if the layer that the frog is on is a Road so that it will check for collision with a car.
         if (levelLayout.get(frogLevelPos) instanceof Road) {
-
             for(Hazard car: (levelLayout.get(frogLevelPos).getHazards())) {
-
                 if (!froggah.isOnLog() && car.checkCollision(froggah)) {
                     System.out.println("Frog dead");
                 }
             }
-
             // Checks if the frog is alive so that it can change it's texture and cause a game over if necessary.
             if (!froggah.isAlive()) {
                 froggah.texture = new Texture("assets/frogger/grass_line.png");
