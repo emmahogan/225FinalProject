@@ -84,6 +84,7 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
      */
     private void initGame(){
         //add panels
+        /*
         this.add(mainPanel);
         topPanel.setPreferredSize(new Dimension(8*SQUARE_SIZE, BORDER_WIDTH));
         bottomPanel.setPreferredSize(new Dimension(8*SQUARE_SIZE, BORDER_WIDTH));
@@ -93,13 +94,20 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         mainPanel.add(boardPanel, BorderLayout.CENTER);
         mainPanel.setVisible(false);
         topPanel.setVisible(true);
+        */
 
 
-        //for all squares:
+
+
+        //Initialize all 16 squares on board as new BoardSquare objects, and
+        //also initialize array of points representing the square's upper left corners
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
-                //Initialize all the squares
+
+                //Initialize all the BoardSquare objects
                 squares[i][j] = new BoardSquare(i,j);
+
+                //use BoardSquare's method to calculate Point of upper left for each square
                 positions[i][j] = squares[i][j].getPos();
             }
         }
@@ -108,43 +116,50 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         initPieces(Side.BLACK);
         initPieces(Side.WHITE);
 
-
         //Restart button
         topPanel.add(restartButton);
     }
 
     /**
-     * Create all pieces for given side and set to starting positions for new game
+     * Create all pieces for given side and set to starting positions for new game, as
+     * well as adding them to the side's piece array and adding the piece to the
+     * BoardSquare object where it starts
      *
      * @param s which side (black or white)
      */
     public void initPieces(Side s){
+
+        //Index of front and back row depending on which team
         int backRow;
         int frontRow;
-        ArrayList<Piece> pieceArr;
-        String color;
 
-        //depending on which side, set index of rows and color for texture
+        //used to reference the correct Side's piece array
+        ArrayList<Piece> pieceArr;
+
+        //depending on which side, set index of front row and back row, and
+        //set pieceArr to reference the correct team's piece array
         if(s.equals(Side.BLACK)){
             backRow = 0;
             frontRow = 1;
-            color = "black";
             pieceArr = blackPieces;
         } else {
             backRow = 7;
             frontRow = 6;
-            color = "white";
             pieceArr = whitePieces;
         }
 
-        //Construct pieces and set starting positions
-        //make Pawns
+        //Construct pieces and set starting positions, as well as add piece to the
+        //correct square using that BoardSquare's add piece method
+
+        //make all Pawns
         Piece p;
         for(int i = 0; i < 8; i++){
             p = new Piece(s, frontRow, i, PieceType.PAWN);
             pieceArr.add(p);
             squares[frontRow][i].addPiece(p);
         }
+
+
         //Make rooks
         Piece rook1 = new Piece(s, backRow, 0, PieceType.ROOK);
         pieceArr.add(rook1);
@@ -154,6 +169,7 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         pieceArr.add(rook2);
         squares[backRow][7].addPiece(rook2);
 
+
         //Make bishops
         Piece bishop1 = new Piece(s, backRow, 1, PieceType.BISHOP);
         pieceArr.add(bishop1);
@@ -162,6 +178,8 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         Piece bishop2 = new Piece(s,backRow, 6, PieceType.BISHOP);
         pieceArr.add(bishop2);
         squares[backRow][5].addPiece(bishop2);
+
+
         //Knights
         Piece knight1 = new Piece(s,backRow,2, PieceType.KNIGHT);
         pieceArr.add(knight1);
@@ -170,6 +188,8 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         Piece knight2 = new Piece(s,backRow,5, PieceType.KNIGHT);
         pieceArr.add(knight2);
         squares[backRow][6].addPiece(knight2);
+
+
         //Queen & King
         Piece queen = new Piece(s, backRow,3, PieceType.QUEEN);
         pieceArr.add(queen);
