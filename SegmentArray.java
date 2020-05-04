@@ -24,19 +24,19 @@ public class SegmentArray extends Thread
         this.container = container;
         mousePos = new Point(250, 250);
         
-        RopeSegment r0 = new RopeSegment(new Point(250, 250), distance, container);
+        RopeSegment r0 = new RopeSegment(new Point(250, 250), distance, 1, container);
         segments[0] = r0;
         r0.start();
         
-        RopeSegment r1 = new RopeSegment(new Point(250, 250), distance, container);
+        RopeSegment r1 = new RopeSegment(new Point(250, 250), distance, 2, container);
         segments[1] = r1;
         r1.start();
         
-        RopeSegment r2 = new RopeSegment(new Point(250, 250), distance, container);
+        RopeSegment r2 = new RopeSegment(new Point(250, 250), distance, 3, container);
         segments[2] = r2;
         r2.start();
         
-        RopeSegment r3 = new RopeSegment(new Point(250, 250), distance, container);
+        RopeSegment r3 = new RopeSegment(new Point(250, 250), distance, 4, container);
         segments[3] = r3;
         r3.start();
     }
@@ -62,16 +62,17 @@ public class SegmentArray extends Thread
             segments[1].setPrevious(new Point((int)segments[0].getX(), (int)segments[0].getY()));
             segments[2].setPrevious(new Point((int)segments[1].getX(), (int)segments[1].getY()));
             segments[3].setPrevious(new Point((int)segments[2].getX(), (int)segments[2].getY()));
-            //FABRIK
-            //segments[2].setNext(new Point((int)segments[3].getX(), (int)segments[3].getY()));
-            //segments[1].setNext(new Point((int)segments[2].getX(), (int)segments[2].getY()));
-            //segments[0].setNext(new Point((int)segments[1].getX(), (int)segments[1].getY()));
-            container.repaint();
+            
             try {
                 sleep(DELAY_TIME);
             }
             catch (InterruptedException e) {
             }
+            //FABRIK
+            //segments[2].setNext(new Point((int)segments[3].getX(), (int)segments[3].getY()));
+            //segments[1].setNext(new Point((int)segments[2].getX(), (int)segments[2].getY()));
+            //segments[0].setNext(new Point((int)segments[1].getX(), (int)segments[1].getY()));
+            //container.repaint();
         }
     }
     

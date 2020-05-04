@@ -17,14 +17,19 @@ public class RopeSegment extends Thread
     private static final int DELAY_TIME = 30;
     private static final int SIZE = 20;
     private Point previous;
+    
+    //FABRIK
     private Point next;
+    
+    //velocity stuff
     private double xVelocity;
     private double xPrevious;
     private static final double GRAVITY = 5;
     private double yVelocity;
     private double yPrevious;
+    private int numOfSegment;
 
-    public RopeSegment(Point start, double dis, JComponent container)
+    public RopeSegment(Point start, double dis, int num, JComponent container)
     {
         this.pos = start;
         this.distance = dis;
@@ -32,6 +37,8 @@ public class RopeSegment extends Thread
         this.xVelocity = 0;
         yVelocity = GRAVITY;
         xPrevious = start.getX();
+        yPrevious = start.getY();
+        numOfSegment = num;
     }
 
     public void paint(Graphics g)
@@ -51,12 +58,19 @@ public class RopeSegment extends Thread
             if(previous != null)
             {
                 setDistance(previous);
-                container.repaint();
+                //container.repaint();
             }
             try {
                 sleep(DELAY_TIME);
             }
             catch (InterruptedException e) {
+            }
+            
+            xVelocity = xVelocity + (this.getX() - xPrevious)/numOfSegment;
+            yVelocity = yVelocity + (this.getY() - yPrevious)/numOfSegment + GRAVITY;
+            if(yPrevious == this.getY())
+            {
+                yVelocity = GRAVITY;
             }
             
             //FABRIK (May not be needed?)
@@ -65,13 +79,6 @@ public class RopeSegment extends Thread
             //    setDistance(next);
             //    container.repaint();
             //}
-            
-            xVelocity = xVelocity + (this.getX() - xPrevious);
-            yVelocity = yVelocity + (this.getY() - yPrevious + GRAVITY);
-            if(yPrevious == this.getY())
-            {
-                yVelocity = GRAVITY;
-            }
             container.repaint();
         }
     }
