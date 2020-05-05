@@ -8,12 +8,15 @@ import java.util.*;
 import javax.swing.*;
 
 /**
- * Write a description of class ChessBoard here.
+ * This class represents a chess board with all of current squares and pieces on the board,
+ * simulating a game of chess based on where the player clicks, keeping track of and highlighting for
+ * the user all of a piece's possible moves, validating and completing the moves each time so that
+ * the user is gauranteed to never be able to make a move that was invalid
  *
  * @author Justin, Andrew, Emma, Tim, Nick
  * @version Spring 2020
  */
-public class ChessBoard extends Screen implements ActionListener, MouseListener
+public class ChessBoard extends Screen implements MouseListener
 {
     //Panel dimensions
     public static final int FRAME_WIDTH = 600;
@@ -62,8 +65,6 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
     //possible moves to highlight
     ArrayList<BoardSquare> highlight = new ArrayList<BoardSquare>();
 
-    //restart button
-    JButton restartButton = new JButton("Restart");
 
 
     /**
@@ -102,8 +103,6 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         initPieces(Side.BLACK);
         initPieces(Side.WHITE);
 
-        //Restart button
-        topPanel.add(restartButton);
 
         //White turn first
         isBlackTurn = false;
@@ -230,8 +229,6 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
             }
         }
 
-        topPanel.add(restartButton);
-        restartButton.setVisible(true);
     }
 
 
@@ -279,39 +276,31 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         }
     }
 
-    /**
-     * Returns whether the input side is in check
-     * TODO take out methods never used, or finish javadoc
-     * @param side
-     * @return
-     */
-    public boolean isInCheck(Side side){
-        if(side.equals(Side.BLACK)){
-            return blackInCheck;
-        } else {
-            return whiteInCheck;
-        }
-    }
 
     ////////////////////////////////// MOVE VALIDATION ////////////////////////////////////////////
 
     /**
-     * TODO javadoc
-     * TODO add special cases
-     * @param s
+     * This method is called to validate a given move, which is represented by the
+     * array of two Board Squares called "move", including calling methods to check for special
+     * cases. If it is a valid complete move, it calls the method complete move to
+     * execute the move.
+     *
+     * @param s The square clicked by the player
      */
     public void validateMove(BoardSquare s) {
         //if square is occupied and piece can be chosen
+        //If the first piece involved in the move has not yet been chosen
         if (move[0] == null) {
+            //If the square is occupied
             if (s.isOccupied()){
                 Piece p = s.getPiece();
+                //check if it can be chosing
                 if (canBeChosen(p)) {
                     //set square to first index in move array
                     move[0] = s;
-                    System.out.print(p.getPossibleMoves());
                 }
             }
-        //a valid piece has been chosen
+        //a valid first piece has already been chosen
         } else {
             //if destination selected is not occupied
             if (!s.isOccupied()) {
@@ -329,7 +318,7 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
                     move[0] = s;
                 //if it was on the opposite team
                 } else {
-                    //knock out piece and complete move
+                    //Complete move
                     System.out.println(move[0].toString());
                     if (move[0].getPiece().getPossibleMoves().contains(s)) {
                         move[1] = s;
@@ -342,29 +331,37 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
 
 
     /**
-     * TODO javadoc and inline
-     * @param p
-     * @return
+     * Checks if a piece can be chosen as the first piece involved in a move, in other words
+     * checking that the piece is not already out and the piece's side is equal to the side whose
+     * turn it is currently
+     *
+     * @param p The piece chosen
+     *
+     * @return True if a valid choice, false otherwise
      */
     public boolean canBeChosen(Piece p){
+        //if the piece is not out
         if(!p.isOut()){
+            //if it is black's turn and the piece's side is black, return true
             if(isBlackTurn){
                 if(p.getSide().equals(Side.BLACK)){
                     return true;
                 }
+            //if it is white's turn and the piece's side is white, return true
             } else {
                 if(p.getSide().equals(Side.WHITE)){
                     return true;
                 }
             }
-            return false;
         }
+        //otherwise return false
         return false;
     }
 
     /**
-     * TODO javadoc for method
-     * TODO add special cases
+     * This method is called to complete a move after a move has already been validated, meaning that
+     * both spots in the move array instance variable contain valide choices for squares
+     *
      */
     private void completeMove(){
         //the piece chosen to move
@@ -386,20 +383,28 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         else {
             move[1].addPiece(pieceMoved);
         }
+
+        //Switch to other team's turn
         if(isBlackTurn){ isBlackTurn = false; }
         else { isBlackTurn = true; }
 
         //call method to check all special cases
         checkSpecialCases(pieceMoved);
 
-
+        //Clear the array representing the current move
         move[0] = null;
         move[1] = null;
-        System.out.println(squares[0][5]);
-        System.out.println(squares[2][4]);
     }
 
 
+    /**
+     * This method is called during the complete move method to check for two special cases:
+     *     - If the piece moved is a pawn, it calls a method to check for its special case
+     *     - If the piece moved is a king, it checks for castling, and if the move was castling
+     *     it completes the additional move of the rook as well
+     *
+     * @param p The piece that was moved
+     */
     private void checkSpecialCases(Piece p){
 
         //for pawns, call method to check special case
@@ -515,10 +520,7 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         //initialize new game
         initGame();
     }
-    /**
-     * TODO add method for check
-     * @param e
-     */
+
 
     ////////////////////////////// CALCULATIONS FOR CLICKS //////////////////////////////////
 
@@ -573,16 +575,6 @@ public class ChessBoard extends Screen implements ActionListener, MouseListener
         }
     }
 
-    /**
-     * TODO if figured out add javadoc, else delete
-     * @param e
-     */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource().equals(restartButton)){
-            initGame();
-        }
-    }
 
     //Other methods not used, but needed to be included
 
