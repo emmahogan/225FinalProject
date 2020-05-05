@@ -5,6 +5,13 @@ import java.awt.Point;
 import gameutils.GameObject;
 import gameutils.Texture;
 
+/**
+ * Justin added this game Mars Trip he had created previously for fun as an experimental addition, playing around
+ * with the game engine we made from scratch. Since it was just for fun I am not adding javadoc comments.
+ *
+ * @author Justin Marotta
+ * @version Spring 2020
+ */
 public class Bullet extends GameObject {
     private static final int SPEED = 15;
 
